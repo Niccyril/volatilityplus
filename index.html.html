@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VolatilityPlus | Advanced Synthetic Indices Trading Platform</title>
+    <title>VolatilityPlus | Professional Synthetic Indices Trading Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -558,121 +558,6 @@
             text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
-        /* Enhanced Signals Section */
-        .signals {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-        }
-
-        .signal-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .signal-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .signal-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient);
-        }
-
-        .signal-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .signal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .signal-header h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .signal-type {
-            background: var(--gradient);
-            color: var(--dark);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.7rem;
-            box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
-        }
-
-        .signal-type.sell {
-            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
-            color: white;
-            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
-        }
-
-        .signal-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .signal-stat {
-            text-align: center;
-            flex: 1;
-        }
-
-        .stat-label {
-            font-size: 0.65rem;
-            color: var(--text-light);
-            margin-bottom: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        .stat-value {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .signal-result {
-            text-align: center;
-            padding: 8px;
-            background: rgba(16, 185, 129, 0.1);
-            border-radius: 6px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .result-label {
-            font-size: 0.65rem;
-            color: var(--text-light);
-            margin-bottom: 2px;
-            text-transform: uppercase;
-        }
-
-        .result-value {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: var(--success);
-        }
-
         /* Performance Metrics */
         .performance {
             background: var(--dark);
@@ -1038,8 +923,7 @@
             }
 
             .features-grid,
-            .tools-grid,
-            .signal-cards {
+            .tools-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
@@ -1081,7 +965,6 @@
             
             .features-grid,
             .tools-grid,
-            .signal-cards,
             .testimonial-grid {
                 grid-template-columns: 1fr;
             }
@@ -1150,7 +1033,7 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Master Synthetic Indices Trading</h1>
-                <p>Professional-grade tools, AI-powered signals, and expert advisors designed specifically for Boom, Crash, and Jump indices. Join thousands of profitable traders worldwide.</p>
+                <p>Professional-grade spike detection indicators designed specifically for Boom, Crash, and Pain & Gain indices. Join thousands of profitable traders worldwide.</p>
                 <button class="btn btn-primary" id="startTradingBtn" style="padding: 18px 35px; font-size: 1.1rem;"><i class="fas fa-rocket"></i>Start Trading Now</button>
                 
                 <div class="hero-stats">
@@ -1159,8 +1042,8 @@
                         <span class="stat-label">Active Traders</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">87%</span>
-                        <span class="stat-label">Win Rate</span>
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Detection Rate</span>
                     </div>
                     <div class="stat">
                         <span class="stat-number">$2.4M+</span>
@@ -1258,14 +1141,6 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-broadcast-tower"></i>
-                    </div>
-                    <h3>Premium Signal Service</h3>
-                    <p>Receive high-probability trading signals with detailed analysis, entry points, and risk management levels. Our signals achieve an 87% average win rate across all synthetic indices.</p>
-                    <button class="btn btn-secondary" id="viewSignalsBtn">View Signals</button>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
                         <i class="fas fa-tools"></i>
                     </div>
                     <h3>Professional Indicators</h3>
@@ -1329,8 +1204,8 @@
                     <div class="metric-label">Total Trades Executed</div>
                 </div>
                 <div class="metric">
-                    <span class="metric-number">87.3%</span>
-                    <div class="metric-label">Average Win Rate</div>
+                    <span class="metric-number">95.3%</span>
+                    <div class="metric-label">Spike Detection Rate</div>
                 </div>
                 <div class="metric">
                     <span class="metric-number">2.8:1</span>
@@ -1352,46 +1227,208 @@
         </div>
     </section>
 
-    <!-- Signals Section -->
-    <section class="signals" id="signals">
+    <!-- Enhanced Testimonials -->
+    <section class="testimonials">
         <div class="container">
-            <h2 class="section-title">Recent Trading Signals</h2>
-            <div class="signal-cards">
-                <div class="signal-card">
-                    <div class="signal-header">
-                        <h3>BOOM 1000</h3>
-                        <span class="signal-type">BUY</span>
+            <h2 class="section-title" style="color: white;">Success Stories from Our Traders</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Mega Spikes Max has completely transformed my trading approach. The early spike detection has increased my monthly returns by 340% while significantly reducing my risk exposure. The accuracy is phenomenal!"
                     </div>
-                    <p>Strong bullish momentum detected with volatility expansion pattern. RSI oversold condition combined with volume spike indicates high probability upward movement.</p>
-                    <div class="signal-meta">
-                        <div class="meta-item">
-                            <div class="meta-label">Entry Price</div>
-                            <div class="meta-value">15,247.50</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Stop Loss</div>
-                            <div class="meta-value">14,890.20</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Take Profit</div>
-                            <div class="meta-value">16,125.80</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Result</div>
-                            <div class="meta-value" style="color: var(--success);">+878 pts</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>Professional Trader, UK</p>
                         </div>
                     </div>
-                    <button class="btn btn-outline" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="basicPlan">
-                <span><i class="fas fa-box"></i> Starter Package</span>
-                <span style="font-weight: 700;">$149</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Spike Phantom for Pain & Gain trading is incredible. As a beginner, the hidden pattern detection gave me the confidence to trade profitably from day one. The stealth alerts are game-changing."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <h4>Sarah Rodriguez</h4>
+                            <p>Day Trader, Australia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The combination of both indicators is incredibly powerful. Being able to predict boom, crash, and pain/gain movements with such precision has given me a significant edge. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DK</div>
+                        <div class="author-info">
+                            <h4>David Kim</h4>
+                            <p>Quantitative Trader, Singapore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <button class="btn btn-primary" style="padding: 15px 35px;"><i class="fas fa-star"></i>Share Your Success Story</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>VolatilityPlus</h3>
+                    <p>Leading provider of professional spike detection indicators for synthetic indices. Join thousands of successful traders who trust our advanced technology and expertise.</p>
+                    <div class="social-icons">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Trading Tools</h3>
+                    <ul>
+                        <li><a href="#tools">Spike Detection Indicators</a></li>
+                        <li><a href="#tools">Mega Spikes Max</a></li>
+                        <li><a href="#tools">Spike Phantom</a></li>
+                        <li><a href="#performance">Performance Analytics</a></li>
+                        <li><a href="#">Risk Management Tools</a></li>
+                        <li><a href="#">Market Scanner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Education & Resources</h3>
+                    <ul>
+                        <li><a href="#">Trading Academy</a></li>
+                        <li><a href="#">Market Analysis</a></li>
+                        <li><a href="#">Strategy Guides</a></li>
+                        <li><a href="#">Video Tutorials</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Trading Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support & Legal</h3>
+                    <ul>
+                        <li><a href="#support">24/7 Support Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 VolatilityPlus. All rights reserved. Trading synthetic indices involves significant risk of loss. Past performance is not indicative of future results.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Welcome Back</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-sign-in-alt"></i>Sign In</button>
+            </form>
+            <p style="text-align: center; margin-top: 25px;">
+                <a href="#" style="color: var(--primary); font-weight: 600;">Forgot your password?</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Join VolatilityPlus</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" required placeholder="Create a strong password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required placeholder="Confirm your password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-user-plus"></i>Create Account</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-light);">
+                By creating an account, you agree to our Terms of Service and Privacy Policy.
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Complete Your Purchase</h2>
+            <div id="purchaseContent">
+                <div style="background: var(--primary-light); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
+                    <h3 style="color: var(--dark); margin-bottom: 10px;">Product: <span id="productName" style="color: var(--primary-dark);"></span></h3>
+                    <p style="color: var(--text-light); margin: 0;">Secure cryptocurrency payment with 30-day money-back guarantee</p>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMethod">Cryptocurrency Payment</label>
+                    <select id="paymentMethod" required>
+                        <option value="">Select cryptocurrency</option>
+                        <option value="bitcoin">Bitcoin (BTC)</option>
+                        <option value="ethereum">Ethereum (ETH)</option>
+                        <option value="usdt">Tether (USDT)</option>
+                        <option value="usdc">USD Coin (USDC)</option>
+                        <option value="bnb">Binance Coin (BNB)</option>
+                        <option value="ada">Cardano (ADA)</option>
+                        <option value="sol">Solana (SOL)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="couponCode">Coupon Code (Optional)</label>
+                    <input type="text" id="couponCode" placeholder="Enter discount code">
+                </div>
+                <button class="btn btn-primary" style="width: 100%; padding: 15px;" id="completePurchase"><i class="fas fa-lock"></i>Complete Secure Purchase</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="startTradingModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Choose Your Trading Plan</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--text-light);">Select the perfect package to accelerate your trading success</p>
+            
+            <button class="btn btn-outline" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="basicPlan">
+                <span><i class="fas fa-chart-line"></i> Mega Spikes Max</span>
+                <span style="font-weight: 700;">$199</span>
             </button>
             <button class="btn btn-primary" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="proPlan">
-                <span><i class="fas fa-crown"></i> Professional Suite</span>
-                <span style="font-weight: 700;">$399</span>
+                <span><i class="fas fa-ghost"></i> Spike Phantom</span>
+                <span style="font-weight: 700;">$149</span>
             </button>
             <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="signalPlan">
-                <span><i class="fas fa-satellite-dish"></i> VIP Signals Only</span>
-                <span style="font-weight: 700;">$147/month</span>
+                <span><i class="fas fa-crown"></i> Both Indicators Bundle</span>
+                <span style="font-weight: 700;">$299</span>
             </button>
             
             <div style="text-align: center; margin-top: 20px; padding: 15px; background: var(--primary-light); border-radius: 8px;">
@@ -1473,6 +1510,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Notification Container -->
     <div id="notification" class="notification"></div>
 
     <script>
@@ -1581,17 +1620,17 @@
 
                 // Trading plans
                 document.getElementById('basicPlan').addEventListener('click', () => {
-                    this.showNotification('Redirecting to Starter Package checkout...', 'info');
+                    this.showNotification('Redirecting to Mega Spikes Max checkout...', 'info');
                     this.hideAllModals();
                 });
 
                 document.getElementById('proPlan').addEventListener('click', () => {
-                    this.showNotification('Redirecting to Professional Suite checkout...', 'info');
+                    this.showNotification('Redirecting to Spike Phantom checkout...', 'info');
                     this.hideAllModals();
                 });
 
                 document.getElementById('signalPlan').addEventListener('click', () => {
-                    this.showNotification('Redirecting to VIP Signals subscription...', 'info');
+                    this.showNotification('Redirecting to Bundle Package checkout...', 'info');
                     this.hideAllModals();
                 });
             }
@@ -1794,7 +1833,6 @@
 
             initializeSignalsPage() {
                 const signalsPageLink = document.getElementById('signalsPageLink');
-                const viewSignalsBtn = document.getElementById('viewSignalsBtn');
                 const signalsPage = document.getElementById('signalsPage');
                 const closeSignalsPage = document.getElementById('closeSignalsPage');
 
@@ -1812,7 +1850,6 @@
                 };
 
                 if (signalsPageLink) signalsPageLink.addEventListener('click', openSignalsPage);
-                if (viewSignalsBtn) viewSignalsBtn.addEventListener('click', openSignalsPage);
                 if (closeSignalsPage) closeSignalsPage.addEventListener('click', closeSignalsPageFunc);
 
                 // Close on ESC key
@@ -1952,7 +1989,7 @@
 
             initializeCardEffects() {
                 // Parallax effect for cards
-                document.querySelectorAll('.feature-card, .tool-card, .signal-card').forEach(card => {
+                document.querySelectorAll('.feature-card, .tool-card').forEach(card => {
                     card.addEventListener('mousemove', (e) => {
                         const rect = card.getBoundingClientRect();
                         const x = e.clientX - rect.left;
@@ -2011,256 +2048,4 @@
         });
     </script>
 </body>
-</html>="margin-top: 25px; width: 100%;"><i class="fas fa-chart-line"></i>View Full Analysis</button>
-                </div>
-                <div class="signal-card">
-                    <div class="signal-header">
-                        <h3>CRASH 1000</h3>
-                        <span class="signal-type" style="background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);">SELL</span>
-                    </div>
-                    <p>Overbought conditions detected with bearish divergence on momentum oscillator. Market showing signs of exhaustion at current levels with increased selling pressure.</p>
-                    <div class="signal-meta">
-                        <div class="meta-item">
-                            <div class="meta-label">Entry Price</div>
-                            <div class="meta-value">8,542.30</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Stop Loss</div>
-                            <div class="meta-value">8,825.70</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Take Profit</div>
-                            <div class="meta-value">7,897.60</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Result</div>
-                            <div class="meta-value" style="color: var(--success);">+645 pts</div>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top: 25px; width: 100%;"><i class="fas fa-chart-line"></i>View Full Analysis</button>
-                </div>
-                <div class="signal-card">
-                    <div class="signal-header">
-                        <h3>VOLATILITY 75</h3>
-                        <span class="signal-type">BUY</span>
-                    </div>
-                    <p>Breakout confirmed above key resistance level with increased volatility. Multiple timeframe alignment suggests sustained upward momentum with strong volume confirmation.</p>
-                    <div class="signal-meta">
-                        <div class="meta-item">
-                            <div class="meta-label">Entry Price</div>
-                            <div class="meta-value">452,678.90</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Stop Loss</div>
-                            <div class="meta-value">448,123.50</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Take Profit</div>
-                            <div class="meta-value">465,890.30</div>
-                        </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Result</div>
-                            <div class="meta-value" style="color: var(--success);">+13,211 pts</div>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top: 25px; width: 100%;"><i class="fas fa-chart-line"></i>View Full Analysis</button>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 50px;">
-                <button class="btn btn-primary" style="padding: 15px 35px; font-size: 1.1rem;"><i class="fas fa-list"></i>View All Signals</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title" style="color: white;">Success Stories from Our Traders</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "VolatilityPlus has completely transformed my trading approach. The AI-powered EA has increased my monthly returns by 340% while significantly reducing my risk exposure. The signal accuracy is phenomenal!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MJ</div>
-                        <div class="author-info">
-                            <h4>Michael Johnson</h4>
-                            <p>Professional Trader, UK</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "As a beginner in synthetic indices, the VIP signal service gave me the confidence to trade profitably from day one. The detailed analysis and risk management guidance are invaluable."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SR</div>
-                        <div class="author-info">
-                            <h4>Sarah Rodriguez</h4>
-                            <p>Day Trader, Australia</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "The indicator suite is incredibly powerful. Being able to predict boom and crash movements with such precision has given me a significant edge in the market. Highly recommended!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">DK</div>
-                        <div class="author-info">
-                            <h4>David Kim</h4>
-                            <p>Quantitative Trader, Singapore</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 50px;">
-                <button class="btn btn-primary" style="padding: 15px 35px;"><i class="fas fa-star"></i>Share Your Success Story</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>VolatilityPlus</h3>
-                    <p>Leading provider of professional trading tools and signals for synthetic indices. Join thousands of successful traders who trust our advanced technology and expertise.</p>
-                    <div class="social-icons">
-                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Trading Tools</h3>
-                    <ul>
-                        <li><a href="#tools">Expert Advisors</a></li>
-                        <li><a href="#tools">Trading Indicators</a></li>
-                        <li><a href="#signals">Signal Services</a></li>
-                        <li><a href="#performance">Performance Analytics</a></li>
-                        <li><a href="#">Risk Management Tools</a></li>
-                        <li><a href="#">Market Scanner</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Education & Resources</h3>
-                    <ul>
-                        <li><a href="#">Trading Academy</a></li>
-                        <li><a href="#">Market Analysis</a></li>
-                        <li><a href="#">Strategy Guides</a></li>
-                        <li><a href="#">Video Tutorials</a></li>
-                        <li><a href="#">Webinars</a></li>
-                        <li><a href="#">Trading Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support & Legal</h3>
-                    <ul>
-                        <li><a href="#support">24/7 Support Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Refund Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 VolatilityPlus. All rights reserved. Trading synthetic indices involves significant risk of loss. Past performance is not indicative of future results.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modals -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Welcome Back</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required placeholder="Enter your password">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-sign-in-alt"></i>Sign In</button>
-            </form>
-            <p style="text-align: center; margin-top: 25px;">
-                <a href="#" style="color: var(--primary); font-weight: 600;">Forgot your password?</a>
-            </p>
-        </div>
-    </div>
-
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Join VolatilityPlus</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" required placeholder="Enter your full name">
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email Address</label>
-                    <input type="email" id="regEmail" required placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="regPassword">Password</label>
-                    <input type="password" id="regPassword" required placeholder="Create a strong password">
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" required placeholder="Confirm your password">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-user-plus"></i>Create Account</button>
-            </form>
-            <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-light);">
-                By creating an account, you agree to our Terms of Service and Privacy Policy.
-            </p>
-        </div>
-    </div>
-
-    <div class="modal" id="purchaseModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Complete Your Purchase</h2>
-            <div id="purchaseContent">
-                <div style="background: var(--primary-light); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
-                    <h3 style="color: var(--dark); margin-bottom: 10px;">Product: <span id="productName" style="color: var(--primary-dark);"></span></h3>
-                    <p style="color: var(--text-light); margin: 0;">Secure payment processing with 30-day money-back guarantee</p>
-                </div>
-                <div class="form-group">
-                    <label for="paymentMethod">Cryptocurrency Payment</label>
-                    <select id="paymentMethod" required>
-                        <option value="">Select cryptocurrency</option>
-                        <option value="bitcoin">Bitcoin (BTC)</option>
-                        <option value="ethereum">Ethereum (ETH)</option>
-                        <option value="usdt">Tether (USDT)</option>
-                        <option value="usdc">USD Coin (USDC)</option>
-                        <option value="bnb">Binance Coin (BNB)</option>
-                        <option value="ada">Cardano (ADA)</option>
-                        <option value="sol">Solana (SOL)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="couponCode">Coupon Code (Optional)</label>
-                    <input type="text" id="couponCode" placeholder="Enter discount code">
-                </div>
-                <button class="btn btn-primary" style="width: 100%; padding: 15px;" id="completePurchase"><i class="fas fa-lock"></i>Complete Secure Purchase</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="startTradingModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Choose Your Trading Plan</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: var(--text-light);">Select the perfect package to accelerate your trading success</p>
-            
-            <button class="btn btn-outline" style
+</html>
