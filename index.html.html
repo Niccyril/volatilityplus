@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VolatilityPlus | Deriv & Weltrade Indices Trading</title>
+    <title>VolatilityPlus | Synthetic Indices Trading Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -18,6 +18,7 @@
             --header-bg: #212121;
             --success: #4CAF50;
             --danger: #F44336;
+            --tool-card: #FFF8E1;
         }
 
         * {
@@ -244,149 +245,148 @@
             color: var(--dark);
         }
 
-        /* Trading Platform Demo */
-        .trading-platform {
+        /* Trading Tools Section */
+        .trading-tools {
             background-color: var(--light);
             padding: 60px 0;
         }
 
-        .platform-container {
+        .tools-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 30px;
         }
 
-        .platform-info {
-            padding-right: 20px;
-        }
-
-        .platform-demo {
-            background-color: var(--dark);
+        .tool-card {
+            background-color: var(--tool-card);
             border-radius: 8px;
-            overflow: hidden;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            position: relative;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            border-left: 4px solid var(--primary);
         }
 
-        .platform-demo::before {
-            content: "Trading Platform Interface";
-            position: absolute;
-            top: 20px;
-            font-size: 1.2rem;
-            color: var(--primary);
+        .tool-card:hover {
+            transform: translateY(-5px);
         }
 
-        .chart-container {
-            width: 90%;
-            height: 300px;
-            background: linear-gradient(to right, #0f172a, #1e293b);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
         }
 
-        .chart-container::before {
-            content: "Chart displaying index performance";
-            color: var(--text-light);
+        .tool-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
         }
 
-        /* Indices Section */
-        .indices {
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 20px 0;
+        }
+
+        /* Signals Section */
+        .signals {
             padding: 60px 0;
         }
 
-        .indices-grid {
+        .signal-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        .index-card {
+        .signal-card {
             background-color: var(--card-bg);
             border-radius: 8px;
             padding: 25px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            border-top: 4px solid var(--primary);
             transition: transform 0.3s;
+            border-top: 4px solid var(--primary);
         }
 
-        .index-card:hover {
+        .signal-card:hover {
             transform: translateY(-5px);
         }
 
-        .index-icon {
-            font-size: 2rem;
-            color: var(--secondary);
+        .signal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
 
-        .index-card h3 {
-            margin-bottom: 10px;
+        .signal-type {
+            background-color: var(--primary);
             color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
+        .signal-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
 
-        .modal-content {
-            background-color: white;
-            padding: 30px;
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
             position: relative;
         }
 
-        .close-modal {
+        .testimonial-card:before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
+            top: 10px;
+            left: 15px;
         }
 
-        .modal-title {
+        .testimonial-text {
             margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
             color: var(--dark);
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
         }
 
         /* Footer */
@@ -451,6 +451,62 @@
             font-size: 0.9rem;
         }
 
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-title {
+            margin-bottom: 20px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -493,10 +549,10 @@
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Indices</a></li>
-                    <li><a href="#">Platforms</a></li>
+                    <li><a href="#">Trading Tools</a></li>
+                    <li><a href="#">Signals</a></li>
+                    <li><a href="#">Expert Advisors</a></li>
                     <li><a href="#">Education</a></li>
-                    <li><a href="#">About Us</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
@@ -509,9 +565,9 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Trade Deriv & Weltrade Indices with Confidence</h1>
-            <p>Access global indices with tight spreads, advanced trading tools, and institutional-grade execution</p>
-            <button class="btn btn-primary" id="startTradingBtn">Start Trading Now</button>
+            <h1>Advanced Tools for Synthetic Indices Trading</h1>
+            <p>Professional trading tools, signals, and expert advisors for Boom & Crash and Gain & Pain indices</p>
+            <button class="btn btn-primary" id="startTradingBtn">Get Started Today</button>
         </div>
     </section>
 
@@ -520,44 +576,44 @@
         <div class="container">
             <div class="pairs-container">
                 <div class="pair">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-bolt"></i>
                     <div class="pair-info">
-                        <div class="pair-name">US30</div>
-                        <div class="pair-price">35,405.60</div>
+                        <div class="pair-name">BOOM 1000</div>
+                        <div class="pair-price">15,405.60</div>
                     </div>
-                    <div class="pair-change positive">+0.82%</div>
+                    <div class="pair-change positive">+1.25%</div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-bolt"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">CRASH 1000</div>
+                        <div class="pair-price">8,210.35</div>
+                    </div>
+                    <div class="pair-change negative">-0.87%</div>
                 </div>
                 <div class="pair">
                     <i class="fas fa-chart-line"></i>
                     <div class="pair-info">
-                        <div class="pair-name">GER40</div>
-                        <div class="pair-price">16,210.35</div>
+                        <div class="pair-name">GAIN 100</div>
+                        <div class="pair-price">582.41</div>
                     </div>
-                    <div class="pair-change positive">+0.54%</div>
+                    <div class="pair-change positive">+2.33%</div>
                 </div>
                 <div class="pair">
                     <i class="fas fa-chart-line"></i>
                     <div class="pair-info">
-                        <div class="pair-name">UK100</div>
-                        <div class="pair-price">7,682.41</div>
+                        <div class="pair-name">PAIN 100</div>
+                        <div class="pair-price">418.27</div>
                     </div>
-                    <div class="pair-change negative">-0.23%</div>
+                    <div class="pair-change negative">-1.75%</div>
                 </div>
                 <div class="pair">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-fire"></i>
                     <div class="pair-info">
-                        <div class="pair-name">JP225</div>
-                        <div class="pair-price">33,185.27</div>
+                        <div class="pair-name">JUMP 100</div>
+                        <div class="pair-price">3,485.92</div>
                     </div>
-                    <div class="pair-change positive">+1.15%</div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-chart-line"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">AUS200</div>
-                        <div class="pair-price">7,485.92</div>
-                    </div>
-                    <div class="pair-change positive">+0.42%</div>
+                    <div class="pair-change positive">+0.92%</div>
                 </div>
             </div>
         </div>
@@ -566,103 +622,188 @@
     <!-- Platform Features -->
     <section class="features">
         <div class="container">
-            <h2 class="section-title">Why Trade With Us</h2>
+            <h2 class="section-title">Why Choose Our Tools</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
-                    <h3>Lightning Fast Execution</h3>
-                    <p>Trade with execution speeds under 50ms on average, minimizing slippage and requotes.</p>
+                    <h3>Advanced Expert Advisors</h3>
+                    <p>Our EAs are specifically designed for synthetic indices with adaptive algorithms that adjust to market volatility.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-lock"></i>
+                        <i class="fas fa-bell"></i>
                     </div>
-                    <h3>Secure & Regulated</h3>
-                    <p>Your funds are secured in top-tier banks and we are fully regulated in multiple jurisdictions.</p>
+                    <h3>Real-time Signals</h3>
+                    <p>Get accurate trading signals with detailed entry, stop loss, and take profit levels for Boom & Crash indices.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-bar"></i>
+                        <i class="fas fa-tools"></i>
                     </div>
-                    <h3>Advanced Trading Tools</h3>
-                    <p>Access advanced charts, technical indicators, and trading algorithms.</p>
+                    <h3>Custom Indicators</h3>
+                    <p>Specialized indicators that help identify volatility patterns and potential crash/boom moments.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>Multi-Platform Trading</h3>
-                    <p>Trade on desktop, web, or mobile with our advanced trading platforms.</p>
+                    <h3>Mobile Alerts</h3>
+                    <p>Receive instant notifications on your mobile device for critical market movements and signal triggers.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Trading Platform -->
-    <section class="trading-platform">
+    <!-- Trading Tools Section -->
+    <section class="trading-tools">
         <div class="container">
-            <h2 class="section-title">Advanced Trading Platform</h2>
-            <div class="platform-container">
-                <div class="platform-info">
-                    <h3>Professional Trading Experience</h3>
-                    <p>Our platform is designed for both beginner and professional traders, offering a seamless trading experience across all devices.</p>
-                    <p>Access real-time quotes, advanced charting packages, and a suite of order management tools all in one place.</p>
+            <h2 class="section-title">Premium Trading Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Volatility EA Pro</h3>
+                    <p>Advanced expert advisor designed specifically for Boom & Crash indices with adaptive algorithms.</p>
                     <ul>
-                        <li>Real-time market data and news</li>
-                        <li>Advanced charting with technical indicators</li>
-                        <li>One-click trading functionality</li>
-                        <li>Customizable workspace</li>
-                        <li>Risk management tools</li>
+                        <li>Auto risk management</li>
+                        <li>Multiple timeframe support</li>
+                        <li>News filter included</li>
+                        <li>24/7 trading capability</li>
                     </ul>
-                    <button class="btn btn-primary" style="margin-top: 20px;">Download Platform</button>
+                    <div class="price-tag">$249</div>
+                    <button class="btn btn-primary">Purchase Now</button>
                 </div>
-                <div class="platform-demo">
-                    <div class="chart-container">
-                        <!-- Chart would be here in a real implementation -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                    <h3>Boom & Crash Indicator</h3>
+                    <p>Predict potential boom and crash movements with our proprietary indicator.</p>
+                    <ul>
+                        <li>Early warning signals</li>
+                        <li>Customizable alerts</li>
+                        <li>Multiple timeframes</li>
+                        <li>Visual & audio alerts</li>
+                    </ul>
+                    <div class="price-tag">$149</div>
+                    <button class="btn btn-primary">Purchase Now</button>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Signal Service Premium</h3>
+                    <p>Get daily signals for synthetic indices with detailed analysis and entry points.</p>
+                    <ul>
+                        <li>5-7 signals daily</li>
+                    <li>80%+ accuracy rate</li>
+                        <li>Detailed analysis</li>
+                        <li>24/7 support</li>
+                    </ul>
+                    <div class="price-tag">$99/month</div>
+                    <button class="btn btn-primary">Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signals Section -->
+    <section class="signals">
+        <div class="container">
+            <h2 class="section-title">Recent Trading Signals</h2>
+            <div class="signal-cards">
+                <div class="signal-card">
+                    <div class="signal-header">
+                        <h3>BOOM 1000</h3>
+                        <span class="signal-type">BUY</span>
+                    </div>
+                    <p>Strong bullish momentum detected with volatility expansion pattern.</p>
+                    <div class="signal-meta">
+                        <span>Entry: 15,200</span>
+                        <span>SL: 14,900</span>
+                    </div>
+                    <div class="signal-meta">
+                        <span>TP: 16,000</span>
+                        <span>Result: +800 pts</span>
+                    </div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-header">
+                        <h3>CRASH 1000</h3>
+                        <span class="signal-type">SELL</span>
+                    </div>
+                    <p>Overbought conditions detected with divergence on momentum indicator.</p>
+                    <div class="signal-meta">
+                        <span>Entry: 8,500</span>
+                        <span>SL: 8,800</span>
+                    </div>
+                    <div class="signal-meta">
+                        <span>TP: 7,900</span>
+                        <span>Result: +600 pts</span>
+                    </div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-header">
+                        <h3>GAIN 100</h3>
+                        <span class="signal-type">BUY</span>
+                    </div>
+                    <p>Breakout from consolidation pattern with increasing volume.</p>
+                    <div class="signal-meta">
+                        <span>Entry: 550.40</span>
+                        <span>SL: 535.20</span>
+                    </div>
+                    <div class="signal-meta">
+                        <span>TP: 585.00</span>
+                        <span>Result: +34.6 pts</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Indices Section -->
-    <section class="indices">
+    <!-- Testimonials -->
+    <section class="testimonials">
         <div class="container">
-            <h2 class="section-title">Popular Indices</h2>
-            <div class="indices-grid">
-                <div class="index-card">
-                    <div class="index-icon">
-                        <i class="fas fa-flag-usa"></i>
+            <h2 class="section-title" style="color: white;">What Our Traders Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        The Volatility EA has completely transformed my trading. I've seen a 35% increase in profitability since I started using it for Boom & Crash indices.
                     </div>
-                    <h3>US30</h3>
-                    <p>Dow Jones Industrial Average</p>
-                    <p>Spread: 1.5 points</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div>
+                            <h4>Michael Johnson</h4>
+                            <p>Professional Trader</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="index-card">
-                    <div class="index-icon">
-                        <i class="fas fa-landmark"></i>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        The signals service is incredibly accurate. I've been able to consistently profit from synthetic indices thanks to their detailed analysis and precise entry points.
                     </div>
-                    <h3>GER40</h3>
-                    <p>DAX Performance Index</p>
-                    <p>Spread: 1.2 points</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div>
+                            <h4>Sarah Williams</h4>
+                            <p>Day Trader</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="index-card">
-                    <div class="index-icon">
-                        <i class="fas fa-crown"></i>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        As someone new to synthetic indices, these tools have been invaluable. The indicators help me understand market patterns and make informed trading decisions.
                     </div>
-                    <h3>UK100</h3>
-                    <p>FTSE 100 Index</p>
-                    <p>Spread: 1.0 points</p>
-                </div>
-                <div class="index-card">
-                    <div class="index-icon">
-                        <i class="fas fa-volcano"></i>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RD</div>
+                        <div>
+                            <h4>Robert Davis</h4>
+                            <p>Swing Trader</p>
+                        </div>
                     </div>
-                    <h3>JP225</h3>
-                    <p>Nikkei 225</p>
-                    <p>Spread: 5.0 points</p>
                 </div>
             </div>
         </div>
@@ -674,45 +815,44 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>VolatilityPlus</h3>
-                    <p>Professional derivatives and indices trading platform offering access to global markets.</p>
+                    <p>Professional trading tools and signals for synthetic indices trading.</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h3>Markets</h3>
+                    <h3>Trading Tools</h3>
                     <ul>
-                        <li><a href="#">Forex</a></li>
-                        <li><a href="#">Indices</a></li>
-                        <li><a href="#">Commodities</a></li>
-                        <li><a href="#">Stocks</a></li>
-                        <li><a href="#">Cryptocurrencies</a></li>
+                        <li><a href="#">Expert Advisors</a></li>
+                        <li><a href="#">Trading Indicators</a></li>
+                        <li><a href="#">Signal Services</a></li>
+                        <li><a href="#">Volume Tools</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Platforms</h3>
+                    <h3>Education</h3>
                     <ul>
-                        <li><a href="#">Web Trader</a></li>
-                        <li><a href="#">Desktop Platform</a></li>
-                        <li><a href="#">Mobile App</a></li>
-                        <li><a href="#">MT5 Integration</a></li>
+                        <li><a href="#">Synthetic Indices Guide</a></li>
+                        <li><a href="#">Trading Strategies</a></li>
+                        <li><a href="#">Video Tutorials</a></li>
+                        <li><a href="#">Webinars</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Support</h3>
                     <ul>
                         <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Account Funding</a></li>
                         <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Regulatory Information</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Refund Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 VolatilityPlus. All rights reserved. Trading derivatives and indices involves significant risk of loss.</p>
+                <p>&copy; 2023 VolatilityPlus. All rights reserved. Trading synthetic indices involves significant risk of loss.</p>
             </div>
         </div>
     </footer>
@@ -768,10 +908,10 @@
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2 class="modal-title">Start Trading Today</h2>
-            <p>Open a demo account with $10,000 virtual funds to practice trading risk-free.</p>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" id="openDemoAccount">Open Demo Account</button>
-            <p style="text-align: center; margin-top: 15px;">or</p>
-            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" id="openLiveAccount">Open Live Account</button>
+            <p>Choose a plan that works best for your trading needs:</p>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" id="basicPlan">Basic Tools Package ($99)</button>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="proPlan">Pro Trader Suite ($249)</button>
+            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" id="signalPlan">Signals Only ($49/month)</button>
         </div>
     </div>
 
@@ -827,13 +967,18 @@
             registerModal.style.display = 'none';
         });
 
-        document.getElementById('openDemoAccount').addEventListener('click', () => {
-            alert('Demo account creation would be implemented here.');
+        document.getElementById('basicPlan').addEventListener('click', () => {
+            alert('Basic plan selected. Redirecting to payment...');
             startTradingModal.style.display = 'none';
         });
 
-        document.getElementById('openLiveAccount').addEventListener('click', () => {
-            alert('Live account creation would be implemented here.');
+        document.getElementById('proPlan').addEventListener('click', () => {
+            alert('Pro plan selected. Redirecting to payment...');
+            startTradingModal.style.display = 'none';
+        });
+
+        document.getElementById('signalPlan').addEventListener('click', () => {
+            alert('Signals plan selected. Redirecting to payment...');
             startTradingModal.style.display = 'none';
         });
 
@@ -850,7 +995,7 @@
                     let change = parseFloat(changeElement.textContent);
                     
                     // Small random price change
-                    const changePercent = (Math.random() - 0.5) * 0.2;
+                    const changePercent = (Math.random() - 0.5) * 0.3;
                     const newChange = change + changePercent;
                     const newPrice = price * (1 + changePercent/100);
                     
