@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VolatilityPlus | Synthetic Indices Trading Tools</title>
+    <title>VolatilityPlus | Advanced Synthetic Indices Trading Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FFC107;
-            --primary-light: #FFECB3;
-            --primary-dark: #FFA000;
-            --secondary: #212121;
-            --secondary-light: #424242;
-            --accent: #FF5722;
-            --dark: #121212;
+            --primary: #FFD700;
+            --primary-light: #FFF8DC;
+            --primary-dark: #FFA500;
+            --secondary: #1a1a2e;
+            --secondary-light: #16213e;
+            --accent: #FF6B35;
+            --accent-secondary: #00D4FF;
+            --dark: #0f0f23;
             --light: #FAFAFA;
             --text: #333333;
-            --text-light: #757575;
+            --text-light: #6B7280;
             --card-bg: #ffffff;
-            --header-bg: rgba(18, 18, 18, 0.95);
-            --success: #4CAF50;
-            --danger: #F44336;
-            --tool-card: #FFF8E1;
-            --gradient: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
-            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+            --header-bg: rgba(15, 15, 35, 0.95);
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%);
+            --gradient-secondary: linear-gradient(135deg, #00D4FF 0%, #0EA5E9 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --glow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
         * {
@@ -36,9 +39,10 @@
         }
 
         body {
-            background-color: var(--light);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -47,16 +51,18 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
+        /* Enhanced Header */
         header {
-            background-color: var(--header-bg);
+            background: var(--header-bg);
             color: white;
             padding: 15px 0;
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
 
         .header-content {
@@ -68,49 +74,40 @@
         .logo {
             display: flex;
             align-items: center;
-            font-weight: 700;
-            font-size: 1.5rem;
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .logo i {
             margin-right: 10px;
             color: var(--primary);
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
         }
 
         nav ul {
             display: flex;
             list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 25px;
+            gap: 30px;
         }
 
         nav ul li a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s;
             position: relative;
-        }
-
-        nav ul li a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s;
-        }
-
-        nav ul li a:hover:after {
-            width: 100%;
+            padding: 10px 15px;
+            border-radius: 8px;
         }
 
         nav ul li a:hover {
             color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         .auth-buttons {
@@ -119,8 +116,8 @@
         }
 
         .btn {
-            padding: 10px 22px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -128,6 +125,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn i {
@@ -136,7 +135,7 @@
 
         .btn-outline {
             background: transparent;
-            border: 1px solid var(--primary);
+            border: 2px solid var(--primary);
             color: var(--primary);
         }
 
@@ -144,90 +143,184 @@
             background: var(--gradient);
             color: var(--dark);
             box-shadow: var(--shadow);
+            font-weight: 700;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+            box-shadow: var(--shadow);
         }
 
         .btn-outline:hover {
-            background-color: rgba(255, 193, 7, 0.1);
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: var(--glow);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
+            filter: brightness(1.1);
         }
 
-        /* Hero Section */
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Enhanced Hero Section */
         .hero {
-            background: linear-gradient(to right, var(--dark), var(--secondary-light));
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 50%, var(--secondary-light) 100%);
             color: white;
-            padding: 100px 0 80px;
+            padding: 150px 0 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            margin-top: 70px;
         }
 
-        .hero:before {
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjAuNSIgZmlsbD0iI0ZGMEEwMCIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==');
-            opacity: 0.1;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23FFD700" opacity="0.1"/><circle cx="20" cy="20" r="0.5" fill="%23FF6B35" opacity="0.1"/><circle cx="80" cy="80" r="0.8" fill="%2300D4FF" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-0.5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 3.2rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-            line-height: 1.2;
+            font-size: 4rem;
+            margin-bottom: 25px;
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #FFD700 50%, #FF6B35 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
 
         .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 50px;
             opacity: 0.9;
+            font-weight: 400;
         }
 
-        /* Trading Pairs */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Enhanced Trading Pairs */
         .trading-pairs {
-            background-color: var(--dark);
+            background: var(--dark);
             color: white;
-            padding: 25px 0;
-            overflow-x: auto;
+            padding: 30px 0;
             position: relative;
-            z-index: 2;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .pairs-container {
             display: flex;
-            gap: 15px;
-            padding: 10px 0;
+            gap: 20px;
+            padding: 15px 0;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) transparent;
+        }
+
+        .pairs-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .pairs-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .pairs-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
         }
 
         .pair {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 15px 20px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px 25px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
-            min-width: 200px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 280px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pair::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            transform: scaleX(0);
             transition: transform 0.3s;
         }
 
         .pair:hover {
-            transform: translateY(-3px);
-            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .pair:hover::before {
+            transform: scaleX(1);
         }
 
         .pair i {
-            margin-right: 12px;
+            margin-right: 15px;
             color: var(--primary);
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
 
         .pair-info {
@@ -235,127 +328,165 @@
         }
 
         .pair-name {
-            font-weight: 500;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 5px;
         }
 
         .pair-price {
-            font-size: 1rem;
+            font-size: 1.3rem;
             color: var(--primary);
-            font-weight: 600;
-            margin-top: 4px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         .pair-change {
             font-size: 0.9rem;
             font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
         }
 
         .positive {
-            background-color: rgba(76, 175, 80, 0.15);
+            background: rgba(16, 185, 129, 0.2);
             color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .negative {
-            background-color: rgba(244, 67, 54, 0.15);
+            background: rgba(239, 68, 68, 0.2);
             color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
-        /* Platform Features */
+        /* Enhanced Features Section */
         .features {
-            padding: 80px 0;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 70px;
             color: var(--dark);
             position: relative;
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 3rem;
+            font-weight: 800;
         }
 
-        .section-title:after {
+        .section-title::after {
             content: '';
             display: block;
-            width: 60px;
-            height: 4px;
+            width: 80px;
+            height: 5px;
             background: var(--gradient);
-            margin: 15px auto;
-            border-radius: 2px;
+            margin: 20px auto;
+            border-radius: 3px;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
 
         .feature-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 35px 30px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 50px 40px;
             box-shadow: var(--shadow);
-            transition: all 0.3s;
+            transition: all 0.4s;
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 2rem;
-            color: var(--primary-dark);
-        }
-
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: var(--dark);
-            font-size: 1.3rem;
-        }
-
-        .feature-card p {
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
-
-        /* Trading Tools Section */
-        .trading-tools {
-            background-color: var(--light);
-            padding: 80px 0;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .tool-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 35px 30px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
             border: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
 
-        .tool-card:before {
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            box-shadow: var(--glow);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Enhanced Trading Tools */
+        .trading-tools {
+            background: var(--dark);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .trading-tools .section-title {
+            color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 35px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .tool-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -363,74 +494,103 @@
             width: 5px;
             height: 100%;
             background: var(--gradient);
+            transform: scaleY(0);
+            transition: transform 0.4s;
         }
 
         .tool-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleY(1);
         }
 
         .tool-icon {
-            font-size: 2.5rem;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
         }
 
         .tool-card h3 {
-            margin-bottom: 15px;
-            color: var(--dark);
-            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 700;
         }
 
-        .tool-card ul {
+        .tool-card p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .tool-features {
             list-style: none;
-            margin: 20px 0;
+            margin: 25px 0 30px;
         }
 
-        .tool-card ul li {
-            margin-bottom: 10px;
-            padding-left: 22px;
+        .tool-features li {
+            margin-bottom: 12px;
+            padding-left: 25px;
             position: relative;
+            opacity: 0.9;
         }
 
-        .tool-card ul li:before {
+        .tool-features li::before {
             content: '✓';
             position: absolute;
             left: 0;
             color: var(--success);
             font-weight: bold;
+            font-size: 1.2rem;
         }
 
         .price-tag {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin: 25px 0;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 30px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
-        /* Signals Section */
+        /* Enhanced Signals Section */
         .signals {
-            padding: 80px 0;
-            background-color: #f8f9fa;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
         }
 
         .signal-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
         }
 
         .signal-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
             box-shadow: var(--shadow);
-            transition: all 0.3s;
+            transition: all 0.4s;
             border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
         }
 
         .signal-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
         }
 
@@ -438,81 +598,145 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .signal-header h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
         }
 
         .signal-type {
-            background-color: var(--primary);
+            background: var(--gradient);
             color: var(--dark);
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-weight: 700;
             font-size: 0.9rem;
+            box-shadow: var(--glow);
         }
 
         .signal-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* Testimonials */
-        .testimonials {
-            background: linear-gradient(to right, var(--dark), var(--secondary-light));
+        .meta-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 10px;
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Performance Metrics */
+        .performance {
+            background: var(--dark);
             color: white;
             padding: 80px 0;
+            text-align: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .metric {
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+        }
+
+        .metric:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Enhanced Testimonials */
+        .testimonials {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 100px 0;
             position: relative;
             overflow: hidden;
         }
 
-        .testimonials:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjAuNSIgZmlsbD0iI0ZGMEEwMCIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==');
-            opacity: 0.1;
-        }
-
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
             position: relative;
             z-index: 1;
         }
 
         .testimonial-card {
-            background-color: rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s;
             position: relative;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .testimonial-card:before {
+        .testimonial-card::before {
             content: '"';
-            font-size: 5rem;
+            font-size: 6rem;
             color: var(--primary);
-            opacity: 0.2;
+            opacity: 0.3;
             position: absolute;
-            top: 10px;
-            left: 15px;
+            top: 15px;
+            left: 20px;
             line-height: 1;
         }
 
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
         .testimonial-text {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-style: italic;
             position: relative;
             z-index: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
 
         .testimonial-author {
@@ -521,48 +745,62 @@
         }
 
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: var(--gradient);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            margin-right: 20px;
             font-weight: bold;
             color: var(--dark);
+            font-size: 1.2rem;
         }
 
-        /* Footer */
+        .author-info h4 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .author-info p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Enhanced Footer */
         footer {
-            background-color: var(--dark);
+            background: var(--dark);
             color: white;
-            padding: 80px 0 30px;
+            padding: 100px 0 40px;
+            position: relative;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
         }
 
         .footer-column h3 {
             color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            font-weight: 700;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
-        .footer-column h3:after {
+        .footer-column h3::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 30px;
+            width: 40px;
             height: 3px;
-            background: var(--primary);
+            background: var(--gradient);
+            border-radius: 2px;
         }
 
         .footer-column ul {
@@ -570,55 +808,59 @@
         }
 
         .footer-column ul li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .footer-column ul li a {
             color: #d1d5db;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: inline-block;
+            font-weight: 500;
         }
 
         .footer-column ul li a:hover {
             color: var(--primary);
-            transform: translateX(5px);
+            transform: translateX(8px);
         }
 
         .social-icons {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
+            margin-top: 25px;
         }
 
         .social-icons a {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .social-icons a:hover {
-            background: var(--primary);
+            background: var(--gradient);
             color: var(--dark);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
             color: #9ca3af;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
-        /* Modal */
+        /* Enhanced Modals */
         .modal {
             display: none;
             position: fixed;
@@ -626,84 +868,96 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
 
         .modal-content {
-            background-color: white;
-            padding: 35px;
-            border-radius: 16px;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
             width: 90%;
-            max-width: 450px;
-            box-shadow: var(--shadow-hover);
+            max-width: 500px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
             position: relative;
-            animation: modalFadeIn 0.3s;
+            animation: modalFadeIn 0.4s ease-out;
         }
 
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
             cursor: pointer;
             color: var(--text-light);
-            transition: color 0.3s;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         .close-modal:hover {
-            color: var(--dark);
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
         }
 
         .modal-title {
-            margin-bottom: 25px;
+            margin-bottom: 35px;
             color: var(--dark);
             text-align: center;
-            font-size: 1.6rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
+            margin-bottom: 10px;
+            font-weight: 600;
             color: var(--dark);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s;
         }
 
-        .form-group input:focus {
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f9fafb;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
+            background: white;
         }
 
-        /* Loading spinner */
+        /* Loading States */
         .spinner {
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top: 3px solid var(--primary);
-            width: 25px;
-            height: 25px;
+            width: 30px;
+            height: 30px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
@@ -713,43 +967,88 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            z-index: 10001;
+            transform: translateX(400px);
+            transition: transform 0.4s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+        }
+
+        .notification.info {
+            background: var(--gradient-secondary);
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 3.2rem;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+
+            .features-grid,
+            .tools-grid,
+            .signal-cards {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
 
         @media (max-width: 768px) {
+            header {
+                position: relative;
+            }
+
+            .hero {
+                margin-top: 0;
+                padding: 100px 0 80px;
+            }
+            
             .header-content {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
+                text-align: center;
             }
             
             nav ul {
-                margin-top: 15px;
                 flex-wrap: wrap;
                 justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .hero {
-                padding: 80px 0 60px;
+                gap: 15px;
             }
             
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .hero p {
-                font-size: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .hero-stats {
+                gap: 30px;
+                flex-direction: column;
             }
             
             .features-grid,
@@ -761,7 +1060,35 @@
             
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 40px;
+            }
+
+            .modal-content {
+                padding: 30px;
+                margin: 20px;
+            }
+
+            .pairs-container {
+                gap: 15px;
+            }
+
+            .pair {
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .feature-card,
+            .tool-card {
+                padding: 30px 25px;
             }
         }
     </style>
@@ -776,26 +1103,47 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#" class="nav-link" data-target="home">Home</a></li>
-                    <li><a href="#" class="nav-link" data-target="tools">Trading Tools</a></li>
-                    <li><a href="#" class="nav-link" data-target="signals">Signals</a></li>
-                    <li><a href="#" class="nav-link" data-target="eas">Expert Advisors</a></li>
-                    <li><a href="#" class="nav-link" data-target="support">Support</a></li>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#tools" class="nav-link">Trading Tools</a></li>
+                    <li><a href="#signals" class="nav-link">Signals</a></li>
+                    <li><a href="#performance" class="nav-link">Performance</a></li>
+                    <li><a href="#support" class="nav-link">Support</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
                 <button class="btn btn-outline" id="loginBtn"><i class="fas fa-sign-in-alt"></i>Login</button>
-                <button class="btn btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i>Register</button>
+                <button class="btn btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i>Get Started</button>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="container">
-            <h1>Advanced Tools for Synthetic Indices Trading</h1>
-            <p>Professional trading tools, signals, and expert advisors for Boom & Crash and Jump indices</p>
-            <button class="btn btn-primary" id="startTradingBtn"><i class="fas fa-rocket"></i>Get Started Today</button>
+            <div class="hero-content">
+                <h1>Master Synthetic Indices Trading</h1>
+                <p>Professional-grade tools, AI-powered signals, and expert advisors designed specifically for Boom, Crash, and Jump indices. Join thousands of profitable traders worldwide.</p>
+                <button class="btn btn-primary" id="startTradingBtn" style="padding: 18px 35px; font-size: 1.1rem;"><i class="fas fa-rocket"></i>Start Trading Now</button>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="activeTraders">12,500+</span>
+                        <span class="stat-label">Active Traders</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">87%</span>
+                        <span class="stat-label">Win Rate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$2.4M+</span>
+                        <span class="stat-label">Profits Generated</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Market Coverage</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -806,51 +1154,61 @@
                 <div class="pair">
                     <i class="fas fa-bolt"></i>
                     <div class="pair-info">
-                        <div class="pair-name">Volatility 75 (VIX)</div>
+                        <div class="pair-name">Volatility 75 Index</div>
                         <div class="pair-price" id="vix-price">Loading...</div>
-                    </div>
-                    <div class="pair-change" id="vix-change">
-                        <div class="spinner"></div>
+                        <div class="pair-change" id="vix-change">
+                            <div class="spinner"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="pair">
-                    <i class="fas fa-bolt"></i>
+                    <i class="fas fa-chart-line-up"></i>
                     <div class="pair-info">
                         <div class="pair-name">Boom 1000 Index</div>
                         <div class="pair-price" id="boom-price">Loading...</div>
+                        <div class="pair-change" id="boom-change">
+                            <div class="spinner"></div>
+                        </div>
                     </div>
-                    <div class="pair-change" id="boom-change">
-                        <div class="spinner"></div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-chart-line-down"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Crash 1000 Index</div>
+                        <div class="pair-price" id="crash-price">Loading...</div>
+                        <div class="pair-change" id="crash-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-mountain"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Jump 50 Index</div>
+                        <div class="pair-price" id="jump50-price">Loading...</div>
+                        <div class="pair-change" id="jump50-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-mountain"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Jump 75 Index</div>
+                        <div class="pair-price" id="jump75-price">Loading...</div>
+                        <div class="pair-change" id="jump75-change">
+                            <div class="spinner"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="pair">
                     <i class="fas fa-bolt"></i>
                     <div class="pair-info">
-                        <div class="pair-name">Crash 1000 Index</div>
-                        <div class="pair-price" id="crash-price">Loading...</div>
-                    </div>
-                    <div class="pair-change" id="crash-change">
-                        <div class="spinner"></div>
-                    </div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-chart-line"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Jump 50 Index</div>
-                        <div class="pair-price" id="jump50-price">Loading...</div>
-                    </div>
-                    <div class="pair-change" id="jump50-change">
-                        <div class="spinner"></div>
-                    </div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-chart-line"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Jump 75 Index</div>
-                        <div class="pair-price" id="jump75-price">Loading...</div>
-                    </div>
-                    <div class="pair-change" id="jump75-change">
-                        <div class="spinner"></div>
+                        <div class="pair-name">Volatility 100 Index</div>
+                        <div class="pair-price" id="vol100-price">Loading...</div>
+                        <div class="pair-change" id="vol100-change">
+                            <div class="spinner"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -860,92 +1218,131 @@
     <!-- Platform Features -->
     <section class="features">
         <div class="container">
-            <h2 class="section-title">Why Choose Our Tools</h2>
+            <h2 class="section-title">Why Traders Choose Us</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-robot"></i>
                     </div>
-                    <h3>Advanced Expert Advisors</h3>
-                    <p>Our EAs are specifically designed for synthetic indices with adaptive algorithms that adjust to market volatility.</p>
-                    <button class="btn btn-outline">Learn More</button>
+                    <h3>AI-Powered Expert Advisors</h3>
+                    <p>Advanced machine learning algorithms that adapt to market volatility and optimize your trading performance in real-time. Our EAs have been backtested on years of historical data.</p>
+                    <button class="btn btn-secondary">Explore EAs</button>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-broadcast-tower"></i>
                     </div>
-                    <h3>Real-time Signals</h3>
-                    <p>Get accurate trading signals with detailed entry, stop loss, and take profit levels for Boom & Crash indices.</p>
-                    <button class="btn btn-outline">View Signals</button>
+                    <h3>Premium Signal Service</h3>
+                    <p>Receive high-probability trading signals with detailed analysis, entry points, and risk management levels. Our signals achieve an 87% average win rate across all synthetic indices.</p>
+                    <button class="btn btn-secondary">View Signals</button>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-tools"></i>
+                        <i class="fas fa-chart-pie"></i>
                     </div>
-                    <h3>Custom Indicators</h3>
-                    <p>Specialized indicators that help identify volatility patterns and potential crash/boom moments.</p>
-                    <button class="btn btn-outline">Explore Tools</button>
+                    <h3>Advanced Analytics</h3>
+                    <p>Comprehensive market analysis tools that help you understand volatility patterns, identify optimal entry points, and manage risk effectively across all timeframes.</p>
+                    <button class="btn btn-secondary">Try Analytics</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Trading Tools Section -->
-    <section class="trading-tools">
+    <section class="trading-tools" id="tools">
         <div class="container">
-            <h2 class="section-title">Premium Trading Tools</h2>
+            <h2 class="section-title">Professional Trading Arsenal</h2>
             <div class="tools-grid">
                 <div class="tool-card">
                     <div class="tool-icon">
-                        <i class="fas fa-robot"></i>
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <h3>Volatility EA Pro</h3>
-                    <p>Advanced expert advisor designed specifically for Boom & Crash indices with adaptive algorithms.</p>
-                    <ul>
-                        <li>Auto risk management</li>
-                        <li>Multiple timeframe support</li>
-                        <li>News filter included</li>
-                        <li>24/7 trading capability</li>
+                    <h3>VolatilityAI Pro</h3>
+                    <p>Our flagship expert advisor powered by advanced AI algorithms, specifically designed for synthetic indices with adaptive risk management and market condition recognition.</p>
+                    <ul class="tool-features">
+                        <li>Machine learning optimization</li>
+                        <li>Dynamic risk adjustment</li>
+                        <li>Multi-timeframe analysis</li>
+                        <li>News filter integration</li>
+                        <li>24/7 autonomous trading</li>
+                        <li>Real-time performance tracking</li>
                     </ul>
-                    <div class="price-tag">$249</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Volatility EA Pro"><i class="fas fa-shopping-cart"></i>Purchase Now</button>
+                    <div class="price-tag">$399</div>
+                    <button class="btn btn-primary purchase-btn" data-product="VolatilityAI Pro" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get VolatilityAI Pro</button>
                 </div>
                 <div class="tool-card">
                     <div class="tool-icon">
-                        <i class="fas fa-chart-area"></i>
+                        <i class="fas fa-crosshairs"></i>
                     </div>
-                    <h3>Boom & Crash Indicator</h3>
-                    <p>Predict potential boom and crash movements with our proprietary indicator.</p>
-                    <ul>
-                        <li>Early warning signals</li>
-                        <li>Customizable alerts</li>
-                        <li>Multiple timeframes</li>
-                        <li>Visual & audio alerts</li>
+                    <h3>Precision Indicator Suite</h3>
+                    <p>A comprehensive collection of proprietary indicators designed to predict boom and crash movements with unprecedented accuracy across all synthetic indices.</p>
+                    <ul class="tool-features">
+                        <li>Boom/Crash predictor</li>
+                        <li>Volatility strength meter</li>
+                        <li>Trend reversal alerts</li>
+                        <li>Support/resistance scanner</li>
+                        <li>Custom alert system</li>
+                        <li>Multi-symbol dashboard</li>
                     </ul>
-                    <div class="price-tag">$149</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Boom & Crash Indicator"><i class="fas fa-shopping-cart"></i>Purchase Now</button>
+                    <div class="price-tag">$199</div>
+                    <button class="btn btn-primary purchase-btn" data-product="Precision Indicator Suite" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Indicator Suite</button>
                 </div>
                 <div class="tool-card">
                     <div class="tool-icon">
-                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-satellite-dish"></i>
                     </div>
-                    <h3>Signal Service Premium</h3>
-                    <p>Get daily signals for synthetic indices with detailed analysis and entry points.</p>
-                    <ul>
-                        <li>5-7 signals daily</li>
-                        <li>80%+ accuracy rate</li>
-                        <li>Detailed analysis</li>
-                        <li>24/7 support</li>
+                    <h3>VIP Signal Service</h3>
+                    <p>Premium signal service delivering 8-12 high-quality signals daily with detailed market analysis, precise entry/exit points, and live trade management.</p>
+                    <ul class="tool-features">
+                        <li>8-12 daily signals</li>
+                        <li>87% average win rate</li>
+                        <li>Live trade management</li>
+                        <li>Risk/reward optimization</li>
+                        <li>Telegram & email alerts</li>
+                        <li>Priority customer support</li>
                     </ul>
-                    <div class="price-tag">$99/month</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Signal Service Premium"><i class="fas fa-shopping-cart"></i>Subscribe Now</button>
+                    <div class="price-tag">$147/month</div>
+                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="width: 100%;"><i class="fas fa-crown"></i>Subscribe to VIP</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="performance" id="performance">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Live Performance Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <span class="metric-number" id="totalTrades">45,892</span>
+                    <div class="metric-label">Total Trades Executed</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number">87.3%</span>
+                    <div class="metric-label">Average Win Rate</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number">2.8:1</span>
+                    <div class="metric-label">Risk/Reward Ratio</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number" id="monthlyReturn">+24.7%</span>
+                    <div class="metric-label">Monthly Return</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number">156</span>
+                    <div class="metric-label">Countries Served</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number">99.8%</span>
+                    <div class="metric-label">Uptime Guarantee</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Signals Section -->
-    <section class="signals">
+    <section class="signals" id="signals">
         <div class="container">
             <h2 class="section-title">Recent Trading Signals</h2>
             <div class="signal-cards">
@@ -954,367 +1351,704 @@
                         <h3>BOOM 1000</h3>
                         <span class="signal-type">BUY</span>
                     </div>
-                    <p>Strong bullish momentum detected with volatility expansion pattern.</p>
+                    <p>Strong bullish momentum detected with volatility expansion pattern. RSI oversold condition combined with volume spike indicates high probability upward movement.</p>
                     <div class="signal-meta">
-                        <span>Entry: 15,200</span>
-                        <span>SL: 14,900</span>
+                        <div class="meta-item">
+                            <div class="meta-label">Entry Price</div>
+                            <div class="meta-value">15,247.50</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Stop Loss</div>
+                            <div class="meta-value">14,890.20</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Take Profit</div>
+                            <div class="meta-value">16,125.80</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Result</div>
+                            <div class="meta-value" style="color: var(--success);">+878 pts</div>
+                        </div>
                     </div>
-                    <div class="signal-meta">
-                        <span>TP: 16,000</span>
-                        <span>Result: +800 pts</span>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top: 20px; width: 100%;"><i class="fas fa-chart-line"></i>View Details</button>
+                    <button class="btn btn-outline" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="basicPlan">
+                <span><i class="fas fa-box"></i> Starter Package</span>
+                <span style="font-weight: 700;">$149</span>
+            </button>
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="proPlan">
+                <span><i class="fas fa-crown"></i> Professional Suite</span>
+                <span style="font-weight: 700;">$399</span>
+            </button>
+            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="signalPlan">
+                <span><i class="fas fa-satellite-dish"></i> VIP Signals Only</span>
+                <span style="font-weight: 700;">$147/month</span>
+            </button>
+            
+            <div style="text-align: center; margin-top: 20px; padding: 15px; background: var(--primary-light); border-radius: 8px;">
+                <small style="color: var(--text-light);">✨ 30-day money-back guarantee on all plans</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Enhanced Modal System
+        class ModalManager {
+            constructor() {
+                this.modals = {
+                    login: document.getElementById('loginModal'),
+                    register: document.getElementById('registerModal'),
+                    purchase: document.getElementById('purchaseModal'),
+                    startTrading: document.getElementById('startTradingModal')
+                };
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                // Modal triggers
+                document.getElementById('loginBtn').addEventListener('click', () => this.showModal('login'));
+                document.getElementById('registerBtn').addEventListener('click', () => this.showModal('register'));
+                document.getElementById('startTradingBtn').addEventListener('click', () => this.showModal('startTrading'));
+
+                // Close modal buttons
+                document.querySelectorAll('.close-modal').forEach(btn => {
+                    btn.addEventListener('click', () => this.hideAllModals());
+                });
+
+                // Click outside to close
+                Object.values(this.modals).forEach(modal => {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) this.hideAllModals();
+                    });
+                });
+
+                // Purchase buttons
+                document.querySelectorAll('.purchase-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const productName = button.getAttribute('data-product');
+                        document.getElementById('productName').textContent = productName;
+                        this.showModal('purchase');
+                    });
+                });
+
+                // Form submissions
+                this.initializeFormHandlers();
+            }
+
+            showModal(modalName) {
+                this.hideAllModals();
+                if (this.modals[modalName]) {
+                    this.modals[modalName].style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            hideAllModals() {
+                Object.values(this.modals).forEach(modal => {
+                    modal.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+
+            initializeFormHandlers() {
+                // Login form
+                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.showNotification('Login successful! Welcome back.', 'success');
+                    this.hideAllModals();
+                });
+
+                // Register form
+                document.getElementById('registerForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const password = document.getElementById('regPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    if (password !== confirmPassword) {
+                        this.showNotification('Passwords do not match!', 'error');
+                        return;
+                    }
+                    
+                    this.showNotification('Account created successfully! Check your email for verification.', 'success');
+                    this.hideAllModals();
+                });
+
+                // Purchase form
+                document.getElementById('completePurchase').addEventListener('click', () => {
+                    const paymentMethod = document.getElementById('paymentMethod').value;
+                    if (!paymentMethod) {
+                        this.showNotification('Please select a payment method.', 'error');
+                        return;
+                    }
+                    
+                    this.showNotification('Purchase completed successfully! Check your email for download links.', 'success');
+                    this.hideAllModals();
+                });
+
+                // Trading plans
+                document.getElementById('basicPlan').addEventListener('click', () => {
+                    this.showNotification('Redirecting to Starter Package checkout...', 'info');
+                    this.hideAllModals();
+                });
+
+                document.getElementById('proPlan').addEventListener('click', () => {
+                    this.showNotification('Redirecting to Professional Suite checkout...', 'info');
+                    this.hideAllModals();
+                });
+
+                document.getElementById('signalPlan').addEventListener('click', () => {
+                    this.showNotification('Redirecting to VIP Signals subscription...', 'info');
+                    this.hideAllModals();
+                });
+            }
+
+            showNotification(message, type = 'info') {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 4000);
+            }
+        }
+
+        // Enhanced Price Update System
+        class PriceManager {
+            constructor() {
+                this.indices = [
+                    { id: 'vix', name: 'Volatility 75 Index', base: 450000, volatility: 12000 },
+                    { id: 'boom', name: 'Boom 1000 Index', base: 15405, volatility: 150 },
+                    { id: 'crash', name: 'Crash 1000 Index', base: 8210, volatility: 120 },
+                    { id: 'jump50', name: 'Jump 50 Index', base: 3485, volatility: 80 },
+                    { id: 'jump75', name: 'Jump 75 Index', base: 12500, volatility: 200 },
+                    { id: 'vol100', name: 'Volatility 100 Index', base: 875000, volatility: 18000 }
+                ];
+                
+                this.currentPrices = new Map();
+                this.initializePrices();
+                this.startUpdates();
+            }
+
+            initializePrices() {
+                this.indices.forEach(index => {
+                    this.currentPrices.set(index.id, index.base);
+                });
+            }
+
+            startUpdates() {
+                this.updatePrices();
+                setInterval(() => this.updatePrices(), 2500);
+            }
+
+            updatePrices() {
+                this.indices.forEach(index => {
+                    // More realistic price movement simulation
+                    const currentPrice = this.currentPrices.get(index.id);
+                    const volatilityFactor = 0.1 + Math.random() * 0.3; // 0.1 to 0.4
+                    const direction = Math.random() > 0.52 ? 1 : -1; // Slight bullish bias
+                    const change = direction * index.volatility * volatilityFactor * Math.random();
+                    
+                    const newPrice = Math.max(currentPrice + change, index.base * 0.8); // Prevent too low prices
+                    this.currentPrices.set(index.id, newPrice);
+                    
+                    const percentChange = (change / currentPrice) * 100;
+                    
+                    // Update DOM
+                    const priceElement = document.getElementById(`${index.id}-price`);
+                    const changeElement = document.getElementById(`${index.id}-change`);
+                    
+                    if (priceElement && changeElement) {
+                        // Format price based on index type
+                        const formattedPrice = index.id.includes('vol') || index.id === 'vix' 
+                            ? newPrice.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})
+                            : newPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                        
+                        priceElement.textContent = formattedPrice;
+                        
+                        const changeText = (percentChange > 0 ? '+' : '') + percentChange.toFixed(2) + '%';
+                        changeElement.textContent = changeText;
+                        
+                        // Update styling with animation
+                        changeElement.style.transition = 'all 0.3s ease';
+                        
+                        if (percentChange > 0) {
+                            changeElement.className = 'pair-change positive';
+                        } else {
+                            changeElement.className = 'pair-change negative';
+                        }
+                    }
+                });
+            }
+        }
+
+        // Enhanced Navigation System
+        class NavigationManager {
+            constructor() {
+                this.initializeNavigation();
+                this.initializeScrollEffects();
+            }
+
+            initializeNavigation() {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href');
+                        
+                        if (targetId && targetId !== '#') {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const headerOffset = 80;
+                                const elementPosition = targetElement.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+
+            initializeScrollEffects() {
+                const header = document.querySelector('header');
+                let lastScrollTop = 0;
+
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Header hide/show effect
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                    
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                });
+            }
+        }
+
+        // Animated Counter System
+        class CounterManager {
+            constructor() {
+                this.initializeCounters();
+            }
+
+            initializeCounters() {
+                const observerOptions = {
+                    threshold: 0.5,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateCounter(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe stat numbers
+                document.querySelectorAll('.stat-number, .metric-number').forEach(counter => {
+                    observer.observe(counter);
+                });
+            }
+
+            animateCounter(element) {
+                const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        element.textContent = this.formatNumber(Math.floor(current), element);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.textContent = this.formatNumber(target, element);
+                    }
+                };
+
+                updateCounter();
+            }
+
+            formatNumber(number, element) {
+                const originalText = element.textContent;
+                
+                if (originalText.includes('+') && originalText.includes('%')) {
+                    return `+${number}%`;
+                } else if (originalText.includes('%')) {
+                    return `${number}%`;
+                } else if (originalText.includes('M+')) {
+                    return `${(number / 1000000).toFixed(1)}M+`;
+                } else if (originalText.includes('K+')) {
+                    return `${(number / 1000).toFixed(0)}K+`;
+                } else if (originalText.includes(':')) {
+                    return `${(number / 10).toFixed(1)}:1`;
+                } else if (originalText.includes('/')) {
+                    return '24/7';
+                } else {
+                    return number.toLocaleString();
+                }
+            }
+        }
+
+        // Button Interaction Effects
+        class InteractionManager {
+            constructor() {
+                this.initializeButtonEffects();
+                this.initializeCardEffects();
+            }
+
+            initializeButtonEffects() {
+                document.querySelectorAll('.btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        // Ripple effect
+                        const rect = button.getBoundingClientRect();
+                        const size = Math.max(rect.width, rect.height);
+                        const x = e.clientX - rect.left - size / 2;
+                        const y = e.clientY - rect.top - size / 2;
+
+                        const ripple = document.createElement('span');
+                        ripple.style.cssText = `
+                            position: absolute;
+                            width: ${size}px;
+                            height: ${size}px;
+                            left: ${x}px;
+                            top: ${y}px;
+                            background: rgba(255, 255, 255, 0.3);
+                            border-radius: 50%;
+                            transform: scale(0);
+                            animation: ripple 0.6s linear;
+                            pointer-events: none;
+                        `;
+
+                        button.style.position = 'relative';
+                        button.style.overflow = 'hidden';
+                        button.appendChild(ripple);
+
+                        setTimeout(() => {
+                            ripple.remove();
+                        }, 600);
+                    });
+                });
+            }
+
+            initializeCardEffects() {
+                // Parallax effect for cards
+                document.querySelectorAll('.feature-card, .tool-card, .signal-card').forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = (y - centerY) / 20;
+                        const rotateY = (centerX - x) / 20;
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+                    });
+                });
+            }
+        }
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize all systems when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ModalManager();
+            new PriceManager();
+            new NavigationManager();
+            new CounterManager();
+            new InteractionManager();
+
+            // Add loading complete effect
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+
+            console.log('VolatilityPlus Enhanced Platform Loaded Successfully! 🚀');
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Page loaded in ${Math.round(loadTime)}ms`);
+        });
+    </script>
+</body>
+</html>="margin-top: 25px; width: 100%;"><i class="fas fa-chart-line"></i>View Full Analysis</button>
                 </div>
                 <div class="signal-card">
                     <div class="signal-header">
                         <h3>CRASH 1000</h3>
-                        <span class="signal-type">SELL</span>
+                        <span class="signal-type" style="background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);">SELL</span>
                     </div>
-                    <p>Overbought conditions detected with divergence on momentum indicator.</p>
+                    <p>Overbought conditions detected with bearish divergence on momentum oscillator. Market showing signs of exhaustion at current levels with increased selling pressure.</p>
                     <div class="signal-meta">
-                        <span>Entry: 8,500</span>
-                        <span>SL: 8,800</span>
+                        <div class="meta-item">
+                            <div class="meta-label">Entry Price</div>
+                            <div class="meta-value">8,542.30</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Stop Loss</div>
+                            <div class="meta-value">8,825.70</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Take Profit</div>
+                            <div class="meta-value">7,897.60</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Result</div>
+                            <div class="meta-value" style="color: var(--success);">+645 pts</div>
+                        </div>
                     </div>
-                    <div class="signal-meta">
-                        <span>TP: 7,900</span>
-                        <span>Result: +600 pts</span>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top: 20px; width: 100%;"><i class="fas fa-chart-line"></i>View Details</button>
+                    <button class="btn btn-outline" style="margin-top: 25px; width: 100%;"><i class="fas fa-chart-line"></i>View Full Analysis</button>
                 </div>
                 <div class="signal-card">
                     <div class="signal-header">
-                        <h3>JUMP 75</h3>
+                        <h3>VOLATILITY 75</h3>
                         <span class="signal-type">BUY</span>
                     </div>
-                    <p>Breakout from consolidation pattern with increasing volume.</p>
+                    <p>Breakout confirmed above key resistance level with increased volatility. Multiple timeframe alignment suggests sustained upward momentum with strong volume confirmation.</p>
                     <div class="signal-meta">
-                        <span>Entry: 550.40</span>
-                        <span>SL: 535.20</span>
+                        <div class="meta-item">
+                            <div class="meta-label">Entry Price</div>
+                            <div class="meta-value">452,678.90</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Stop Loss</div>
+                            <div class="meta-value">448,123.50</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Take Profit</div>
+                            <div class="meta-value">465,890.30</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Result</div>
+                            <div class="meta-value" style="color: var(--success);">+13,211 pts</div>
+                        </div>
                     </div>
-                    <div class="signal-meta">
-                        <span>TP: 585.00</span>
-                        <span>Result: +34.6 pts</span>
-                    </div>
-                    <button class="btn btn-outline" style="margin-top: 20px; width: 100%;"><i class="fas fa-chart-line"></i>View Details</button>
+                    <button class="btn btn-outline" style="margin-top: 25px; width: 100%;"><i class="fas fa-chart-line"></i>View Full Analysis</button>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="btn btn-primary"><i class="fas fa-list"></i>View All Signals</button>
+            <div style="text-align: center; margin-top: 50px;">
+                <button class="btn btn-primary" style="padding: 15px 35px; font-size: 1.1rem;"><i class="fas fa-list"></i>View All Signals</button>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Enhanced Testimonials -->
     <section class="testimonials">
         <div class="container">
-            <h2 class="section-title" style="color: white;">What Our Traders Say</h2>
+            <h2 class="section-title" style="color: white;">Success Stories from Our Traders</h2>
             <div class="testimonial-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-text">
-                        The Volatility EA has completely transformed my trading. I've seen a 35% increase in profitability since I started using it for Boom & Crash indices.
+                        "VolatilityPlus has completely transformed my trading approach. The AI-powered EA has increased my monthly returns by 340% while significantly reducing my risk exposure. The signal accuracy is phenomenal!"
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">MJ</div>
-                        <div>
+                        <div class="author-info">
                             <h4>Michael Johnson</h4>
-                            <p>Professional Trader</p>
+                            <p>Professional Trader, UK</p>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-text">
-                        The signals service is incredibly accurate. I've been able to consistently profit from synthetic indices thanks to their detailed analysis and precise entry points.
+                        "As a beginner in synthetic indices, the VIP signal service gave me the confidence to trade profitably from day one. The detailed analysis and risk management guidance are invaluable."
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">SR</div>
-                        <div>
-                            <h4>Sarah Williams</h4>
-                            <p>Day Trader</p>
+                        <div class="author-info">
+                            <h4>Sarah Rodriguez</h4>
+                            <p>Day Trader, Australia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The indicator suite is incredibly powerful. Being able to predict boom and crash movements with such precision has given me a significant edge in the market. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DK</div>
+                        <div class="author-info">
+                            <h4>David Kim</h4>
+                            <p>Quantitative Trader, Singapore</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="btn btn-primary"><i class="fas fa-star"></i>Share Your Experience</button>
+            <div style="text-align: center; margin-top: 50px;">
+                <button class="btn btn-primary" style="padding: 15px 35px;"><i class="fas fa-star"></i>Share Your Success Story</button>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Enhanced Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>VolatilityPlus</h3>
-                    <p>Professional trading tools and signals for synthetic indices trading.</p>
+                    <p>Leading provider of professional trading tools and signals for synthetic indices. Join thousands of successful traders who trust our advanced technology and expertise.</p>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
                     <h3>Trading Tools</h3>
                     <ul>
-                        <li><a href="#">Expert Advisors</a></li>
-                        <li><a href="#">Trading Indicators</a></li>
-                        <li><a href="#">Signal Services</a></li>
-                        <li><a href="#">Volume Tools</a></li>
+                        <li><a href="#tools">Expert Advisors</a></li>
+                        <li><a href="#tools">Trading Indicators</a></li>
+                        <li><a href="#signals">Signal Services</a></li>
+                        <li><a href="#performance">Performance Analytics</a></li>
+                        <li><a href="#">Risk Management Tools</a></li>
+                        <li><a href="#">Market Scanner</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Resources</h3>
+                    <h3>Education & Resources</h3>
                     <ul>
+                        <li><a href="#">Trading Academy</a></li>
                         <li><a href="#">Market Analysis</a></li>
-                        <li><a href="#">Trading Strategies</a></li>
+                        <li><a href="#">Strategy Guides</a></li>
                         <li><a href="#">Video Tutorials</a></li>
-                        <li><a href="#">Market News</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Trading Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Support</h3>
+                    <h3>Support & Legal</h3>
                     <ul>
-                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#support">24/7 Support Center</a></li>
                         <li><a href="#">Contact Us</a></li>
                         <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Refund Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 VolatilityPlus. All rights reserved. Trading synthetic indices involves significant risk of loss.</p>
+                <p>&copy; 2024 VolatilityPlus. All rights reserved. Trading synthetic indices involves significant risk of loss. Past performance is not indicative of future results.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Login Modal -->
+    <!-- Modals -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Login to Your Account</h2>
+            <h2 class="modal-title">Welcome Back</h2>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" required>
+                    <input type="password" id="password" required placeholder="Enter your password">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-sign-in-alt"></i>Login</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-sign-in-alt"></i>Sign In</button>
             </form>
-            <p style="text-align: center; margin-top: 20px;">
-                <a href="#" style="color: var(--primary);">Forgot your password?</a>
+            <p style="text-align: center; margin-top: 25px;">
+                <a href="#" style="color: var(--primary); font-weight: 600;">Forgot your password?</a>
             </p>
         </div>
     </div>
 
-    <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Create Account</h2>
+            <h2 class="modal-title">Join VolatilityPlus</h2>
             <form id="registerForm">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" required>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
                 </div>
                 <div class="form-group">
-                    <label for="regEmail">Email</label>
-                    <input type="email" id="regEmail" required>
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="Enter your email">
                 </div>
                 <div class="form-group">
                     <label for="regPassword">Password</label>
-                    <input type="password" id="regPassword" required>
+                    <input type="password" id="regPassword" required placeholder="Create a strong password">
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" required>
+                    <input type="password" id="confirmPassword" required placeholder="Confirm your password">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-user-plus"></i>Register</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-user-plus"></i>Create Account</button>
             </form>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-light);">
+                By creating an account, you agree to our Terms of Service and Privacy Policy.
+            </p>
         </div>
     </div>
 
-    <!-- Purchase Modal -->
     <div class="modal" id="purchaseModal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2 class="modal-title" id="purchaseTitle">Purchase Product</h2>
+            <h2 class="modal-title">Complete Your Purchase</h2>
             <div id="purchaseContent">
-                <p>You are purchasing: <strong id="productName"></strong></p>
+                <div style="background: var(--primary-light); padding: 20px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
+                    <h3 style="color: var(--dark); margin-bottom: 10px;">Product: <span id="productName" style="color: var(--primary-dark);"></span></h3>
+                    <p style="color: var(--text-light); margin: 0;">Secure payment processing with 30-day money-back guarantee</p>
+                </div>
                 <div class="form-group">
                     <label for="paymentMethod">Payment Method</label>
-                    <select id="paymentMethod" class="form-group input">
-                        <option value="credit">Credit Card</option>
+                    <select id="paymentMethod" required>
+                        <option value="">Select payment method</option>
+                        <option value="credit">Credit/Debit Card</option>
                         <option value="paypal">PayPal</option>
                         <option value="crypto">Cryptocurrency</option>
+                        <option value="bank">Bank Transfer</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" style="width: 100%;" id="completePurchase"><i class="fas fa-check-circle"></i>Complete Purchase</button>
+                <div class="form-group">
+                    <label for="couponCode">Coupon Code (Optional)</label>
+                    <input type="text" id="couponCode" placeholder="Enter discount code">
+                </div>
+                <button class="btn btn-primary" style="width: 100%; padding: 15px;" id="completePurchase"><i class="fas fa-lock"></i>Complete Secure Purchase</button>
             </div>
         </div>
     </div>
 
-    <!-- Start Trading Modal -->
     <div class="modal" id="startTradingModal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Start Trading Today</h2>
-            <p>Choose a plan that works best for your trading needs:</p>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" id="basicPlan"><i class="fas fa-box"></i>Basic Tools Package ($99)</button>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="proPlan"><i class="fas fa-crown"></i>Pro Trader Suite ($249)</button>
-            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" id="signalPlan"><i class="fas fa-bell"></i>Signals Only ($49/month)</button>
-        </div>
-    </div>
-
-    <script>
-        // Modal functionality
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const startTradingBtn = document.getElementById('startTradingBtn');
-        const loginModal = document.getElementById('loginModal');
-        const registerModal = document.getElementById('registerModal');
-        const startTradingModal = document.getElementById('startTradingModal');
-        const purchaseModal = document.getElementById('purchaseModal');
-        const closeModalButtons = document.querySelectorAll('.close-modal');
-        const purchaseButtons = document.querySelectorAll('.purchase-btn');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        // Show modals
-        loginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-        });
-
-        registerBtn.addEventListener('click', () => {
-            registerModal.style.display = 'flex';
-        });
-
-        startTradingBtn.addEventListener('click', () => {
-            startTradingModal.style.display = 'flex';
-        });
-
-        purchaseButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const productName = button.getAttribute('data-product');
-                document.getElementById('productName').textContent = productName;
-                purchaseModal.style.display = 'flex';
-            });
-        });
-
-        // Navigation links
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = link.getAttribute('data-target');
-                alert(`Navigating to ${target} section...`);
-                // In a real implementation, this would scroll to the section
-            });
-        });
-
-        // Close modals
-        closeModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                loginModal.style.display = 'none';
-                registerModal.style.display = 'none';
-                startTradingModal.style.display = 'none';
-                purchaseModal.style.display = 'none';
-            });
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) loginModal.style.display = 'none';
-            if (e.target === registerModal) registerModal.style.display = 'none';
-            if (e.target === startTradingModal) startTradingModal.style.display = 'none';
-            if (e.target === purchaseModal) purchaseModal.style.display = 'none';
-        });
-
-        // Form submissions
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Login functionality would be implemented here.');
-            loginModal.style.display = 'none';
-        });
-
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Registration functionality would be implemented here.');
-            registerModal.style.display = 'none';
-        });
-
-        document.getElementById('completePurchase').addEventListener('click', () => {
-            alert('Purchase completed successfully!');
-            purchaseModal.style.display = 'none';
-        });
-
-        document.getElementById('basicPlan').addEventListener('click', () => {
-            alert('Basic plan selected. Redirecting to payment...');
-            startTradingModal.style.display = 'none';
-        });
-
-        document.getElementById('proPlan').addEventListener('click', () => {
-            alert('Pro plan selected. Redirecting to payment...');
-            startTradingModal.style.display = 'none';
-        });
-
-        document.getElementById('signalPlan').addEventListener('click', () => {
-            alert('Signals plan selected. Redirecting to payment...');
-            startTradingModal.style.display = 'none';
-        });
-
-        // Real-time price updates for synthetic indices
-        function updatePrices() {
-            // Simulate fetching real prices from broker APIs
-            const indices = [
-                { id: 'vix', name: 'Volatility 75 Index', base: 450000, volatility: 8000 },
-                { id: 'boom', name: 'Boom 1000 Index', base: 15405, volatility: 80 },
-                { id: 'crash', name: 'Crash 1000 Index', base: 8210, volatility: 70 },
-                { id: 'jump50', name: 'Jump 50 Index', base: 3485, volatility: 40 },
-                { id: 'jump75', name: 'Jump 75 Index', base: 12500, volatility: 100 }
-            ];
+            <h2 class="modal-title">Choose Your Trading Plan</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--text-light);">Select the perfect package to accelerate your trading success</p>
             
-            indices.forEach(index => {
-                // Generate realistic price movement based on volatility
-                const change = (Math.random() - 0.5) * index.volatility;
-                const newPrice = index.base + change;
-                const percentChange = (change / index.base) * 100;
-                
-                // Update price display
-                const priceElement = document.getElementById(`${index.id}-price`);
-                const changeElement = document.getElementById(`${index.id}-change`);
-                
-                priceElement.textContent = newPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                changeElement.textContent = (percentChange > 0 ? '+' : '') + percentChange.toFixed(2) + '%';
-                
-                // Update color
-                if (percentChange > 0) {
-                    changeElement.className = 'pair-change positive';
-                } else {
-                    changeElement.className = 'pair-change negative';
-                }
-            });
-        }
-
-        // Initial update and set interval for continuous updates
-        updatePrices();
-        setInterval(updatePrices, 3000);
-
-        // Make all buttons interactive
-        document.querySelectorAll('button').forEach(button => {
-            if (!button.hasAttribute('data-loaded')) {
-                button.addEventListener('click', function() {
-                    if (!this.getAttribute('data-action-handled')) {
-                        this.style.opacity = '0.8';
-                        setTimeout(() => {
-                            this.style.opacity = '1';
-                        }, 150);
-                    }
-                });
-                button.setAttribute('data-loaded', 'true');
-            }
-        });
-    </script>
-</body>
-</html>
+            <button class="btn btn-outline" style
