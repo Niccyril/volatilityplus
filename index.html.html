@@ -1145,7 +1145,7 @@
                     </div>
                     <h3>Professional Indicators</h3>
                     <p>Specialized spike detection indicators designed for synthetic indices. Get early warnings and precise entry points with our Mega Spikes Max and Spike Phantom tools.</p>
-                    <button class="btn btn-secondary">View Indicators</button>
+                    <button class="btn btn-secondary" id="viewIndicatorsBtn">View Indicators</button>
                 </div>
             </div>
         </div>
@@ -1170,7 +1170,7 @@
                         <li>Custom alert settings</li>
                         <li>High accuracy rate</li>
                     </ul>
-                    <div class="price-tag">$199</div>
+                    <div class="price-tag">$67</div>
                     <button class="btn btn-primary purchase-btn" data-product="Mega Spikes Max" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Mega Spikes Max</button>
                 </div>
                 <div class="tool-card">
@@ -1187,7 +1187,7 @@
                         <li>Advanced filtering</li>
                         <li>Professional grade accuracy</li>
                     </ul>
-                    <div class="price-tag">$149</div>
+                    <div class="price-tag">$50</div>
                     <button class="btn btn-primary purchase-btn" data-product="Spike Phantom" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Spike Phantom</button>
                 </div>
             </div>
@@ -1420,15 +1420,15 @@
             
             <button class="btn btn-outline" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="basicPlan">
                 <span><i class="fas fa-chart-line"></i> Mega Spikes Max</span>
-                <span style="font-weight: 700;">$199</span>
+                <span style="font-weight: 700;">$67</span>
             </button>
             <button class="btn btn-primary" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="proPlan">
                 <span><i class="fas fa-ghost"></i> Spike Phantom</span>
-                <span style="font-weight: 700;">$149</span>
+                <span style="font-weight: 700;">$50</span>
             </button>
             <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="signalPlan">
                 <span><i class="fas fa-crown"></i> Both Indicators Bundle</span>
-                <span style="font-weight: 700;">$299</span>
+                <span style="font-weight: 700;">$99</span>
             </button>
             
             <div style="text-align: center; margin-top: 20px; padding: 15px; background: var(--primary-light); border-radius: 8px;">
@@ -1474,6 +1474,170 @@
                     <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
                         <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">24/7</div>
                         <div style="color: var(--text-light);">Support</div>
+                    </div>
+                </div>
+
+                <!-- Live Signals Feed -->
+                <div style="margin-bottom: 50px;">
+                    <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark);">Live Signals Feed</h2>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <!-- Free Preview Signal -->
+                        <div class="modern-signal-card">
+                            <div class="signal-badge">
+                                <i class="fas fa-broadcast-tower"></i>
+                                <span>LIVE SIGNAL</span>
+                            </div>
+                            <div class="signal-content">
+                                <div class="signal-pair">
+                                    <div class="pair-icon">
+                                        <i class="fas fa-chart-line-up"></i>
+                                    </div>
+                                    <div class="pair-details">
+                                        <h3>BOOM 1000</h3>
+                                        <div class="signal-direction buy">BUY SIGNAL</div>
+                                    </div>
+                                    <div class="signal-timing">
+                                        <div class="time-ago">2 min ago</div>
+                                        <div class="signal-status active">ACTIVE</div>
+                                    </div>
+                                </div>
+                                <div class="signal-levels">
+                                    <div class="level-item">
+                                        <span class="level-label">Entry</span>
+                                        <span class="level-value">1,547.20</span>
+                                    </div>
+                                    <div class="level-item">
+                                        <span class="level-label">Stop Loss</span>
+                                        <span class="level-value">1,523.40</span>
+                                    </div>
+                                    <div class="level-item">
+                                        <span class="level-label">Take Profit</span>
+                                        <span class="level-value">1,595.80</span>
+                                    </div>
+                                    <div class="level-item risk-reward">
+                                        <span class="level-label">R:R</span>
+                                        <span class="level-value">2.04:1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Premium Locked Signals -->
+                        <div class="modern-signal-card locked">
+                            <div class="lock-overlay">
+                                <div class="lock-content">
+                                    <i class="fas fa-lock" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                                    <h4 style="margin-bottom: 8px; color: var(--dark);">VIP Signals Locked</h4>
+                                    <p style="margin-bottom: 15px; color: var(--text-light); font-size: 0.9rem;">Subscribe to view 8-12 premium signals daily</p>
+                                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="padding: 8px 20px; font-size: 0.9rem;">
+                                        <i class="fas fa-crown"></i>Unlock Signals
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="blurred-signal">
+                                <div class="signal-badge">
+                                    <i class="fas fa-broadcast-tower"></i>
+                                    <span>PREMIUM SIGNAL</span>
+                                </div>
+                                <div class="signal-content">
+                                    <div class="signal-pair">
+                                        <div class="pair-icon">
+                                            <i class="fas fa-chart-line-down"></i>
+                                        </div>
+                                        <div class="pair-details">
+                                            <h3>CRASH 1000</h3>
+                                            <div class="signal-direction sell">SELL SIGNAL</div>
+                                        </div>
+                                        <div class="signal-timing">
+                                            <div class="time-ago">5 min ago</div>
+                                            <div class="signal-status completed">+42.3 pts</div>
+                                        </div>
+                                    </div>
+                                    <div class="signal-levels">
+                                        <div class="level-item">
+                                            <span class="level-label">Entry</span>
+                                            <span class="level-value">1,204.15</span>
+                                        </div>
+                                        <div class="level-item">
+                                            <span class="level-label">Stop Loss</span>
+                                            <span class="level-value">1,225.80</span>
+                                        </div>
+                                        <div class="level-item">
+                                            <span class="level-label">Take Profit</span>
+                                            <span class="level-value">1,168.25</span>
+                                        </div>
+                                        <div class="level-item risk-reward">
+                                            <span class="level-label">R:R</span>
+                                            <span class="level-value">1.65:1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modern-signal-card locked">
+                            <div class="lock-overlay">
+                                <div class="lock-content">
+                                    <i class="fas fa-lock" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                                    <h4 style="margin-bottom: 8px; color: var(--dark);">VIP Signals Locked</h4>
+                                    <p style="margin-bottom: 15px; color: var(--text-light); font-size: 0.9rem;">Subscribe to view 8-12 premium signals daily</p>
+                                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="padding: 8px 20px; font-size: 0.9rem;">
+                                        <i class="fas fa-crown"></i>Unlock Signals
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="blurred-signal">
+                                <div class="signal-badge">
+                                    <i class="fas fa-broadcast-tower"></i>
+                                    <span>PREMIUM SIGNAL</span>
+                                </div>
+                                <div class="signal-content">
+                                    <div class="signal-pair">
+                                        <div class="pair-icon">
+                                            <i class="fas fa-mountain"></i>
+                                        </div>
+                                        <div class="pair-details">
+                                            <h3>JUMP 75</h3>
+                                            <div class="signal-direction buy">BUY SIGNAL</div>
+                                        </div>
+                                        <div class="signal-timing">
+                                            <div class="time-ago">18 min ago</div>
+                                            <div class="signal-status active">ACTIVE</div>
+                                        </div>
+                                    </div>
+                                    <div class="signal-levels">
+                                        <div class="level-item">
+                                            <span class="level-label">Entry</span>
+                                            <span class="level-value">73.45</span>
+                                        </div>
+                                        <div class="level-item">
+                                            <span class="level-label">Stop Loss</span>
+                                            <span class="level-value">71.20</span>
+                                        </div>
+                                        <div class="level-item">
+                                            <span class="level-label">Take Profit</span>
+                                            <span class="level-value">78.90</span>
+                                        </div>
+                                        <div class="level-item risk-reward">
+                                            <span class="level-label">R:R</span>
+                                            <span class="level-value">2.42:1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px; padding: 20px; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%); border-radius: 15px; border: 1px solid rgba(255, 215, 0, 0.3);">
+                            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                                <i class="fas fa-chart-line" style="margin-right: 12px; color: var(--primary); font-size: 1.2rem;"></i>
+                                <p style="margin: 0; color: var(--dark); font-weight: 600; font-size: 1.1rem;">
+                                    Real-time Signals • 87% Win Rate • Updated Live
+                                </p>
+                            </div>
+                            <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">
+                                Join 12,500+ traders receiving our premium signals daily
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -1632,6 +1796,21 @@
                 document.getElementById('signalPlan').addEventListener('click', () => {
                     this.showNotification('Redirecting to Bundle Package checkout...', 'info');
                     this.hideAllModals();
+                });
+
+                // View Indicators button
+                document.getElementById('viewIndicatorsBtn').addEventListener('click', () => {
+                    const toolsSection = document.getElementById('tools');
+                    if (toolsSection) {
+                        const headerOffset = 80;
+                        const elementPosition = toolsSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             }
 
