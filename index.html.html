@@ -1133,7 +1133,7 @@
                 <ul>
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#tools" class="nav-link">Trading Tools</a></li>
-                    <li><a href="#signals" class="nav-link">Signals</a></li>
+                    <li><a href="#" class="nav-link" id="signalsPageLink">Signals</a></li>
                     <li><a href="#performance" class="nav-link">Performance</a></li>
                     <li><a href="#support" class="nav-link">Support</a></li>
                 </ul>
@@ -1262,15 +1262,15 @@
                     </div>
                     <h3>Premium Signal Service</h3>
                     <p>Receive high-probability trading signals with detailed analysis, entry points, and risk management levels. Our signals achieve an 87% average win rate across all synthetic indices.</p>
-                    <button class="btn btn-secondary">View Signals</button>
+                    <button class="btn btn-secondary" id="viewSignalsBtn">View Signals</button>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-tools"></i>
                     </div>
-                    <h3>Advanced Analytics</h3>
-                    <p>Comprehensive market analysis tools that help you understand volatility patterns, identify optimal entry points, and manage risk effectively across all timeframes.</p>
-                    <button class="btn btn-secondary">Try Analytics</button>
+                    <h3>Professional Indicators</h3>
+                    <p>Specialized spike detection indicators designed for synthetic indices. Get early warnings and precise entry points with our Mega Spikes Max and Spike Phantom tools.</p>
+                    <button class="btn btn-secondary">View Indicators</button>
                 </div>
             </div>
         </div>
@@ -1283,54 +1283,37 @@
             <div class="tools-grid">
                 <div class="tool-card">
                     <div class="tool-icon">
-                        <i class="fas fa-brain"></i>
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>VolatilityAI Pro</h3>
-                    <p>Our flagship expert advisor powered by advanced AI algorithms, specifically designed for synthetic indices with adaptive risk management and market condition recognition.</p>
+                    <h3>Mega Spikes Max</h3>
+                    <p>Advanced spike detector specifically engineered for Boom and Crash indices. Predicts massive spike movements with incredible precision before they happen.</p>
                     <ul class="tool-features">
-                        <li>Machine learning optimization</li>
-                        <li>Dynamic risk adjustment</li>
+                        <li>Early spike detection alerts</li>
+                        <li>Boom & Crash optimization</li>
+                        <li>Visual & audio notifications</li>
                         <li>Multi-timeframe analysis</li>
-                        <li>News filter integration</li>
-                        <li>24/7 autonomous trading</li>
-                        <li>Real-time performance tracking</li>
-                    </ul>
-                    <div class="price-tag">$399</div>
-                    <button class="btn btn-primary purchase-btn" data-product="VolatilityAI Pro" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get VolatilityAI Pro</button>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">
-                        <i class="fas fa-crosshairs"></i>
-                    </div>
-                    <h3>Precision Indicator Suite</h3>
-                    <p>A comprehensive collection of proprietary indicators designed to predict boom and crash movements with unprecedented accuracy across all synthetic indices.</p>
-                    <ul class="tool-features">
-                        <li>Boom/Crash predictor</li>
-                        <li>Volatility strength meter</li>
-                        <li>Trend reversal alerts</li>
-                        <li>Support/resistance scanner</li>
-                        <li>Custom alert system</li>
-                        <li>Multi-symbol dashboard</li>
+                        <li>Custom alert settings</li>
+                        <li>High accuracy rate</li>
                     </ul>
                     <div class="price-tag">$199</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Precision Indicator Suite" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Indicator Suite</button>
+                    <button class="btn btn-primary purchase-btn" data-product="Mega Spikes Max" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Mega Spikes Max</button>
                 </div>
                 <div class="tool-card">
                     <div class="tool-icon">
-                        <i class="fas fa-satellite-dish"></i>
+                        <i class="fas fa-ghost"></i>
                     </div>
-                    <h3>VIP Signal Service</h3>
-                    <p>Premium signal service delivering 8-12 high-quality signals daily with detailed market analysis, precise entry/exit points, and live trade management.</p>
+                    <h3>Spike Phantom</h3>
+                    <p>Phantom-level indicator for Pain and Gain indices trading. Detects hidden spike patterns and market anomalies that other indicators miss.</p>
                     <ul class="tool-features">
-                        <li>8-12 daily signals</li>
-                        <li>87% average win rate</li>
-                        <li>Live trade management</li>
-                        <li>Risk/reward optimization</li>
-                        <li>Telegram & email alerts</li>
-                        <li>Priority customer support</li>
+                        <li>Pain & Gain specialist</li>
+                        <li>Hidden pattern detection</li>
+                        <li>Stealth mode alerts</li>
+                        <li>Anomaly recognition</li>
+                        <li>Advanced filtering</li>
+                        <li>Professional grade accuracy</li>
                     </ul>
-                    <div class="price-tag">$147/month</div>
-                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="width: 100%;"><i class="fas fa-crown"></i>Subscribe to VIP</button>
+                    <div class="price-tag">$149</div>
+                    <button class="btn btn-primary purchase-btn" data-product="Spike Phantom" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Spike Phantom</button>
                 </div>
             </div>
         </div>
@@ -1417,7 +1400,79 @@
         </div>
     </div>
 
-    <!-- Notification Container -->
+    <!-- Signals Page (Hidden by default) -->
+    <div id="signalsPage" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; overflow-y: auto;">
+        <div style="background: var(--dark); padding: 15px 0;">
+            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="color: var(--primary); font-size: 1.5rem; margin: 0;">Trading Signals</h2>
+                <button id="closeSignalsPage" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div style="padding: 50px 0; min-height: calc(100vh - 70px);">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--dark);">Premium Trading Signals</h1>
+                    <p style="font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto;">
+                        Get high-probability trading signals with detailed analysis and precise entry points for synthetic indices.
+                    </p>
+                </div>
+
+                <!-- Signal Stats -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 50px;">
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">87%</div>
+                        <div style="color: var(--text-light);">Win Rate</div>
+                    </div>
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">8-12</div>
+                        <div style="color: var(--text-light);">Daily Signals</div>
+                    </div>
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">2.8:1</div>
+                        <div style="color: var(--text-light);">Risk/Reward</div>
+                    </div>
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">24/7</div>
+                        <div style="color: var(--text-light);">Support</div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div style="text-align: center; margin-top: 0px; padding: 50px; background: var(--primary-light); border-radius: 20px;">
+                    <h2 style="margin-bottom: 20px; color: var(--dark);">VIP Signal Service</h2>
+                    <div style="font-size: 3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 20px;">$147/month</div>
+                    <ul style="list-style: none; margin: 30px 0; max-width: 400px; margin-left: auto; margin-right: auto;">
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            8-12 premium signals daily
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            87% average win rate
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            Detailed analysis with each signal
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            Telegram & email alerts
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            24/7 priority support
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="padding: 15px 40px; font-size: 1.1rem; margin-top: 20px;">
+                        <i class="fas fa-crown"></i>Subscribe to VIP Signals
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="notification" class="notification"></div>
 
     <script>
@@ -1711,6 +1766,7 @@
             constructor() {
                 this.initializeNavigation();
                 this.initializeScrollEffects();
+                this.initializeSignalsPage();
             }
 
             initializeNavigation() {
@@ -1719,7 +1775,7 @@
                         e.preventDefault();
                         const targetId = link.getAttribute('href');
                         
-                        if (targetId && targetId !== '#') {
+                        if (targetId && targetId !== '#' && !link.id) {
                             const targetElement = document.querySelector(targetId);
                             if (targetElement) {
                                 const headerOffset = 80;
@@ -1733,6 +1789,37 @@
                             }
                         }
                     });
+                });
+            }
+
+            initializeSignalsPage() {
+                const signalsPageLink = document.getElementById('signalsPageLink');
+                const viewSignalsBtn = document.getElementById('viewSignalsBtn');
+                const signalsPage = document.getElementById('signalsPage');
+                const closeSignalsPage = document.getElementById('closeSignalsPage');
+
+                // Open signals page
+                const openSignalsPage = (e) => {
+                    e.preventDefault();
+                    signalsPage.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                };
+
+                // Close signals page
+                const closeSignalsPageFunc = () => {
+                    signalsPage.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                };
+
+                if (signalsPageLink) signalsPageLink.addEventListener('click', openSignalsPage);
+                if (viewSignalsBtn) viewSignalsBtn.addEventListener('click', openSignalsPage);
+                if (closeSignalsPage) closeSignalsPage.addEventListener('click', closeSignalsPageFunc);
+
+                // Close on ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && signalsPage.style.display === 'block') {
+                        closeSignalsPageFunc();
+                    }
                 });
             }
 
