@@ -5,31 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VolatilityPlus | Synthetic Indices Trading Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #FFC107;
-            --secondary: #FF9800;
+            --primary-light: #FFECB3;
+            --primary-dark: #FFA000;
+            --secondary: #212121;
+            --secondary-light: #424242;
             --accent: #FF5722;
-            --dark: #212121;
-            --light: #F5F5F5;
+            --dark: #121212;
+            --light: #FAFAFA;
             --text: #333333;
             --text-light: #757575;
             --card-bg: #ffffff;
-            --header-bg: #212121;
+            --header-bg: rgba(18, 18, 18, 0.95);
             --success: #4CAF50;
             --danger: #F44336;
             --tool-card: #FFF8E1;
+            --gradient: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: #f8fafc;
+            background-color: var(--light);
             color: var(--text);
             line-height: 1.6;
         }
@@ -48,7 +55,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -83,6 +91,22 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
         }
 
         nav ul li a:hover {
@@ -95,12 +119,19 @@
         }
 
         .btn {
-            padding: 8px 20px;
-            border-radius: 4px;
+            padding: 10px 22px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
         }
 
         .btn-outline {
@@ -110,8 +141,9 @@
         }
 
         .btn-primary {
-            background-color: var(--primary);
+            background: var(--gradient);
             color: var(--dark);
+            box-shadow: var(--shadow);
         }
 
         .btn-outline:hover {
@@ -119,34 +151,54 @@
         }
 
         .btn-primary:hover {
-            background-color: #FFA000;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(to right, #212121, #424242);
+            background: linear-gradient(to right, var(--dark), var(--secondary-light));
             color: white;
-            padding: 60px 0;
+            padding: 100px 0 80px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjAuNSIgZmlsbD0iI0ZGMEEwMCIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==');
+            opacity: 0.1;
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
         }
 
         .hero p {
             font-size: 1.2rem;
             max-width: 700px;
-            margin: 0 auto 30px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
         }
 
         /* Trading Pairs */
         .trading-pairs {
             background-color: var(--dark);
             color: white;
-            padding: 20px 0;
+            padding: 25px 0;
             overflow-x: auto;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .pairs-container {
@@ -156,17 +208,26 @@
         }
 
         .pair {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            min-width: 180px;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .pair:hover {
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
         .pair i {
-            margin-right: 10px;
+            margin-right: 12px;
             color: var(--primary);
+            font-size: 1.2rem;
         }
 
         .pair-info {
@@ -175,35 +236,45 @@
 
         .pair-name {
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .pair-price {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--primary);
+            font-weight: 600;
+            margin-top: 4px;
         }
 
         .pair-change {
             font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
         .positive {
+            background-color: rgba(76, 175, 80, 0.15);
             color: var(--success);
         }
 
         .negative {
+            background-color: rgba(244, 67, 54, 0.15);
             color: var(--danger);
         }
 
         /* Platform Features */
         .features {
-            padding: 60px 0;
+            padding: 80px 0;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             color: var(--dark);
             position: relative;
+            font-size: 2.2rem;
+            font-weight: 700;
         }
 
         .section-title:after {
@@ -211,8 +282,9 @@
             display: block;
             width: 60px;
             height: 4px;
-            background-color: var(--primary);
+            background: var(--gradient);
             margin: 15px auto;
+            border-radius: 2px;
         }
 
         .features-grid {
@@ -223,152 +295,224 @@
 
         .feature-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-            border-top: 4px solid var(--primary);
+            border-radius: 16px;
+            padding: 35px 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
         }
 
         .feature-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 20px;
+            width: 70px;
+            height: 70px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--primary-dark);
         }
 
         .feature-card h3 {
             margin-bottom: 15px;
             color: var(--dark);
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
         }
 
         /* Trading Tools Section */
         .trading-tools {
             background-color: var(--light);
-            padding: 60px 0;
+            padding: 80px 0;
         }
 
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
         .tool-card {
-            background-color: var(--tool-card);
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-            border-left: 4px solid var(--primary);
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
         }
 
         .tool-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
         }
 
         .tool-icon {
             font-size: 2.5rem;
-            color: var(--secondary);
+            color: var(--primary-dark);
             margin-bottom: 20px;
         }
 
         .tool-card h3 {
             margin-bottom: 15px;
             color: var(--dark);
+            font-size: 1.4rem;
+        }
+
+        .tool-card ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .tool-card ul li {
+            margin-bottom: 10px;
+            padding-left: 22px;
+            position: relative;
+        }
+
+        .tool-card ul li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
         }
 
         .price-tag {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--secondary);
-            margin: 20px 0;
+            color: var(--primary-dark);
+            margin: 25px 0;
         }
 
         /* Signals Section */
         .signals {
-            padding: 60px 0;
+            padding: 80px 0;
+            background-color: #f8f9fa;
         }
 
         .signal-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
 
         .signal-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-            border-top: 4px solid var(--primary);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .signal-card:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
 
         .signal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .signal-type {
             background-color: var(--primary);
             color: var(--dark);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 700;
             font-size: 0.9rem;
         }
 
         .signal-meta {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
+            margin-top: 20px;
             color: var(--text-light);
             font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         /* Testimonials */
         .testimonials {
-            background-color: var(--dark);
+            background: linear-gradient(to right, var(--dark), var(--secondary-light));
             color: white;
-            padding: 60px 0;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjAuNSIgZmlsbD0iI0ZGMEEwMCIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==');
+            opacity: 0.1;
         }
 
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .testimonial-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
             padding: 30px;
             position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .testimonial-card:before {
             content: '"';
-            font-size: 4rem;
+            font-size: 5rem;
             color: var(--primary);
             opacity: 0.2;
             position: absolute;
             top: 10px;
             left: 15px;
+            line-height: 1;
         }
 
         .testimonial-text {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-style: italic;
+            position: relative;
+            z-index: 1;
         }
 
         .testimonial-author {
@@ -380,7 +524,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: var(--primary);
+            background: var(--gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -393,20 +537,32 @@
         footer {
             background-color: var(--dark);
             color: white;
-            padding: 60px 0 30px;
+            padding: 80px 0 30px;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         .footer-column h3 {
             color: var(--primary);
             margin-bottom: 20px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
         }
 
         .footer-column ul {
@@ -414,17 +570,19 @@
         }
 
         .footer-column ul li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .footer-column ul li a {
             color: #d1d5db;
             text-decoration: none;
             transition: color 0.3s;
+            display: inline-block;
         }
 
         .footer-column ul li a:hover {
             color: var(--primary);
+            transform: translateX(5px);
         }
 
         .social-icons {
@@ -434,19 +592,28 @@
         }
 
         .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 1.2rem;
-            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s;
         }
 
         .social-icons a:hover {
-            color: var(--primary);
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
         }
 
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #374151;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #9ca3af;
             font-size: 0.9rem;
         }
@@ -463,16 +630,23 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background-color: white;
-            padding: 30px;
-            border-radius: 8px;
+            padding: 35px;
+            border-radius: 16px;
             width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            box-shadow: var(--shadow-hover);
             position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .close-modal {
@@ -482,12 +656,19 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--dark);
         }
 
         .modal-title {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--dark);
             text-align: center;
+            font-size: 1.6rem;
+            font-weight: 600;
         }
 
         .form-group {
@@ -498,22 +679,31 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: var(--dark);
         }
 
         .form-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
         }
 
         /* Loading spinner */
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top: 4px solid var(--primary);
-            width: 30px;
-            height: 30px;
+            border-top: 3px solid var(--primary);
+            width: 25px;
+            height: 25px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
@@ -524,6 +714,16 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -540,8 +740,8 @@
                 margin: 5px 10px;
             }
             
-            .platform-container {
-                grid-template-columns: 1fr;
+            .hero {
+                padding: 80px 0 60px;
             }
             
             .hero h1 {
@@ -550,6 +750,18 @@
             
             .hero p {
                 font-size: 1rem;
+            }
+            
+            .features-grid,
+            .tools-grid,
+            .signal-cards,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
         }
     </style>
@@ -572,8 +784,8 @@
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <button class="btn btn-outline" id="loginBtn">Login</button>
-                <button class="btn btn-primary" id="registerBtn">Register</button>
+                <button class="btn btn-outline" id="loginBtn"><i class="fas fa-sign-in-alt"></i>Login</button>
+                <button class="btn btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i>Register</button>
             </div>
         </div>
     </header>
@@ -583,7 +795,7 @@
         <div class="container">
             <h1>Advanced Tools for Synthetic Indices Trading</h1>
             <p>Professional trading tools, signals, and expert advisors for Boom & Crash and Jump indices</p>
-            <button class="btn btn-primary" id="startTradingBtn">Get Started Today</button>
+            <button class="btn btn-primary" id="startTradingBtn"><i class="fas fa-rocket"></i>Get Started Today</button>
         </div>
     </section>
 
@@ -598,7 +810,7 @@
                         <div class="pair-price" id="vix-price">Loading...</div>
                     </div>
                     <div class="pair-change" id="vix-change">
-                        <div class="spinner" style="width: 20px; height: 20px;"></div>
+                        <div class="spinner"></div>
                     </div>
                 </div>
                 <div class="pair">
@@ -608,7 +820,7 @@
                         <div class="pair-price" id="boom-price">Loading...</div>
                     </div>
                     <div class="pair-change" id="boom-change">
-                        <div class="spinner" style="width: 20px; height: 20px;"></div>
+                        <div class="spinner"></div>
                     </div>
                 </div>
                 <div class="pair">
@@ -618,7 +830,7 @@
                         <div class="pair-price" id="crash-price">Loading...</div>
                     </div>
                     <div class="pair-change" id="crash-change">
-                        <div class="spinner" style="width: 20px; height: 20px;"></div>
+                        <div class="spinner"></div>
                     </div>
                 </div>
                 <div class="pair">
@@ -628,7 +840,7 @@
                         <div class="pair-price" id="jump50-price">Loading...</div>
                     </div>
                     <div class="pair-change" id="jump50-change">
-                        <div class="spinner" style="width: 20px; height: 20px;"></div>
+                        <div class="spinner"></div>
                     </div>
                 </div>
                 <div class="pair">
@@ -638,7 +850,7 @@
                         <div class="pair-price" id="jump75-price">Loading...</div>
                     </div>
                     <div class="pair-change" id="jump75-change">
-                        <div class="spinner" style="width: 20px; height: 20px;"></div>
+                        <div class="spinner"></div>
                     </div>
                 </div>
             </div>
@@ -656,7 +868,7 @@
                     </div>
                     <h3>Advanced Expert Advisors</h3>
                     <p>Our EAs are specifically designed for synthetic indices with adaptive algorithms that adjust to market volatility.</p>
-                    <button class="btn btn-primary">Learn More</button>
+                    <button class="btn btn-outline">Learn More</button>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -664,7 +876,7 @@
                     </div>
                     <h3>Real-time Signals</h3>
                     <p>Get accurate trading signals with detailed entry, stop loss, and take profit levels for Boom & Crash indices.</p>
-                    <button class="btn btn-primary">View Signals</button>
+                    <button class="btn btn-outline">View Signals</button>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -672,15 +884,7 @@
                     </div>
                     <h3>Custom Indicators</h3>
                     <p>Specialized indicators that help identify volatility patterns and potential crash/boom moments.</p>
-                    <button class="btn btn-primary">Explore Tools</button>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Mobile Alerts</h3>
-                    <p>Receive instant notifications on your mobile device for critical market movements and signal triggers.</p>
-                    <button class="btn btn-primary">Get Alerts</button>
+                    <button class="btn btn-outline">Explore Tools</button>
                 </div>
             </div>
         </div>
@@ -704,7 +908,7 @@
                         <li>24/7 trading capability</li>
                     </ul>
                     <div class="price-tag">$249</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Volatility EA Pro">Purchase Now</button>
+                    <button class="btn btn-primary purchase-btn" data-product="Volatility EA Pro"><i class="fas fa-shopping-cart"></i>Purchase Now</button>
                 </div>
                 <div class="tool-card">
                     <div class="tool-icon">
@@ -719,7 +923,7 @@
                         <li>Visual & audio alerts</li>
                     </ul>
                     <div class="price-tag">$149</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Boom & Crash Indicator">Purchase Now</button>
+                    <button class="btn btn-primary purchase-btn" data-product="Boom & Crash Indicator"><i class="fas fa-shopping-cart"></i>Purchase Now</button>
                 </div>
                 <div class="tool-card">
                     <div class="tool-icon">
@@ -734,7 +938,7 @@
                         <li>24/7 support</li>
                     </ul>
                     <div class="price-tag">$99/month</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Signal Service Premium">Subscribe Now</button>
+                    <button class="btn btn-primary purchase-btn" data-product="Signal Service Premium"><i class="fas fa-shopping-cart"></i>Subscribe Now</button>
                 </div>
             </div>
         </div>
@@ -759,7 +963,7 @@
                         <span>TP: 16,000</span>
                         <span>Result: +800 pts</span>
                     </div>
-                    <button class="btn btn-outline" style="margin-top: 15px; width: 100%;">View Details</button>
+                    <button class="btn btn-outline" style="margin-top: 20px; width: 100%;"><i class="fas fa-chart-line"></i>View Details</button>
                 </div>
                 <div class="signal-card">
                     <div class="signal-header">
@@ -775,7 +979,7 @@
                         <span>TP: 7,900</span>
                         <span>Result: +600 pts</span>
                     </div>
-                    <button class="btn btn-outline" style="margin-top: 15px; width: 100%;">View Details</button>
+                    <button class="btn btn-outline" style="margin-top: 20px; width: 100%;"><i class="fas fa-chart-line"></i>View Details</button>
                 </div>
                 <div class="signal-card">
                     <div class="signal-header">
@@ -791,11 +995,11 @@
                         <span>TP: 585.00</span>
                         <span>Result: +34.6 pts</span>
                     </div>
-                    <button class="btn btn-outline" style="margin-top: 15px; width: 100%;">View Details</button>
+                    <button class="btn btn-outline" style="margin-top: 20px; width: 100%;"><i class="fas fa-chart-line"></i>View Details</button>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn btn-primary">View All Signals</button>
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary"><i class="fas fa-list"></i>View All Signals</button>
             </div>
         </div>
     </section>
@@ -829,21 +1033,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        As someone new to synthetic indices, these tools have been invaluable. The indicators help me understand market patterns and make informed trading decisions.
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">RD</div>
-                        <div>
-                            <h4>Robert Davis</h4>
-                            <p>Swing Trader</p>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn btn-primary">Share Your Experience</button>
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary"><i class="fas fa-star"></i>Share Your Experience</button>
             </div>
         </div>
     </section>
@@ -910,9 +1102,9 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-sign-in-alt"></i>Login</button>
             </form>
-            <p style="text-align: center; margin-top: 15px;">
+            <p style="text-align: center; margin-top: 20px;">
                 <a href="#" style="color: var(--primary);">Forgot your password?</a>
             </p>
         </div>
@@ -940,7 +1132,7 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-user-plus"></i>Register</button>
             </form>
         </div>
     </div>
@@ -960,7 +1152,7 @@
                         <option value="crypto">Cryptocurrency</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" style="width: 100%;" id="completePurchase">Complete Purchase</button>
+                <button class="btn btn-primary" style="width: 100%;" id="completePurchase"><i class="fas fa-check-circle"></i>Complete Purchase</button>
             </div>
         </div>
     </div>
@@ -971,9 +1163,9 @@
             <span class="close-modal">&times;</span>
             <h2 class="modal-title">Start Trading Today</h2>
             <p>Choose a plan that works best for your trading needs:</p>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" id="basicPlan">Basic Tools Package ($99)</button>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="proPlan">Pro Trader Suite ($249)</button>
-            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" id="signalPlan">Signals Only ($49/month)</button>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" id="basicPlan"><i class="fas fa-box"></i>Basic Tools Package ($99)</button>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="proPlan"><i class="fas fa-crown"></i>Pro Trader Suite ($249)</button>
+            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" id="signalPlan"><i class="fas fa-bell"></i>Signals Only ($49/month)</button>
         </div>
     </div>
 
