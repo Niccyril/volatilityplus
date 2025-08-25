@@ -1418,6 +1418,10 @@
                 <span><i class="fas fa-crown"></i> Both Indicators Bundle</span>
                 <span style="font-weight: 700;">$99</span>
             </button>
+            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 15px; padding: 15px; justify-content: space-between;" id="vipPlan">
+                <span><i class="fas fa-star"></i> VIP Signal Service</span>
+                <span style="font-weight: 700;">$25.99/month</span>
+            </button>
             
             <div style="text-align: center; margin-top: 20px; padding: 15px; background: var(--primary-light); border-radius: 8px;">
                 <small style="color: var(--text-light);">✨ 30-day money-back guarantee on all plans</small>
@@ -1468,7 +1472,7 @@
                 <!-- Pricing -->
                 <div style="text-align: center; margin-top: 50px; padding: 50px; background: var(--primary-light); border-radius: 20px;">
                     <h2 style="margin-bottom: 20px; color: var(--dark);">VIP Signal Service</h2>
-                    <div style="font-size: 3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 20px;">$147/month</div>
+                    <div style="font-size: 3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 20px;">$25.99/month</div>
                     <ul style="list-style: none; margin: 30px 0; max-width: 400px; margin-left: auto; margin-right: auto;">
                         <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
                             <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
@@ -1619,6 +1623,11 @@
 
                 document.getElementById('signalPlan').addEventListener('click', () => {
                     this.showNotification('Redirecting to Bundle Package checkout...', 'info');
+                    this.hideAllModals();
+                });
+
+                document.getElementById('vipPlan').addEventListener('click', () => {
+                    this.showNotification('Redirecting to VIP Signal Service checkout...', 'info');
                     this.hideAllModals();
                 });
 
