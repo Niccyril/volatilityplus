@@ -31,6 +31,266 @@
             --glow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
+        /* Market Sentiment Indicator */
+        .market-sentiment {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-sentiment::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="sentiment-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23sentiment-grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .sentiment-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 800px;
+            margin: 0 auto;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sentiment-card h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sentiment-gauge-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .sentiment-gauge {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .gauge-track {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+            border-radius: 100px 100px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gauge-track::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 95px 95px 0 0;
+        }
+
+        .gauge-fill {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            height: 40px;
+            background: linear-gradient(90deg, #dc2626 0%, #d97706 50%, #059669 100%);
+            border-radius: 95px 95px 0 0;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gauge-pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 55px;
+            background: white;
+            border-radius: 2px;
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(67deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .pointer-dot {
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .label-center {
+            transform: translateX(-50%);
+        }
+
+        .sentiment-info {
+            text-align: center;
+        }
+
+        .sentiment-value {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sentiment-value #sentimentPercentage {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .sentiment-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 5px;
+            color: #10b981;
+        }
+
+        .sentiment-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .sentiment-trend {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .trend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trend-item.bullish {
+            color: #10b981;
+        }
+
+        .trend-item.bearish {
+            color: #ef4444;
+        }
+
+        .trend-item i {
+            font-size: 1.1rem;
+        }
+
+        .trend-item span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .trend-bar {
+            width: 60px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .trend-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+
+        .trend-item.bullish .trend-fill {
+            background: #10b981;
+        }
+
+        .trend-item.bearish .trend-fill {
+            background: #ef4444;
+        }
+
+        /* Responsive adjustments for sentiment */
+        @media (max-width: 768px) {
+            .sentiment-gauge-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .sentiment-gauge {
+                width: 180px;
+            }
+
+            .sentiment-details {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .sentiment-trend {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -1099,6 +1359,65 @@
         </div>
     </section>
 
+    <!-- Market Sentiment Indicator -->
+    <section class="market-sentiment">
+        <div class="container">
+            <div class="sentiment-card">
+                <h3><i class="fas fa-chart-bar"></i> Market Sentiment</h3>
+                <div class="sentiment-gauge-container">
+                    <div class="sentiment-gauge">
+                        <div class="gauge-track"></div>
+                        <div class="gauge-fill" id="gaugeFill"></div>
+                        <div class="gauge-pointer" id="gaugePointer">
+                            <div class="pointer-dot"></div>
+                        </div>
+                        <div class="gauge-labels">
+                            <span class="label-left">Bearish</span>
+                            <span class="label-center">Neutral</span>
+                            <span class="label-right">Bullish</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-info">
+                        <div class="sentiment-value">
+                            <span id="sentimentPercentage">67</span>%
+                            <span class="sentiment-label" id="sentimentLabel">Bullish</span>
+                        </div>
+                        <div class="sentiment-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Bulls:</span>
+                                <span class="detail-value" id="bullsCount">1,247</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Bears:</span>
+                                <span class="detail-value" id="bearsCount">613</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Updated:</span>
+                                <span class="detail-value" id="lastUpdate">2 min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentiment-trend">
+                    <div class="trend-item bullish">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Bullish Trend</span>
+                        <div class="trend-bar">
+                            <div class="trend-fill" style="width: 67%;"></div>
+                        </div>
+                    </div>
+                    <div class="trend-item bearish">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>Bearish Trend</span>
+                        <div class="trend-bar">
+                            <div class="trend-fill" style="width: 33%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Platform Features -->
     <section class="features">
         <div class="container">
@@ -2019,6 +2338,7 @@
             new NavigationManager();
             new CounterManager();
             new InteractionManager();
+            new SentimentManager();
 
             // Add loading complete effect
             document.body.style.opacity = '0';
