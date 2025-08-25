@@ -542,7 +542,7 @@
         }
 
         .tool-features li::before {
-            content: '✓';
+            content: 'âœ"';
             position: absolute;
             left: 0;
             color: var(--success);
@@ -918,81 +918,6 @@
                 font-size: 3.2rem;
             }
             
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .features-grid,
-            .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                position: relative;
-            }
-
-            .hero {
-                margin-top: 0;
-                padding: 100px 0 80px;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .hero-stats {
-                gap: 30px;
-                flex-direction: column;
-            }
-            
-            .features-grid,
-            .tools-grid,
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .modal-content {
-                padding: 30px;
-                margin: 20px;
-            }
-
-            .pairs-container {
-                gap: 15px;
-            }
-
-            .pair {
-                min-width: 250px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
             .section-title {
                 font-size: 2rem;
             }
@@ -1477,69 +1402,8 @@
                     </div>
                 </div>
 
-                <!-- Live Signals Feed -->
-                <div style="margin-bottom: 50px;">
-                    <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark);">Live Signals Feed</h2>
-                    <div style="max-width: 600px; margin: 0 auto;">
-                        <div class="signal-card" style="margin-bottom: 20px;">
-                            <div class="signal-header">
-                                <h3>BOOM 1000</h3>
-                                <span class="signal-type">BUY</span>
-                            </div>
-                            <div class="signal-stats">
-                                <div class="signal-stat">
-                                    <div class="stat-label">Entry</div>
-                                    <div class="stat-value">1,547.20</div>
-                                </div>
-                                <div class="signal-stat">
-                                    <div class="stat-label">SL</div>
-                                    <div class="stat-value">1,523.40</div>
-                                </div>
-                                <div class="signal-stat">
-                                    <div class="stat-label">TP</div>
-                                    <div class="stat-value">1,595.80</div>
-                                </div>
-                            </div>
-                            <div class="signal-result">
-                                <div class="result-label">Status</div>
-                                <div class="result-value" style="color: var(--primary);">ACTIVE</div>
-                            </div>
-                        </div>
-                        <div class="signal-card">
-                            <div class="signal-header">
-                                <h3>CRASH 1000</h3>
-                                <span class="signal-type sell">SELL</span>
-                            </div>
-                            <div class="signal-stats">
-                                <div class="signal-stat">
-                                    <div class="stat-label">Entry</div>
-                                    <div class="stat-value">1,204.15</div>
-                                </div>
-                                <div class="signal-stat">
-                                    <div class="stat-label">SL</div>
-                                    <div class="stat-value">1,225.80</div>
-                                </div>
-                                <div class="signal-stat">
-                                    <div class="stat-label">TP</div>
-                                    <div class="stat-value">1,168.25</div>
-                                </div>
-                            </div>
-                            <div class="signal-result">
-                                <div class="result-label">Result</div>
-                                <div class="result-value">+35.9 pts</div>
-                            </div>
-                        </div>
-                        <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(255, 215, 0, 0.1); border-radius: 8px; border: 1px solid rgba(255, 215, 0, 0.3);">
-                            <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">
-                                <i class="fas fa-clock" style="margin-right: 8px; color: var(--primary);"></i>
-                                Signals updated in real-time • Last update: 2 minutes ago
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Pricing -->
-                <div style="text-align: center; margin-top: 0px; padding: 50px; background: var(--primary-light); border-radius: 20px;">
+                <div style="text-align: center; margin-top: 50px; padding: 50px; background: var(--primary-light); border-radius: 20px;">
                     <h2 style="margin-bottom: 20px; color: var(--dark);">VIP Signal Service</h2>
                     <div style="font-size: 3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 20px;">$147/month</div>
                     <ul style="list-style: none; margin: 30px 0; max-width: 400px; margin-left: auto; margin-right: auto;">
@@ -1643,485 +1507,79 @@
                 });
 
                 // Register form
-                document.getElementById('registerForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const password = document.getElementById('regPassword').value;
-                    const confirmPassword = document.getElementById('confirmPassword').value;
-                    
-                    if (password !== confirmPassword) {
-                        this.showNotification('Passwords do not match!', 'error');
-                        return;
-                    }
-                    
-                    this.showNotification('Account created successfully! Check your email for verification.', 'success');
-                    this.hideAllModals();
-                });
-
-                // Purchase form
-                document.getElementById('completePurchase').addEventListener('click', () => {
-                    const paymentMethod = document.getElementById('paymentMethod').value;
-                    if (!paymentMethod) {
-                        this.showNotification('Please select a cryptocurrency for payment.', 'error');
-                        return;
-                    }
-                    
-                    const cryptoNames = {
-                        bitcoin: 'Bitcoin (BTC)',
-                        ethereum: 'Ethereum (ETH)', 
-                        usdt: 'Tether (USDT)',
-                        usdc: 'USD Coin (USDC)',
-                        bnb: 'Binance Coin (BNB)',
-                        ada: 'Cardano (ADA)',
-                        sol: 'Solana (SOL)'
-                    };
-                    
-                    this.showNotification(`Processing ${cryptoNames[paymentMethod]} payment... You will receive wallet address shortly.`, 'success');
-                    this.hideAllModals();
-                });
-
-                // Trading plans
-                document.getElementById('basicPlan').addEventListener('click', () => {
-                    this.showNotification('Redirecting to Mega Spikes Max checkout...', 'info');
-                    this.hideAllModals();
-                });
-
-                document.getElementById('proPlan').addEventListener('click', () => {
-                    this.showNotification('Redirecting to Spike Phantom checkout...', 'info');
-                    this.hideAllModals();
-                });
-
-                document.getElementById('signalPlan').addEventListener('click', () => {
-                    this.showNotification('Redirecting to Bundle Package checkout...', 'info');
-                    this.hideAllModals();
-                });
-
-                // View Indicators button
-                document.getElementById('viewIndicatorsBtn').addEventListener('click', () => {
-                    const toolsSection = document.getElementById('tools');
-                    if (toolsSection) {
-                        const headerOffset = 80;
-                        const elementPosition = toolsSection.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+                document.getElementById('registerForm').addEventListener('submit',.5rem;
             }
 
-            showNotification(message, type = 'info') {
-                const notification = document.getElementById('notification');
-                notification.textContent = message;
-                notification.className = `notification ${type}`;
-                notification.classList.add('show');
-
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 4000);
+            .features-grid,
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
 
-        // Enhanced Price Update System with Deriv API
-        class PriceManager {
-            constructor() {
-                this.wsConnections = new Map();
-                this.indices = [
-                    { id: 'vix', symbol: 'R_75', name: 'Volatility 75 Index' },
-                    { id: 'boom', symbol: 'BOOM1000', name: 'Boom 1000 Index' },
-                    { id: 'crash', symbol: 'CRASH1000', name: 'Crash 1000 Index' },
-                    { id: 'jump50', symbol: 'JD50', name: 'Jump 50 Index' },
-                    { id: 'jump75', symbol: 'JD75', name: 'Jump 75 Index' },
-                    { id: 'vol100', symbol: 'R_100', name: 'Volatility 100 Index' }
-                ];
-                
-                this.currentPrices = new Map();
-                this.previousPrices = new Map();
-                this.initializeWebSocketConnections();
+        @media (max-width: 768px) {
+            header {
+                position: relative;
             }
 
-            initializeWebSocketConnections() {
-                // Connect to Deriv's WebSocket API for real-time prices
-                try {
-                    const ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
-                    
-                    ws.onopen = () => {
-                        console.log('Connected to Deriv WebSocket');
-                        this.subscribeToTicks(ws);
-                    };
-
-                    ws.onmessage = (event) => {
-                        const data = JSON.parse(event.data);
-                        this.handleTickData(data);
-                    };
-
-                    ws.onerror = (error) => {
-                        console.error('WebSocket error:', error);
-                        // Fallback to simulation if WebSocket fails
-                        this.fallbackToSimulation();
-                    };
-
-                    ws.onclose = () => {
-                        console.log('WebSocket connection closed, attempting to reconnect...');
-                        setTimeout(() => this.initializeWebSocketConnections(), 5000);
-                    };
-
-                    this.mainWs = ws;
-                } catch (error) {
-                    console.error('Failed to connect to Deriv API:', error);
-                    this.fallbackToSimulation();
-                }
+            .hero {
+                margin-top: 0;
+                padding: 100px 0 80px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
             }
 
-            subscribeToTicks(ws) {
-                this.indices.forEach(index => {
-                    const subscribeMessage = {
-                        ticks: index.symbol,
-                        subscribe: 1
-                    };
-                    ws.send(JSON.stringify(subscribeMessage));
-                });
+            .hero-stats {
+                gap: 30px;
+                flex-direction: column;
+            }
+            
+            .features-grid,
+            .tools-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
 
-            handleTickData(data) {
-                if (data.tick) {
-                    const symbol = data.tick.symbol;
-                    const price = parseFloat(data.tick.quote);
-                    
-                    // Find corresponding index
-                    const index = this.indices.find(idx => idx.symbol === symbol);
-                    if (index) {
-                        const previousPrice = this.currentPrices.get(index.id) || price;
-                        this.previousPrices.set(index.id, previousPrice);
-                        this.currentPrices.set(index.id, price);
-                        
-                        this.updatePriceDisplay(index.id, price, previousPrice);
-                    }
-                }
+            .modal-content {
+                padding: 30px;
+                margin: 20px;
             }
 
-            updatePriceDisplay(indexId, currentPrice, previousPrice) {
-                const priceElement = document.getElementById(`${indexId}-price`);
-                const changeElement = document.getElementById(`${indexId}-change`);
-                
-                if (priceElement && changeElement) {
-                    // Format price based on index type
-                    const formattedPrice = indexId.includes('vol') || indexId === 'vix' 
-                        ? currentPrice.toFixed(0)
-                        : currentPrice.toFixed(2);
-                    
-                    priceElement.textContent = formattedPrice;
-                    
-                    // Calculate percentage change
-                    const percentChange = ((currentPrice - previousPrice) / previousPrice) * 100;
-                    const changeText = (percentChange > 0 ? '+' : '') + percentChange.toFixed(2) + '%';
-                    changeElement.textContent = changeText;
-                    
-                    // Update styling with animation
-                    changeElement.style.transition = 'all 0.3s ease';
-                    
-                    if (percentChange > 0) {
-                        changeElement.className = 'pair-change positive';
-                        priceElement.style.color = 'var(--success)';
-                    } else if (percentChange < 0) {
-                        changeElement.className = 'pair-change negative';
-                        priceElement.style.color = 'var(--danger)';
-                    } else {
-                        changeElement.className = 'pair-change';
-                        priceElement.style.color = 'var(--primary)';
-                    }
-                    
-                    // Reset price color after animation
-                    setTimeout(() => {
-                        priceElement.style.color = 'var(--primary)';
-                    }, 1000);
-                }
+            .pairs-container {
+                gap: 15px;
             }
 
-            fallbackToSimulation() {
-                console.log('Using simulated price data as fallback');
-                
-                // Fallback price bases (approximate real values)
-                const fallbackData = [
-                    { id: 'vix', base: 2847592, volatility: 15000 },
-                    { id: 'boom', base: 1547.83, volatility: 25 },
-                    { id: 'crash', base: 1204.67, volatility: 20 },
-                    { id: 'jump50', base: 48.92, volatility: 2 },
-                    { id: 'jump75', base: 73.45, volatility: 3 },
-                    { id: 'vol100', base: 4792845, volatility: 25000 }
-                ];
-
-                // Initialize with fallback prices
-                fallbackData.forEach(item => {
-                    this.currentPrices.set(item.id, item.base);
-                    this.previousPrices.set(item.id, item.base);
-                });
-
-                // Update prices every 2 seconds with realistic simulation
-                setInterval(() => {
-                    fallbackData.forEach(item => {
-                        const currentPrice = this.currentPrices.get(item.id);
-                        const volatilityFactor = 0.1 + Math.random() * 0.4;
-                        const direction = Math.random() > 0.51 ? 1 : -1;
-                        const change = direction * item.volatility * volatilityFactor * Math.random();
-                        
-                        const newPrice = Math.max(currentPrice + change, item.base * 0.85);
-                        this.previousPrices.set(item.id, currentPrice);
-                        this.currentPrices.set(item.id, newPrice);
-                        
-                        this.updatePriceDisplay(item.id, newPrice, currentPrice);
-                    });
-                }, 2000);
+            .pair {
+                min-width: 250px;
             }
         }
 
-        // Enhanced Navigation System
-        class NavigationManager {
-            constructor() {
-                this.initializeNavigation();
-                this.initializeScrollEffects();
-                this.initializeSignalsPage();
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
             }
 
-            initializeNavigation() {
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetId = link.getAttribute('href');
-                        
-                        if (targetId && targetId !== '#' && !link.id) {
-                            const targetElement = document.querySelector(targetId);
-                            if (targetElement) {
-                                const headerOffset = 80;
-                                const elementPosition = targetElement.getBoundingClientRect().top;
-                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                                window.scrollTo({
-                                    top: offsetPosition,
-                                    behavior: 'smooth'
-                                });
-                            }
-                        }
-                    });
-                });
-            }
-
-            initializeSignalsPage() {
-                const signalsPageLink = document.getElementById('signalsPageLink');
-                const signalsPage = document.getElementById('signalsPage');
-                const closeSignalsPage = document.getElementById('closeSignalsPage');
-
-                // Open signals page
-                const openSignalsPage = (e) => {
-                    e.preventDefault();
-                    signalsPage.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                };
-
-                // Close signals page
-                const closeSignalsPageFunc = () => {
-                    signalsPage.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                };
-
-                if (signalsPageLink) signalsPageLink.addEventListener('click', openSignalsPage);
-                if (closeSignalsPage) closeSignalsPage.addEventListener('click', closeSignalsPageFunc);
-
-                // Close on ESC key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && signalsPage.style.display === 'block') {
-                        closeSignalsPageFunc();
-                    }
-                });
-            }
-
-            initializeScrollEffects() {
-                const header = document.querySelector('header');
-                let lastScrollTop = 0;
-
-                window.addEventListener('scroll', () => {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    // Header hide/show effect
-                    if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        header.style.transform = 'translateY(-100%)';
-                    } else {
-                        header.style.transform = 'translateY(0)';
-                    }
-                    
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                });
-            }
-        }
-
-        // Animated Counter System
-        class CounterManager {
-            constructor() {
-                this.initializeCounters();
-            }
-
-            initializeCounters() {
-                const observerOptions = {
-                    threshold: 0.5,
-                    rootMargin: '0px 0px -50px 0px'
-                };
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            this.animateCounter(entry.target);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, observerOptions);
-
-                // Observe stat numbers
-                document.querySelectorAll('.stat-number, .metric-number').forEach(counter => {
-                    observer.observe(counter);
-                });
-            }
-
-            animateCounter(element) {
-                const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-
-                const updateCounter = () => {
-                    current += step;
-                    if (current < target) {
-                        element.textContent = this.formatNumber(Math.floor(current), element);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        element.textContent = this.formatNumber(target, element);
-                    }
-                };
-
-                updateCounter();
-            }
-
-            formatNumber(number, element) {
-                const originalText = element.textContent;
-                
-                if (originalText.includes('+') && originalText.includes('%')) {
-                    return `+${number}%`;
-                } else if (originalText.includes('%')) {
-                    return `${number}%`;
-                } else if (originalText.includes('M+')) {
-                    return `${(number / 1000000).toFixed(1)}M+`;
-                } else if (originalText.includes('K+')) {
-                    return `${(number / 1000).toFixed(0)}K+`;
-                } else if (originalText.includes(':')) {
-                    return `${(number / 10).toFixed(1)}:1`;
-                } else if (originalText.includes('/')) {
-                    return '24/7';
-                } else {
-                    return number.toLocaleString();
-                }
-            }
-        }
-
-        // Button Interaction Effects
-        class InteractionManager {
-            constructor() {
-                this.initializeButtonEffects();
-                this.initializeCardEffects();
-            }
-
-            initializeButtonEffects() {
-                document.querySelectorAll('.btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        // Ripple effect
-                        const rect = button.getBoundingClientRect();
-                        const size = Math.max(rect.width, rect.height);
-                        const x = e.clientX - rect.left - size / 2;
-                        const y = e.clientY - rect.top - size / 2;
-
-                        const ripple = document.createElement('span');
-                        ripple.style.cssText = `
-                            position: absolute;
-                            width: ${size}px;
-                            height: ${size}px;
-                            left: ${x}px;
-                            top: ${y}px;
-                            background: rgba(255, 255, 255, 0.3);
-                            border-radius: 50%;
-                            transform: scale(0);
-                            animation: ripple 0.6s linear;
-                            pointer-events: none;
-                        `;
-
-                        button.style.position = 'relative';
-                        button.style.overflow = 'hidden';
-                        button.appendChild(ripple);
-
-                        setTimeout(() => {
-                            ripple.remove();
-                        }, 600);
-                    });
-                });
-            }
-
-            initializeCardEffects() {
-                // Parallax effect for cards
-                document.querySelectorAll('.feature-card, .tool-card').forEach(card => {
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-                        
-                        const rotateX = (y - centerY) / 20;
-                        const rotateY = (centerX - x) / 20;
-                        
-                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-                    });
-
-                    card.addEventListener('mouseleave', () => {
-                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-                    });
-                });
-            }
-        }
-
-        // Add ripple animation CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Initialize all systems when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new ModalManager();
-            new PriceManager();
-            new NavigationManager();
-            new CounterManager();
-            new InteractionManager();
-
-            // Add loading complete effect
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.transition = 'opacity 0.5s ease';
-                document.body.style.opacity = '1';
-            }, 100);
-
-            console.log('VolatilityPlus Enhanced Platform Loaded Successfully! 🚀');
-        });
-
-        // Performance monitoring
-        window.addEventListener('load', () => {
-            const loadTime = performance.now();
-            console.log(`Page loaded in ${Math.round(loadTime)}ms`);
-        });
-    </script>
-</body>
-</html>
+            .section-title {
+                font-size: 2
