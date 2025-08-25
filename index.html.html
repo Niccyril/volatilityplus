@@ -1,3 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VolatilityPlus | Professional Synthetic Indices Trading Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --primary-light: #FFF8DC;
+            --primary-dark: #FFA500;
+            --secondary: #1a1a2e;
+            --secondary-light: #16213e;
+            --accent: #FF6B35;
+            --accent-secondary: #00D4FF;
+            --dark: #0f0f23;
+            --light: #FAFAFA;
+            --text: #333333;
+            --text-light: #6B7280;
+            --card-bg: #ffffff;
+            --header-bg: rgba(15, 15, 35, 0.95);
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%);
+            --gradient-secondary: linear-gradient(135deg, #00D4FF 0%, #0EA5E9 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --glow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Market Sentiment Indicator */
+        .market-sentiment {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-sentiment::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="sentiment-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23sentiment-grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .sentiment-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 800px;
+            margin: 0 auto;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sentiment-card h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sentiment-gauge-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .sentiment-gauge {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .gauge-track {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+            border-radius: 100px 100px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gauge-track::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 95px 95px 0 0;
+        }
+
+        .gauge-fill {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            height: 40px;
+            background: linear-gradient(90deg, #dc2626 0%, #d97706 50%, #059669 100%);
+            border-radius: 95px 95px 0 0;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gauge-pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 55px;
+            background: white;
+            border-radius: 2px;
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(67deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .pointer-dot {
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .label-center {
+            transform: translateX(-50%);
+        }
+
+        .sentiment-info {
+            text-align: center;
+        }
+
+        .sentiment-value {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sentiment-value #sentimentPercentage {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .sentiment-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 5px;
+            color: #10b981;
+        }
+
+        .sentiment-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .sentiment-trend {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .trend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trend-item.bullish {
+            color: #10b981;
+        }
+
+        .trend-item.bearish {
+            color: #ef4444;
+        }
+
+        .trend-item i {
+            font-size: 1.1rem;
+        }
+
+        .trend-item span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .trend-bar {
+            width: 60px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .trend-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+
+        .trend-item.bullish .trend-fill {
+            background: #10b981;
+        }
+
+        .trend-item.bearish .trend-fill {
+            background: #ef4444;
+        }
+
+        /* Responsive adjustments for sentiment */
+        @media (max-width: 768px) {
+            .sentiment-card {
+                padding: 25px 20px;
+                margin: 0 15px;
+            }
+
+            .sentiment-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 25px;
+            }
+
+            .sentiment-gauge-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .sentiment-gauge {
+                width: 160px;
+                height: 80px;
+            }
+
+            .sentiment-gauge .gauge-track {
+                height: 40px;
+            }
+
+            .sentiment-gauge .gauge-fill {
+                height: 30px;
+            }
+
+            .sentiment-gauge .gauge-pointer {
+                height: 45px;
+            }
+
+            .sentiment-value #sentimentPercentage {
+                font-size: 2.5rem;
+            }
+
+            .sentiment-label {
+                font-size: 1.1rem;
+            }
+
+            .sentiment-details {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .detail-item {
+                padding: 8px;
+            }
+
+            .sentiment-trend {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .trend-item {
+                padding: 10px;
+            }
+        }
+
+        /* Additional mobile improvements */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            nav ul li a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .auth-buttons {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+
+            .features-grid,
+            .tools-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .pairs-container {
+                gap: 12px;
+                padding: 10px 0;
+            }
+
+            .pair {
+                min-width: 220px;
+                padding: 15px 20px;
+            }
+
+            .pair-name {
+                font-size: 0.9rem;
+            }
+
+            .pair-price {
+                font-size: 1.2rem;
+            }
+
+            .pair-change {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 60px 0 50px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+                margin-bottom: 30px;
+            }
+
+            .hero-stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+            }
+
+            .feature-card,
+            .tool-card {
+                padding: 25px 20px;
+            }
+
+            .feature-card h3,
+            .tool-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .testimonial-card {
+                padding: 20px;
+            }
+
+            .modal-content {
+                padding: 20px;
+                margin: 10px;
+                max-width: 90%;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .sentiment-card {
+                padding: 20px 15px;
+                margin: 0 10px;
+            }
+
+            .sentiment-gauge {
+                width: 140px;
+                height: 70px;
+            }
+
+            .sentiment-value #sentimentPercentage {
+                font-size: 2rem;
+            }
+
+            .gauge-labels {
+                font-size: 0.7rem;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhanced Header */
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary);
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--dark);
+            box-shadow: var(--shadow);
+            font-weight: 700;
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 50%, var(--secondary-light) 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23FFD700" opacity="0.1"/><circle cx="20" cy="20" r="0.5" fill="%23FF6B35" opacity="0.1"/><circle cx="80" cy="80" r="0.8" fill="%2300D4FF" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-0.5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #FFD700 50%, #FF6B35 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-top: 3px;
+        }
+
+        /* Enhanced Trading Pairs */
+        .trading-pairs {
+            background: var(--dark);
+            color: white;
+            padding: 30px 0;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .pairs-container {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) transparent;
+        }
+
+        .pairs-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .pairs-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .pairs-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .pair {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px 25px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            min-width: 280px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pair::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .pair:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .pair:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pair i {
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .pair-info {
+            flex: 1;
+        }
+
+        .pair-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .pair-price {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pair-change {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .positive {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .negative {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* Enhanced Features Section */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            color: var(--dark);
+            position: relative;
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: var(--gradient);
+            margin: 20px auto;
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: var(--shadow);
+            transition: all 0.4s;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            box-shadow: var(--glow);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* Enhanced Trading Tools */
+        .trading-tools {
+            background: var(--dark);
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .trading-tools .section-title {
+            color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+            transform: scaleY(0);
+            transition: transform 0.4s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .tool-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 18px;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+        }
+
+        .tool-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .tool-card p {
+            margin-bottom: 18px;
+            opacity: 0.9;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin: 18px 0 20px;
+        }
+
+        .tool-features li {
+            margin-bottom: 8px;
+            padding-left: 18px;
+            position: relative;
+            opacity: 0.9;
+            font-size: 0.85rem;
+        }
+
+        .tool-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .price-tag {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 20px 0;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Performance Metrics */
+        .performance {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .metric {
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+        }
+
+        .metric:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Enhanced Testimonials */
+        .testimonials {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 6rem;
+            color: var(--primary);
+            opacity: 0.3;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .testimonial-text {
+            margin-bottom: 30px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .author-info p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Enhanced Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 100px 0 40px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+            transform: translateX(8px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .social-icons a:hover {
+            background: var(--gradient);
+            color: var(--dark);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+
+        /* Enhanced Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalFadeIn 0.4s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .modal-title {
+            margin-bottom: 35px;
+            color: var(--dark);
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f9fafb;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
+            background: white;
+        }
+
+        /* Loading States */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid var(--primary);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            z-index: 10001;
+            transform: translateX(400px);
+            transition: transform 0.4s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+        }
+
+        .notification.info {
+            background: var(--gradient-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .features-grid,
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                position: relative;
+            }
+
+            .hero {
+                margin-top: 0;
+                padding: 80px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-stats {
+                gap: 25px;
+                flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 25px;
+                margin: 15px;
+            }
+
+            .pairs-container {
+                gap: 12px;
+            }
+
+            .pair {
+                min-width: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .feature-card,
+            .tool-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span>VolatilityPlus</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#tools" class="nav-link">Trading Tools</a></li>
+                    <li><a href="#" class="nav-link" id="signalsPageLink">Signals</a></li>
+                    <li><a href="#performance" class="nav-link">Performance</a></li>
+                    <li><a href="#support" class="nav-link">Support</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn"><i class="fas fa-sign-in-alt"></i>Login</button>
+                <button class="btn btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i>Get Started</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master Synthetic Indices Trading</h1>
+                <p>Professional-grade spike detection indicators designed specifically for Boom, Crash, and Pain & Gain indices. Join thousands of profitable traders worldwide.</p>
+                <button class="btn btn-primary" id="startTradingBtn" style="padding: 18px 35px; font-size: 1.1rem;"><i class="fas fa-rocket"></i>Start Trading Now</button>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="activeTraders">5,340</span>
+                        <span class="stat-label">Active Traders</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">71%</span>
+                        <span class="stat-label">Detection Rate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Market Coverage</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Pairs -->
+    <section class="trading-pairs">
+        <div class="container">
+            <div class="pairs-container">
+                <div class="pair">
+                    <i class="fas fa-bolt"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Volatility 75 Index</div>
+                        <div class="pair-price" id="vix-price">Loading...</div>
+                        <div class="pair-change" id="vix-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-chart-line-up"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Boom 1000 Index</div>
+                        <div class="pair-price" id="boom-price">Loading...</div>
+                        <div class="pair-change" id="boom-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-chart-line-down"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Crash 1000 Index</div>
+                        <div class="pair-price" id="crash-price">Loading...</div>
+                        <div class="pair-change" id="crash-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-mountain"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Jump 50 Index</div>
+                        <div class="pair-price" id="jump50-price">Loading...</div>
+                        <div class="pair-change" id="jump50-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-mountain"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Jump 75 Index</div>
+                        <div class="pair-price" id="jump75-price">Loading...</div>
+                        <div class="pair-change" id="jump75-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pair">
+                    <i class="fas fa-bolt"></i>
+                    <div class="pair-info">
+                        <div class="pair-name">Volatility 100 Index</div>
+                        <div class="pair-price" id="vol100-price">Loading...</div>
+                        <div class="pair-change" id="vol100-change">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Sentiment Indicator -->
+    <section class="market-sentiment">
+        <div class="container">
+            <div class="sentiment-card">
+                <h3><i class="fas fa-chart-bar"></i> Market Sentiment</h3>
+                <div class="sentiment-gauge-container">
+                    <div class="sentiment-gauge">
+                        <div class="gauge-track"></div>
+                        <div class="gauge-fill" id="gaugeFill"></div>
+                        <div class="gauge-pointer" id="gaugePointer">
+                            <div class="pointer-dot"></div>
+                        </div>
+                        <div class="gauge-labels">
+                            <span class="label-left">Bearish</span>
+                            <span class="label-center">Neutral</span>
+                            <span class="label-right">Bullish</span>
+                        </div>
+                    </div>
+                    <div class="sentiment-info">
+                        <div class="sentiment-value">
+                            <span id="sentimentPercentage">67</span>%
+                            <span class="sentiment-label" id="sentimentLabel">Bullish</span>
+                        </div>
+                        <div class="sentiment-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Bulls:</span>
+                                <span class="detail-value" id="bullsCount">1,247</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Bears:</span>
+                                <span class="detail-value" id="bearsCount">613</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Updated:</span>
+                                <span class="detail-value" id="lastUpdate">2 min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentiment-trend">
+                    <div class="trend-item bullish">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Bullish Trend</span>
+                        <div class="trend-bar">
+                            <div class="trend-fill" style="width: 67%;"></div>
+                        </div>
+                    </div>
+                    <div class="trend-item bearish">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>Bearish Trend</span>
+                        <div class="trend-bar">
+                            <div class="trend-fill" style="width: 33%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Features -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Traders Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Powered Expert Advisors</h3>
+                    <p>Advanced machine learning algorithms that adapt to market volatility and optimize your trading performance in real-time. Our EAs have been backtested on years of historical data.</p>
+                    <button class="btn btn-secondary">Explore EAs</button>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Professional Indicators</h3>
+                    <p>Specialized spike detection indicators designed for synthetic indices. Get early warnings and precise entry points with our Mega Spikes Max and Spike Phantom tools.</p>
+                    <button class="btn btn-secondary" id="viewIndicatorsBtn">View Indicators</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Tools Section -->
+    <section class="trading-tools" id="tools">
+        <div class="container">
+            <h2 class="section-title">Professional Trading Arsenal</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Mega Spikes Max</h3>
+                    <p>Advanced spike detector specifically engineered for Boom and Crash indices. Predicts massive spike movements with incredible precision before they happen.</p>
+                    <ul class="tool-features">
+                        <li>Early spike detection alerts</li>
+                        <li>Boom & Crash optimization</li>
+                        <li>Visual & audio notifications</li>
+                        <li>Multi-timeframe analysis</li>
+                        <li>Custom alert settings</li>
+                        <li>High accuracy rate</li>
+                    </ul>
+                    <div class="price-tag">$67</div>
+                    <button class="btn btn-primary purchase-btn" data-product="Mega Spikes Max" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Mega Spikes Max</button>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <h3>Spike Phantom</h3>
+                    <p>Phantom-level indicator for Pain and Gain indices trading. Detects hidden spike patterns and market anomalies that other indicators miss.</p>
+                    <ul class="tool-features">
+                        <li>Pain & Gain specialist</li>
+                        <li>Hidden pattern detection</li>
+                        <li>Stealth mode alerts</li>
+                        <li>Anomaly recognition</li>
+                        <li>Advanced filtering</li>
+                        <li>Professional grade accuracy</li>
+                    </ul>
+                    <div class="price-tag">$50</div>
+                    <button class="btn btn-primary purchase-btn" data-product="Spike Phantom" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Spike Phantom</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="performance" id="performance">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Live Performance Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <span class="metric-number" id="totalTrades">14,890</span>
+                    <div class="metric-label">Total Trades Executed</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number">71%</span>
+                    <div class="metric-label">Spike Detection Rate</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number">156</span>
+                    <div class="metric-label">Countries Served</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-number">99.9%</span>
+                    <div class="metric-label">Uptime Guarantee</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Success Stories from Our Traders</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Mega Spikes Max has completely transformed my trading approach. The early spike detection has increased my monthly returns by 340% while significantly reducing my risk exposure. The accuracy is phenomenal!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MJ</div>
+                        <div class="author-info">
+                            <h4>Michael Johnson</h4>
+                            <p>Professional Trader, UK</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Spike Phantom for Pain & Gain trading is incredible. As a beginner, the hidden pattern detection gave me the confidence to trade profitably from day one. The stealth alerts are game-changing."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">BM</div>
+                        <div class="author-info">
+                            <h4>B Mutema</h4>
+                            <p>Day Trader, Zimbabwe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The combination of both indicators is incredibly powerful. Being able to predict boom, crash, and pain/gain movements with such precision has given me a significant edge. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DK</div>
+                        <div class="author-info">
+                            <h4>David Kim</h4>
+                            <p>Quantitative Trader, Singapore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <button class="btn btn-primary" style="padding: 15px 35px;"><i class="fas fa-star"></i>Share Your Success Story</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>VolatilityPlus</h3>
+                    <p>Leading provider of professional spike detection indicators for synthetic indices. Join thousands of successful traders who trust our advanced technology and expertise.</p>
+                    <div class="social-icons">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Trading Tools</h3>
+                    <ul>
+                        <li><a href="#tools">Spike Detection Indicators</a></li>
+                        <li><a href="#tools">Mega Spikes Max</a></li>
+                        <li><a href="#tools">Spike Phantom</a></li>
+                        <li><a href="#performance">Performance Analytics</a></li>
+                        <li><a href="#">Risk Management Tools</a></li>
+                        <li><a href="#">Market Scanner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Education & Resources</h3>
+                    <ul>
+                        <li><a href="#">Trading Academy</a></li>
+                        <li><a href="#">Market Analysis</a></li>
+                        <li><a href="#">Strategy Guides</a></li>
+                        <li><a href="#">Video Tutorials</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Trading Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support & Legal</h3>
+                    <ul>
+                        <li><a href="#support">24/7 Support Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 VolatilityPlus. All rights reserved. Trading synthetic indices involves significant risk of loss. Past performance is not indicative of future results.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Welcome Back</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-sign-in-alt"></i>Sign In</button>
+            </form>
+            <p style="text-align: center; margin-top: 25px;">
+                <a href="#" style="color: var(--primary); font-weight: 600;">Forgot your password?</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Join VolatilityPlus</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="Enter your email">
+                </div>
                 <div class="form-group">
                     <label for="regPassword">Password</label>
                     <input type="password" id="regPassword" required placeholder="Create a strong password">
@@ -457,151 +2297,6 @@
             }
         }
 
-        // Market Sentiment Manager
-        class SentimentManager {
-            constructor() {
-                this.currentSentiment = 67; // Starting at 67% bullish
-                this.bullsCount = 1247;
-                this.bearsCount = 613;
-                this.lastUpdate = new Date();
-                this.initializeSentiment();
-                this.startSentimentUpdates();
-            }
-
-            initializeSentiment() {
-                this.updateSentimentDisplay();
-            }
-
-            startSentimentUpdates() {
-                // Update sentiment in real-time every 3 seconds
-                setInterval(() => {
-                    this.updateSentimentData();
-                }, 3000);
-
-                // Update timestamp every 10 seconds to show real-time activity
-                setInterval(() => {
-                    this.updateTimestamp();
-                }, 10000);
-
-                // Micro updates every second for more dynamic feel
-                setInterval(() => {
-                    this.microUpdate();
-                }, 1000);
-            }
-
-            microUpdate() {
-                // Small fluctuations every second for real-time feel
-                const microChange = (Math.random() - 0.5) * 0.5; // ±0.25% change
-                this.currentSentiment = Math.max(15, Math.min(85, this.currentSentiment + microChange));
-                
-                // Update display without changing counts (for smooth real-time feel)
-                const percentageEl = document.getElementById('sentimentPercentage');
-                const pointerEl = document.getElementById('gaugePointer');
-                
-                if (percentageEl && pointerEl) {
-                    percentageEl.textContent = Math.round(this.currentSentiment);
-                    
-                    // Update gauge pointer
-                    const rotation = -90 + (this.currentSentiment / 100) * 180;
-                    pointerEl.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
-                    
-                    // Update trend bars
-                    const bullTrend = document.querySelector('.trend-item.bullish .trend-fill');
-                    const bearTrend = document.querySelector('.trend-item.bearish .trend-fill');
-                    
-                    if (bullTrend && bearTrend) {
-                        bullTrend.style.width = `${this.currentSentiment}%`;
-                        bearTrend.style.width = `${100 - this.currentSentiment}%`;
-                    }
-                }
-            }
-
-            updateSentimentData() {
-                // Larger sentiment changes every 3 seconds
-                const change = (Math.random() - 0.5) * 4; // ±2% change
-                this.currentSentiment = Math.max(15, Math.min(85, this.currentSentiment + change));
-                
-                // Adjust bull/bear counts based on sentiment
-                const totalTraders = 1860 + Math.floor(Math.random() * 100) - 50; // Varying total
-                this.bullsCount = Math.floor((this.currentSentiment / 100) * totalTraders);
-                this.bearsCount = totalTraders - this.bullsCount;
-                
-                this.lastUpdate = new Date();
-                this.updateSentimentDisplay();
-            }
-
-            updateSentimentDisplay() {
-                const percentageEl = document.getElementById('sentimentPercentage');
-                const labelEl = document.getElementById('sentimentLabel');
-                const bullsEl = document.getElementById('bullsCount');
-                const bearsEl = document.getElementById('bearsCount');
-                const updateEl = document.getElementById('lastUpdate');
-                const pointerEl = document.getElementById('gaugePointer');
-
-                if (percentageEl && labelEl && bullsEl && bearsEl && updateEl && pointerEl) {
-                    // Update percentage
-                    percentageEl.textContent = Math.round(this.currentSentiment);
-                    
-                    // Update label and color
-                    let label, color;
-                    if (this.currentSentiment >= 60) {
-                        label = 'Bullish';
-                        color = '#10b981';
-                    } else if (this.currentSentiment >= 40) {
-                        label = 'Neutral';
-                        color = '#f59e0b';
-                    } else {
-                        label = 'Bearish';
-                        color = '#ef4444';
-                    }
-                    
-                    labelEl.textContent = label;
-                    labelEl.style.color = color;
-                    
-                    // Update counts
-                    bullsEl.textContent = this.bullsCount.toLocaleString();
-                    bearsEl.textContent = this.bearsCount.toLocaleString();
-                    
-                    // Update timestamp
-                    updateEl.textContent = this.getTimeAgo();
-                    
-                    // Update gauge pointer (rotate from -90deg to +90deg)
-                    const rotation = -90 + (this.currentSentiment / 100) * 180;
-                    pointerEl.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
-                    
-                    // Update trend bars
-                    const bullTrend = document.querySelector('.trend-item.bullish .trend-fill');
-                    const bearTrend = document.querySelector('.trend-item.bearish .trend-fill');
-                    
-                    if (bullTrend && bearTrend) {
-                        bullTrend.style.width = `${this.currentSentiment}%`;
-                        bearTrend.style.width = `${100 - this.currentSentiment}%`;
-                    }
-                }
-            }
-
-            updateTimestamp() {
-                const updateEl = document.getElementById('lastUpdate');
-                if (updateEl) {
-                    updateEl.textContent = this.getTimeAgo();
-                }
-            }
-
-            getTimeAgo() {
-                const now = new Date();
-                const diffInSeconds = Math.floor((now - this.lastUpdate) / 1000);
-                
-                if (diffInSeconds < 10) {
-                    return 'Live';
-                } else if (diffInSeconds < 60) {
-                    return `${diffInSeconds}s ago`;
-                } else {
-                    const minutes = Math.floor(diffInSeconds / 60);
-                    return minutes === 1 ? '1 min ago' : `${minutes} min ago`;
-                }
-            }
-        }
-
         // Enhanced Navigation System
         class NavigationManager {
             constructor() {
@@ -635,1826 +2330,221 @@
 
             initializeSignalsPage() {
                 const signalsPageLink = document.getElementById('signalsPageLink');
-                const signalsPage = document.getElementById('signalsPage');        .footer-column ul li a:hover {
-            color: var(--primary);
-            transform: translateX(8px);
-        }
+                const signalsPage = document.getElementById('signalsPage');
+                const closeSignalsPage = document.getElementById('closeSignalsPage');
 
-        .social-icons {
-            display: flex;
-            gap: 20px;
-            margin-top: 25px;
-        }
+                // Open signals page
+                const openSignalsPage = (e) => {
+                    e.preventDefault();
+                    signalsPage.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                };
 
-        .social-icons a {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
+                // Close signals page
+                const closeSignalsPageFunc = () => {
+                    signalsPage.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                };
 
-        .social-icons a:hover {
-            background: var(--gradient);
-            color: var(--dark);
-            transform: translateY(-5px);
-            box-shadow: var(--glow);
-        }
+                if (signalsPageLink) signalsPageLink.addEventListener('click', openSignalsPage);
+                if (closeSignalsPage) closeSignalsPage.addEventListener('click', closeSignalsPageFunc);
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: 35px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            color: #9ca3af;
-            font-size: 0.9rem;
-        }
-
-        /* Enhanced Modals */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .modal-content {
-            background: white;
-            padding: 50px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-            animation: modalFadeIn 0.4s ease-out;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.9) translateY(-20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: all 0.3s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .close-modal:hover {
-            color: var(--danger);
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        .modal-title {
-            margin-bottom: 35px;
-            color: var(--dark);
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1rem;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: #f9fafb;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
-            background: white;
-        }
-
-        /* Loading States */
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 3px solid var(--primary);
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Notification System */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            padding: 20px 25px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            z-index: 10001;
-            transform: translateX(400px);
-            transition: transform 0.4s ease-out;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
-        }
-
-        .notification.error {
-            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
-        }
-
-        .notification.info {
-            background: var(--gradient-secondary);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
+                // Close on ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && signalsPage.style.display === 'block') {
+                        closeSignalsPageFunc();
+                    }
+                });
             }
 
-            .features-grid,
-            .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            initializeScrollEffects() {
+                const header = document.querySelector('header');
+                let lastScrollTop = 0;
+
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Header hide/show effect
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                    
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                });
             }
         }
 
-        /* Responsive adjustments for sentiment */
-        @media (max-width: 768px) {
-            .sentiment-card {
-                padding: 25px 20px;
-                margin: 0 15px;
+        // Animated Counter System
+        class CounterManager {
+            constructor() {
+                this.initializeCounters();
             }
 
-            .sentiment-card h3 {
-                font-size: 1.2rem;
-                margin-bottom: 25px;
+            initializeCounters() {
+                const observerOptions = {
+                    threshold: 0.5,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateCounter(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe stat numbers
+                document.querySelectorAll('.stat-number, .metric-number').forEach(counter => {
+                    observer.observe(counter);
+                });
             }
 
-            .sentiment-gauge-container {
-                grid-template-columns: 1fr;
-                gap: 25px;
+            animateCounter(element) {
+                const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        element.textContent = this.formatNumber(Math.floor(current), element);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.textContent = this.formatNumber(target, element);
+                    }
+                };
+
+                updateCounter();
             }
 
-            .sentiment-gauge {
-                width: 160px;
-                height: 80px;
-            }
-
-            .sentiment-gauge .gauge-track {
-                height: 40px;
-            }
-
-            .sentiment-gauge .gauge-fill {
-                height: 30px;
-            }
-
-            .sentiment-gauge .gauge-pointer {
-                height: 45px;
-            }
-
-            .sentiment-value #sentimentPercentage {
-                font-size: 2.5rem;
-            }
-
-            .sentiment-label {
-                font-size: 1.1rem;
-            }
-
-            .sentiment-details {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .detail-item {
-                padding: 8px;
-            }
-
-            .sentiment-trend {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .trend-item {
-                padding: 10px;
-            }
-        }
-
-        /* Additional mobile improvements */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 12px;
-            }
-
-            nav ul li a {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-
-            .auth-buttons {
-                gap: 10px;
-            }
-
-            .btn {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-            }
-
-            .hero {
-                margin-top: 0;
-                padding: 80px 0 60px;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .hero-stats {
-                gap: 25px;
-                flex-direction: column;
-            }
-
-            .features-grid,
-            .tools-grid,
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                text-align: center;
-            }
-
-            .modal-content {
-                padding: 25px;
-                margin: 15px;
-            }
-
-            .pairs-container {
-                gap: 12px;
-                padding: 10px 0;
-            }
-
-            .pair {
-                min-width: 220px;
-                padding: 15px 20px;
-            }
-
-            .pair-name {
-                font-size: 0.9rem;
-            }
-
-            .pair-price {
-                font-size: 1.2rem;
-            }
-
-            .pair-change {
-                font-size: 0.8rem;
-                padding: 4px 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .hero {
-                padding: 60px 0 50px;
-            }
-
-            .hero h1 {
-                font-size: 1.8rem;
-                margin-bottom: 15px;
-            }
-
-            .hero p {
-                font-size: 0.95rem;
-                margin-bottom: 30px;
-            }
-
-            .hero-stats {
-                gap: 20px;
-            }
-
-            .stat-number {
-                font-size: 2rem;
-            }
-
-            .stat-label {
-                font-size: 0.85rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 40px;
-            }
-
-            .feature-card,
-            .tool-card {
-                padding: 25px 20px;
-            }
-
-            .feature-card h3,
-            .tool-card h3 {
-                font-size: 1.2rem;
-            }
-
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .testimonial-card {
-                padding: 20px;
-            }
-
-            .modal-content {
-                padding: 20px;
-                margin: 10px;
-                max-width: 90%;
-            }
-
-            .modal-title {
-                font-size: 1.5rem;
-                margin-bottom: 20px;
-            }
-
-            .sentiment-card {
-                padding: 20px 15px;
-                margin: 0 10px;
-            }
-
-            .sentiment-gauge {
-                width: 140px;
-                height: 70px;
-            }
-
-            .sentiment-value #sentimentPercentage {
-                font-size: 2rem;
-            }
-
-            .gauge-labels {
-                font-size: 0.7rem;
-            }
-        }
-
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-chart-line"></i>
-                <span>VolatilityPlus</span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#tools" class="nav-link">Trading Tools</a></li>
-                    <li><a href="#" class="nav-link" id="signalsPageLink">Signals</a></li>
-                    <li><a href="#performance" class="nav-link">Performance</a></li>
-                    <li><a href="#support" class="nav-link">Support</a></li>
-                </ul>
-            </nav>
-            <div class="auth-buttons">
-                <button class="btn btn-outline" id="loginBtn"><i class="fas fa-sign-in-alt"></i>Login</button>
-                <button class="btn btn-primary" id="registerBtn"><i class="fas fa-user-plus"></i>Get Started</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Master Synthetic Indices Trading</h1>
-                <p>Professional-grade spike detection indicators designed specifically for Boom, Crash, and Pain & Gain indices. Join thousands of profitable traders worldwide.</p>
-                <button class="btn btn-primary" id="startTradingBtn" style="padding: 18px 35px; font-size: 1.1rem;"><i class="fas fa-rocket"></i>Start Trading Now</button>
+            formatNumber(number, element) {
+                const originalText = element.textContent;
                 
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number" id="activeTraders">5,340</span>
-                        <span class="stat-label">Active Traders</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">71%</span>
-                        <span class="stat-label">Detection Rate</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label">Market Coverage</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trading Pairs -->
-    <section class="trading-pairs">
-        <div class="container">
-            <div class="pairs-container">
-                <div class="pair">
-                    <i class="fas fa-bolt"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Volatility 75 Index</div>
-                        <div class="pair-price" id="vix-price">Loading...</div>
-                        <div class="pair-change" id="vix-change">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-chart-line-up"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Boom 1000 Index</div>
-                        <div class="pair-price" id="boom-price">Loading...</div>
-                        <div class="pair-change" id="boom-change">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-chart-line-down"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Crash 1000 Index</div>
-                        <div class="pair-price" id="crash-price">Loading...</div>
-                        <div class="pair-change" id="crash-change">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-mountain"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Jump 50 Index</div>
-                        <div class="pair-price" id="jump50-price">Loading...</div>
-                        <div class="pair-change" id="jump50-change">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-mountain"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Jump 75 Index</div>
-                        <div class="pair-price" id="jump75-price">Loading...</div>
-                        <div class="pair-change" id="jump75-change">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pair">
-                    <i class="fas fa-bolt"></i>
-                    <div class="pair-info">
-                        <div class="pair-name">Volatility 100 Index</div>
-                        <div class="pair-price" id="vol100-price">Loading...</div>
-                        <div class="pair-change" id="vol100-change">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Market Sentiment Indicator -->
-    <section class="market-sentiment">
-        <div class="container">
-            <div class="sentiment-card">
-                <h3><i class="fas fa-chart-bar"></i> Market Sentiment</h3>
-                <div class="sentiment-gauge-container">
-                    <div class="sentiment-gauge">
-                        <div class="gauge-track"></div>
-                        <div class="gauge-fill" id="gaugeFill"></div>
-                        <div class="gauge-pointer" id="gaugePointer">
-                            <div class="pointer-dot"></div>
-                        </div>
-                        <div class="gauge-labels">
-                            <span class="label-left">Bearish</span>
-                            <span class="label-center">Neutral</span>
-                            <span class="label-right">Bullish</span>
-                        </div>
-                    </div>
-                    <div class="sentiment-info">
-                        <div class="sentiment-value">
-                            <span id="sentimentPercentage">67</span>%
-                            <span class="sentiment-label" id="sentimentLabel">Bullish</span>
-                        </div>
-                        <div class="sentiment-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Bulls:</span>
-                                <span class="detail-value" id="bullsCount">1,247</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Bears:</span>
-                                <span class="detail-value" id="bearsCount">613</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Updated:</span>
-                                <span class="detail-value" id="lastUpdate">Live</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sentiment-trend">
-                    <div class="trend-item bullish">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>Bullish Trend</span>
-                        <div class="trend-bar">
-                            <div class="trend-fill" style="width: 67%;"></div>
-                        </div>
-                    </div>
-                    <div class="trend-item bearish">
-                        <i class="fas fa-arrow-down"></i>
-                        <span>Bearish Trend</span>
-                        <div class="trend-bar">
-                            <div class="trend-fill" style="width: 33%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Platform Features -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Why Traders Choose Us</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>AI-Powered Expert Advisors</h3>
-                    <p>Advanced machine learning algorithms that adapt to market volatility and optimize your trading performance in real-time. Our EAs have been backtested on years of historical data.</p>
-                    <button class="btn btn-secondary">Explore EAs</button>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Professional Indicators</h3>
-                    <p>Specialized spike detection indicators designed for synthetic indices. Get early warnings and precise entry points with our Mega Spikes Max and Spike Phantom tools.</p>
-                    <button class="btn btn-secondary" id="viewIndicatorsBtn">View Indicators</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trading Tools Section -->
-    <section class="trading-tools" id="tools">
-        <div class="container">
-            <h2 class="section-title">Professional Trading Arsenal</h2>
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Mega Spikes Max</h3>
-                    <p>Advanced spike detector specifically engineered for Boom and Crash indices. Predicts massive spike movements with incredible precision before they happen.</p>
-                    <ul class="tool-features">
-                        <li>Early spike detection alerts</li>
-                        <li>Boom & Crash optimization</li>
-                        <li>Visual & audio notifications</li>
-                        <li>Multi-timeframe analysis</li>
-                        <li>Custom alert settings</li>
-                        <li>High accuracy rate</li>
-                    </ul>
-                    <div class="price-tag">$67</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Mega Spikes Max" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Mega Spikes Max</button>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">
-                        <i class="fas fa-ghost"></i>
-                    </div>
-                    <h3>Spike Phantom</h3>
-                    <p>Phantom-level indicator for Pain and Gain indices trading. Detects hidden spike patterns and market anomalies that other indicators miss.</p>
-                    <ul class="tool-features">
-                        <li>Pain & Gain specialist</li>
-                        <li>Hidden pattern detection</li>
-                        <li>Stealth mode alerts</li>
-                        <li>Anomaly recognition</li>
-                        <li>Advanced filtering</li>
-                        <li>Professional grade accuracy</li>
-                    </ul>
-                    <div class="price-tag">$50</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Spike Phantom" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Spike Phantom</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Performance Metrics -->
-    <section class="performance" id="performance">
-        <div class="container">
-            <h2 class="section-title" style="color: white;">Live Performance Metrics</h2>
-            <div class="metrics-grid">
-                <div class="metric">
-                    <span class="metric-number" id="totalTrades">14,890</span>
-                    <div class="metric-label">Total Trades Executed</div>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">71%</span>
-                    <div class="metric-label">Spike Detection Rate</div>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">156</span>
-                    <div class="metric-label">Countries Served</div>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">99.9%</span>
-                    <div class="metric-label">Uptime Guarantee</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title" style="color: white;">Success Stories from Our Traders</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "Mega Spikes Max has completely transformed my trading approach. The early spike detection has increased my monthly returns by 340% while significantly reducing my risk exposure. The accuracy is phenomenal!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MJ</div>
-                        <div class="author-info">
-                            <h4>Michael Johnson</h4>
-                            <p>Professional Trader, UK</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "Spike Phantom for Pain & Gain trading is incredible. As a beginner, the hidden pattern detection gave me the confidence to trade profitably from day one. The stealth alerts are game-changing."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">BM</div>
-                        <div class="author-info">
-                            <h4>B Mutema</h4>
-                            <p>Day Trader, Zimbabwe</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "The combination of both indicators is incredibly powerful. Being able to predict boom, crash, and pain/gain movements with such precision has given me a significant edge. Highly recommended!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">DK</div>
-                        <div class="author-info">
-                            <h4>David Kim</h4>
-                            <p>Quantitative Trader, Singapore</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 50px;">
-                <button class="btn btn-primary" style="padding: 15px 35px;"><i class="fas fa-star"></i>Share Your Success Story</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>VolatilityPlus</h3>
-                    <p>Leading provider of professional spike detection indicators for synthetic indices. Join thousands of successful traders who trust our advanced technology and expertise.</p>
-                    <div class="social-icons">
-                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Trading Tools</h3>
-                    <ul>
-                        <li><a href="#tools">Spike Detection Indicators</a></li>
-                        <li><a href="#tools">Mega Spikes Max</a></li>
-                        <li><a href="#tools">Spike Phantom</a></li>
-                        <li><a href="#performance">Performance Analytics</a></li>
-                        <li><a href="#">Risk Management Tools</a></li>
-                        <li><a href="#">Market Scanner</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Education & Resources</h3>
-                    <ul>
-                        <li><a href="#">Trading Academy</a></li>
-                        <li><a href="#">Market Analysis</a></li>
-                        <li><a href="#">Strategy Guides</a></li>
-                        <li><a href="#">Video Tutorials</a></li>
-                        <li><a href="#">Webinars</a></li>
-                        <li><a href="#">Trading Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support & Legal</h3>
-                    <ul>
-                        <li><a href="#support">24/7 Support Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Refund Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 VolatilityPlus. All rights reserved. Trading synthetic indices involves significant risk of loss. Past performance is not indicative of future results.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modals -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Welcome Back</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required placeholder="Enter your password">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;"><i class="fas fa-sign-in-alt"></i>Sign In</button>
-            </form>
-            <p style="text-align: center; margin-top: 25px;">
-                <a href="#" style="color: var(--primary); font-weight: 600;">Forgot your password?</a>
-            </p>
-        </div>
-    </div>
-
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Join VolatilityPlus</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" required placeholder="Enter your full name">
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email Address</label>
-                    <input type="email" id="regEmail" required placeholder="Enter your email">
-                </div>
-                <div class="form<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VolatilityPlus | Professional Synthetic Indices Trading Tools</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #FFD700;
-            --primary-light: #FFF8DC;
-            --primary-dark: #FFA500;
-            --secondary: #1a1a2e;
-            --secondary-light: #16213e;
-            --accent: #FF6B35;
-            --accent-secondary: #00D4FF;
-            --dark: #0f0f23;
-            --light: #FAFAFA;
-            --text: #333333;
-            --text-light: #6B7280;
-            --card-bg: #ffffff;
-            --header-bg: rgba(15, 15, 35, 0.95);
-            --success: #10B981;
-            --danger: #EF4444;
-            --warning: #F59E0B;
-            --gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%);
-            --gradient-secondary: linear-gradient(135deg, #00D4FF 0%, #0EA5E9 100%);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
-            --glow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Enhanced Header */
-        header {
-            background: var(--header-bg);
-            color: white;
-            padding: 15px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-weight: 800;
-            font-size: 1.6rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            color: var(--primary);
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            padding: 10px 15px;
-            border-radius: 8px;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary);
-            background: rgba(255, 215, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn i {
-            margin-right: 8px;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: var(--dark);
-            box-shadow: var(--shadow);
-            font-weight: 700;
-        }
-
-        .btn-secondary {
-            background: var(--gradient-secondary);
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: var(--dark);
-            box-shadow: var(--glow);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            filter: brightness(1.1);
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
-        }
-
-        /* Enhanced Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 50%, var(--secondary-light) 100%);
-            color: white;
-            padding: 150px 0 100px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            margin-top: 70px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23FFD700" opacity="0.1"/><circle cx="20" cy="20" r="0.5" fill="%23FF6B35" opacity="0.1"/><circle cx="80" cy="80" r="0.8" fill="%2300D4FF" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-10px) rotate(1deg); }
-            66% { transform: translateY(5px) rotate(-0.5deg); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #ffffff 0%, #FFD700 50%, #FF6B35 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
-            font-weight: 400;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            margin-top: 3px;
-        }
-
-        /* Enhanced Trading Pairs */
-        .trading-pairs {
-            background: var(--dark);
-            color: white;
-            padding: 30px 0;
-            position: relative;
-            z-index: 3;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .pairs-container {
-            display: flex;
-            gap: 20px;
-            padding: 15px 0;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) transparent;
-        }
-
-        .pairs-container::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .pairs-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-        }
-
-        .pairs-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .pair {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 20px 25px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            min-width: 280px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pair::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .pair:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .pair:hover::before {
-            transform: scaleX(1);
-        }
-
-        .pair i {
-            margin-right: 15px;
-            color: var(--primary);
-            font-size: 1.5rem;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-        }
-
-        .pair-info {
-            flex: 1;
-        }
-
-        .pair-name {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        .pair-price {
-            font-size: 1.3rem;
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .pair-change {
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 6px;
-            display: inline-block;
-        }
-
-        .positive {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .negative {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        /* Market Sentiment Indicator */
-        .market-sentiment {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            padding: 40px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .market-sentiment::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="sentiment-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23sentiment-grid)"/></svg>') repeat;
-            opacity: 0.3;
-        }
-
-        .sentiment-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            max-width: 800px;
-            margin: 0 auto;
-            color: white;
-            position: relative;
-            z-index: 2;
-        }
-
-        .sentiment-card h3 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .sentiment-gauge-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .sentiment-gauge {
-            position: relative;
-            width: 200px;
-            height: 100px;
-            margin: 0 auto;
-        }
-
-        .gauge-track {
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
-            border-radius: 100px 100px 0 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gauge-track::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 95px 95px 0 0;
-        }
-
-        .gauge-fill {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            height: 40px;
-            background: linear-gradient(90deg, #dc2626 0%, #d97706 50%, #059669 100%);
-            border-radius: 95px 95px 0 0;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .gauge-pointer {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 4px;
-            height: 55px;
-            background: white;
-            border-radius: 2px;
-            transform-origin: bottom center;
-            transform: translateX(-50%) rotate(67deg);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .pointer-dot {
-            position: absolute;
-            bottom: -3px;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-        }
-
-        .gauge-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        .label-center {
-            transform: translateX(-50%);
-        }
-
-        .sentiment-info {
-            text-align: center;
-        }
-
-        .sentiment-value {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .sentiment-value #sentimentPercentage {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-
-        .sentiment-label {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-top: 5px;
-            color: #10b981;
-        }
-
-        .sentiment-details {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .detail-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .detail-label {
-            display: block;
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin-bottom: 4px;
-        }
-
-        .detail-value {
-            display: block;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .sentiment-trend {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .trend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .trend-item.bullish {
-            color: #10b981;
-        }
-
-        .trend-item.bearish {
-            color: #ef4444;
-        }
-
-        .trend-item i {
-            font-size: 1.1rem;
-        }
-
-        .trend-item span {
-            font-size: 0.9rem;
-            font-weight: 600;
-            flex: 1;
-        }
-
-        .trend-bar {
-            width: 60px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .trend-fill {
-            height: 100%;
-            border-radius: 2px;
-            transition: width 0.8s ease;
-        }
-
-        .trend-item.bullish .trend-fill {
-            background: #10b981;
-        }
-
-        .trend-item.bearish .trend-fill {
-            background: #ef4444;
-        }
-
-        /* Enhanced Features Section */
-        .features {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            color: var(--dark);
-            position: relative;
-            font-size: 2.5rem;
-            font-weight: 800;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 70px;
-            height: 4px;
-            background: var(--gradient);
-            margin: 15px auto;
-            border-radius: 3px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 35px;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 40px 35px;
-            box-shadow: var(--shadow);
-            transition: all 0.4s;
-            text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            width: 90px;
-            height: 90px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            font-size: 2.5rem;
-            color: var(--dark);
-            box-shadow: var(--glow);
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: var(--dark);
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: var(--text-light);
-            margin-bottom: 25px;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Enhanced Trading Tools */
-        .trading-tools {
-            background: var(--dark);
-            padding: 70px 0;
-            position: relative;
-        }
-
-        .trading-tools .section-title {
-            color: white;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .tool-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 25px 20px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-            color: white;
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient);
-            transform: scaleY(0);
-            transition: transform 0.4s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .tool-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .tool-icon {
-            font-size: 2.2rem;
-            color: var(--primary);
-            margin-bottom: 18px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
-        }
-
-        .tool-card h3 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .tool-card p {
-            margin-bottom: 15px;
-            opacity: 0.9;
-            line-height: 1.5;
-            font-size: 0.85rem;
-        }
-
-        .tool-features {
-            list-style: none;
-            margin: 15px 0 18px;
-        }
-
-        .tool-features li {
-            margin-bottom: 6px;
-            padding-left: 18px;
-            position: relative;
-            opacity: 0.9;
-            font-size: 0.8rem;
-        }
-
-        .tool-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .price-tag {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 15px 0;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-        }
-
-        /* Performance Metrics */
-        .performance {
-            background: var(--dark);
-            color: white;
-            padding: 70px 0;
-            text-align: center;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .metric {
-            padding: 25px 18px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.3s;
-        }
-
-        .metric:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .metric-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .metric-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Enhanced Testimonials */
-        .testimonials {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--dark) 100%);
-            color: white;
-            padding: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 30px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.4s;
-            position: relative;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            font-size: 6rem;
-            color: var(--primary);
-            opacity: 0.3;
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            line-height: 1;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .testimonial-text {
-            margin-bottom: 25px;
-            font-style: italic;
-            position: relative;
-            z-index: 1;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            font-weight: bold;
-            color: var(--dark);
-            font-size: 1.2rem;
-        }
-
-        .author-info h4 {
-            margin-bottom: 4px;
-            font-size: 1.1rem;
-        }
-
-        .author-info p {
-            opacity: 0.7;
-            font-size: 0.85rem;
-        }
-
-        /* Enhanced Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 80px 0 35px;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-column h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--gradient);
-            border-radius: 2px;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-column ul li a {
-            color: #d1d5db;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-block;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .footer-column ul li a:hover {
-            color: var(--primary);
-            transform: translateX(8px);
-        
+                if (originalText.includes('+') && originalText.includes('%')) {
+                    return `+${number}%`;
+                } else if (originalText.includes('%')) {
+                    return `${number}%`;
+                } else if (originalText.includes('M+')) {
+                    return `${(number / 1000000).toFixed(1)}M+`;
+                } else if (originalText.includes('K+')) {
+                    return `${(number / 1000).toFixed(0)}K+`;
+                } else if (originalText.includes(':')) {
+                    return `${(number / 10).toFixed(1)}:1`;
+                } else if (originalText.includes('/')) {
+                    return '24/7';
+                } else {
+                    return number.toLocaleString();
+                }
+            }
+        }
+
+        // Button Interaction Effects
+        class InteractionManager {
+            constructor() {
+                this.initializeButtonEffects();
+                this.initializeCardEffects();
+            }
+
+            initializeButtonEffects() {
+                document.querySelectorAll('.btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        // Ripple effect
+                        const rect = button.getBoundingClientRect();
+                        const size = Math.max(rect.width, rect.height);
+                        const x = e.clientX - rect.left - size / 2;
+                        const y = e.clientY - rect.top - size / 2;
+
+                        const ripple = document.createElement('span');
+                        ripple.style.cssText = `
+                            position: absolute;
+                            width: ${size}px;
+                            height: ${size}px;
+                            left: ${x}px;
+                            top: ${y}px;
+                            background: rgba(255, 255, 255, 0.3);
+                            border-radius: 50%;
+                            transform: scale(0);
+                            animation: ripple 0.6s linear;
+                            pointer-events: none;
+                        `;
+
+                        button.style.position = 'relative';
+                        button.style.overflow = 'hidden';
+                        button.appendChild(ripple);
+
+                        setTimeout(() => {
+                            ripple.remove();
+                        }, 600);
+                    });
+                });
+            }
+
+            initializeCardEffects() {
+                // Parallax effect for cards
+                document.querySelectorAll('.feature-card, .tool-card').forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = (y - centerY) / 20;
+                        const rotateY = (centerX - x) / 20;
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+                    });
+                });
+            }
+        }
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize all systems when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ModalManager();
+            new PriceManager();
+            new NavigationManager();
+            new CounterManager();
+            new InteractionManager();
+            new SentimentManager();
+
+            // Add loading complete effect
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+
+            console.log('VolatilityPlus Enhanced Platform Loaded Successfully! 🚀');
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Page loaded in ${Math.round(loadTime)}ms`);
+        });
+    </script>
+</body>
+</html>
+                
