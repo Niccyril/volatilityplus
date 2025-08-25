@@ -413,7 +413,6 @@
             background: var(--gradient);
             transform: scaleX(0);
             transition: transform 0.4s;
-            z-index: 1;
         }
 
         .feature-card:hover {
@@ -682,33 +681,6 @@
             font-size: 0.9rem;
         }
 
-        /* Enhanced Signals Section */
-        .signals {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
-        }
-
-        .signals-container {
-            position: relative;
-        }
-
-        .signals-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 15, 35, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            border-radius: 20px;
-            padding: 40px;
-        }
-
         /* Enhanced Footer */
         footer {
             background: var(--dark);
@@ -947,12 +919,12 @@
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
-            .feature-card,
-            .tool-card {
-                padding: 30px 25px;
+            .features-grid,
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
 
@@ -1024,10 +996,10 @@
             .section-title {
                 font-size: 2rem;
             }
-            
-            .features-grid,
-            .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+            .feature-card,
+            .tool-card {
+                padding: 30px 25px;
             }
         }
     </style>
@@ -1044,7 +1016,7 @@
                 <ul>
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#tools" class="nav-link">Trading Tools</a></li>
-                    <li><a href="#signals" class="nav-link">Signals</a></li>
+                    <li><a href="#" class="nav-link" id="signalsPageLink">Signals</a></li>
                     <li><a href="#performance" class="nav-link">Performance</a></li>
                     <li><a href="#support" class="nav-link">Support</a></li>
                 </ul>
@@ -1217,157 +1189,6 @@
                     </ul>
                     <div class="price-tag">$50</div>
                     <button class="btn btn-primary purchase-btn" data-product="Spike Phantom" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Spike Phantom</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Signals Section -->
-    <section class="signals" id="signals">
-        <div class="container">
-            <h2 class="section-title" style="color: white;">Premium Trading Signals</h2>
-            <p style="text-align: center; color: #d1d5db; margin-bottom: 60px; font-size: 1.2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Get real-time, high-probability trading signals with detailed analysis and precise entry points for synthetic indices.
-            </p>
-
-            <!-- Signal Stats -->
-            <div class="metrics-grid" style="margin-bottom: 70px;">
-                <div class="metric">
-                    <span class="metric-number">87%</span>
-                    <div class="metric-label">Win Rate</div>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">8-12</span>
-                    <div class="metric-label">Daily Signals</div>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">2.8:1</span>
-                    <div class="metric-label">Risk/Reward</div>
-                </div>
-                <div class="metric">
-                    <span class="metric-number">24/7</span>
-                    <div class="metric-label">Support</div>
-                </div>
-            </div>
-
-            <!-- Live Signals Preview with Blur Effect -->
-            <div class="signals-container">
-                <div class="signals-overlay">
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <i class="fas fa-lock" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));"></i>
-                        <h3 style="color: white; font-size: 1.8rem; margin-bottom: 15px;">Unlock Premium Signals</h3>
-                        <p style="color: #d1d5db; max-width: 500px; margin: 0 auto; line-height: 1.6;">
-                            Subscribe to our VIP signal service to access real-time trading opportunities with detailed analysis and precise entry points.
-                        </p>
-                    </div>
-                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="padding: 15px 40px; font-size: 1.1rem;">
-                        <i class="fas fa-crown"></i>Subscribe Now - $147/month
-                    </button>
-                </div>
-
-                <!-- Signals Table (Blurred Content) -->
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 30px; backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                        <h3 style="color: white; font-size: 1.4rem;">Today's Live Signals</h3>
-                        <div style="display: flex; align-items: center; color: var(--primary);">
-                            <div class="spinner" style="width: 20px; height: 20px; margin-right: 10px;"></div>
-                            <span>Live Updates</span>
-                        </div>
-                    </div>
-                    
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse; color: white;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                                    <th style="padding: 15px; text-align: left; font-weight: 600; color: var(--primary);">Time</th>
-                                    <th style="padding: 15px; text-align: left; font-weight: 600; color: var(--primary);">Asset</th>
-                                    <th style="padding: 15px; text-align: left; font-weight: 600; color: var(--primary);">Signal</th>
-                                    <th style="padding: 15px; text-align: left; font-weight: 600; color: var(--primary);">Entry</th>
-                                    <th style="padding: 15px; text-align: left; font-weight: 600; color: var(--primary);">Stop Loss</th>
-                                    <th style="padding: 15px; text-align: left; font-weight: 600; color: var(--primary);">Take Profit</th>
-                                    <th style="padding: 15px; text-align: left; font-weight: 600; color: var(--primary);">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                                    <td style="padding: 15px; opacity: 0.7;">10:15 AM</td>
-                                    <td style="padding: 15px; font-weight: 600;">BOOM 1000</td>
-                                    <td style="padding: 15px;"><span style="color: var(--success); font-weight: 700;">BUY</span></td>
-                                    <td style="padding: 15px;">12,345.67</td>
-                                    <td style="padding: 15px;">12,200.00</td>
-                                    <td style="padding: 15px;">12,800.00</td>
-                                    <td style="padding: 15px;"><span style="color: var(--success); font-weight: 600;">+3.2%</span></td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                                    <td style="padding: 15px; opacity: 0.7;">11:30 AM</td>
-                                    <td style="padding: 15px; font-weight: 600;">CRASH 1000</td>
-                                    <td style="padding: 15px;"><span style="color: var(--danger); font-weight: 700;">SELL</span></td>
-                                    <td style="padding: 15px;">8,765.43</td>
-                                    <td style="padding: 15px;">8,900.00</td>
-                                    <td style="padding: 15px;">8,400.00</td>
-                                    <td style="padding: 15px;"><span style="color: var(--success); font-weight: 600;">+4.1%</span></td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                                    <td style="padding: 15px; opacity: 0.7;">12:45 PM</td>
-                                    <td style="padding: 15px; font-weight: 600;">VOL 75</td>
-                                    <td style="padding: 15px;"><span style="color: var(--success); font-weight: 700;">BUY</span></td>
-                                    <td style="padding: 15px;">345,678</td>
-                                    <td style="padding: 15px;">340,000</td>
-                                    <td style="padding: 15px;">360,000</td>
-                                    <td style="padding: 15px;"><span style="color: var(--success); font-weight: 600;">Pending</span></td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                                    <td style="padding: 15px; opacity: 0.7;">02:15 PM</td>
-                                    <td style="padding: 15px; font-weight: 600;">JUMP 75</td>
-                                    <td style="padding: 15px;"><span style="color: var(--danger); font-weight: 700;">SELL</span></td>
-                                    <td style="padding: 15px;">123,456</td>
-                                    <td style="padding: 15px;">125,000</td>
-                                    <td style="padding: 15px;">118,000</td>
-                                    <td style="padding: 15px;"><span style="color: var(--warning); font-weight: 600;">Monitoring</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
-                        <div style="color: #d1d5db; font-size: 0.9rem;">
-                            <i class="fas fa-info-circle" style="margin-right: 8px; color: var(--primary);"></i>
-                            Last updated: 2 minutes ago
-                        </div>
-                        <div style="display: flex; gap: 15px;">
-                            <button class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9rem;">
-                                <i class="fas fa-download"></i> Export
-                            </button>
-                            <button class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9rem;">
-                                <i class="fas fa-bell"></i> Alert Settings
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Signal Features -->
-            <div class="features-grid" style="margin-top: 80px;">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Real-time Alerts</h3>
-                    <p>Instant notifications via Telegram, email, and SMS for every trading signal. Never miss an opportunity with our multi-channel alert system.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Detailed Analysis</h3>
-                    <p>Each signal comes with comprehensive market analysis, entry points, stop loss, take profit levels, and risk management guidance.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Community Access</h3>
-                    <p>Join our exclusive VIP community of successful traders. Share insights, strategies, and get direct support from our expert analysts.</p>
                 </div>
             </div>
         </div>
@@ -1616,6 +1437,80 @@
         </div>
     </div>
 
+    <!-- Signals Page (Hidden by default) -->
+    <div id="signalsPage" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; overflow-y: auto;">
+        <div style="background: var(--dark); padding: 15px 0;">
+            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="color: var(--primary); font-size: 1.5rem; margin: 0;">Trading Signals</h2>
+                <button id="closeSignalsPage" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div style="padding: 50px 0; min-height: calc(100vh - 70px);">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--dark);">Premium Trading Signals</h1>
+                    <p style="font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto;">
+                        Get high-probability trading signals with detailed analysis and precise entry points for synthetic indices.
+                    </p>
+                </div>
+
+                <!-- Signal Stats -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 50px;">
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">87%</div>
+                        <div style="color: var(--text-light);">Win Rate</div>
+                    </div>
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">8-12</div>
+                        <div style="color: var(--text-light);">Daily Signals</div>
+                    </div>
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">2.8:1</div>
+                        <div style="color: var(--text-light);">Risk/Reward</div>
+                    </div>
+                    <div style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow);">
+                        <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">24/7</div>
+                        <div style="color: var(--text-light);">Support</div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div style="text-align: center; margin-top: 50px; padding: 50px; background: var(--primary-light); border-radius: 20px;">
+                    <h2 style="margin-bottom: 20px; color: var(--dark);">VIP Signal Service</h2>
+                    <div style="font-size: 3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 20px;">$147/month</div>
+                    <ul style="list-style: none; margin: 30px 0; max-width: 400px; margin-left: auto; margin-right: auto;">
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            8-12 premium signals daily
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            87% average win rate
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            Detailed analysis with each signal
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            Telegram & email alerts
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            24/7 priority support
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="padding: 15px 40px; font-size: 1.1rem; margin-top: 20px;">
+                        <i class="fas fa-crown"></i>Subscribe to VIP Signals
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification Container -->
     <div id="notification" class="notification"></div>
 
@@ -1637,9 +1532,6 @@
                 document.getElementById('loginBtn').addEventListener('click', () => this.showModal('login'));
                 document.getElementById('registerBtn').addEventListener('click', () => this.showModal('register'));
                 document.getElementById('startTradingBtn').addEventListener('click', () => this.showModal('startTrading'));
-                document.getElementById('viewIndicatorsBtn').addEventListener('click', () => {
-                    document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
-                });
 
                 // Close modal buttons
                 document.querySelectorAll('.close-modal').forEach(btn => {
@@ -1662,30 +1554,8 @@
                     });
                 });
 
-                // Trading plan buttons
-                document.getElementById('basicPlan').addEventListener('click', () => {
-                    document.getElementById('productName').textContent = 'Mega Spikes Max';
-                    this.showModal('purchase');
-                });
-                
-                document.getElementById('proPlan').addEventListener('click', () => {
-                    document.getElementById('productName').textContent = 'Spike Phantom';
-                    this.showModal('purchase');
-                });
-                
-                document.getElementById('signalPlan').addEventListener('click', () => {
-                    document.getElementById('productName').textContent = 'Both Indicators Bundle';
-                    this.showModal('purchase');
-                });
-
                 // Form submissions
                 this.initializeFormHandlers();
-                
-                // Complete purchase button
-                document.getElementById('completePurchase').addEventListener('click', () => {
-                    this.showNotification('Purchase completed successfully! Check your email for details.', 'success');
-                    this.hideAllModals();
-                });
             }
 
             showModal(modalName) {
@@ -1718,154 +1588,480 @@
                     const confirmPassword = document.getElementById('confirmPassword').value;
                     
                     if (password !== confirmPassword) {
-                        this.showNotification('Passwords do not match. Please try again.', 'error');
+                        this.showNotification('Passwords do not match!', 'error');
                         return;
                     }
                     
-                    this.showNotification('Account created successfully! Welcome to VolatilityPlus.', 'success');
+                    this.showNotification('Account created successfully! Check your email for verification.', 'success');
                     this.hideAllModals();
                 });
-            }
 
-            showNotification(message, type) {
-                const notification = document.getElementById('notification');
-                notification.textContent = message;
-                notification.className = `notification ${type} show`;
-                
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 5000);
-            }
-        }
-
-        // Trading pairs data simulation
-        class TradingPairs {
-            constructor() {
-                this.pairs = [
-                    { id: 'vix', name: 'Volatility 75 Index', icon: 'fas fa-bolt' },
-                    { id: 'boom', name: 'Boom 1000 Index', icon: 'fas fa-chart-line-up' },
-                    { id: 'crash', name: 'Crash 1000 Index', icon: 'fas fa-chart-line-down' },
-                    { id: 'jump50', name: 'Jump 50 Index', icon: 'fas fa-mountain' },
-                    { id: 'jump75', name: 'Jump 75 Index', icon: 'fas fa-mountain' },
-                    { id: 'vol100', name: 'Volatility 100 Index', icon: 'fas fa-bolt' }
-                ];
-                
-                this.initializePairs();
-            }
-            
-            initializePairs() {
-                this.pairs.forEach(pair => {
-                    this.updatePairPrice(pair.id);
-                });
-                
-                // Update prices every 5 seconds
-                setInterval(() => {
-                    this.pairs.forEach(pair => {
-                        this.updatePairPrice(pair.id);
-                    });
-                }, 5000);
-            }
-            
-            updatePairPrice(pairId) {
-                const priceElement = document.getElementById(`${pairId}-price`);
-                const changeElement = document.getElementById(`${pairId}-change`);
-                
-                if (!priceElement || !changeElement) return;
-                
-                // Generate random price and change
-                const basePrice = pairId === 'vix' ? 450000 : 
-                                 pairId === 'boom' ? 12345 : 
-                                 pairId === 'crash' ? 8765 : 
-                                 pairId === 'jump50' ? 345678 : 
-                                 pairId === 'jump75' ? 123456 : 567890;
-                
-                const fluctuation = (Math.random() - 0.5) * 0.1;
-                const newPrice = basePrice * (1 + fluctuation);
-                const changePercent = (fluctuation * 100).toFixed(2);
-                
-                // Update price display
-                priceElement.textContent = newPrice.toLocaleString('en-US', { 
-                    minimumFractionDigits: 2, 
-                    maximumFractionDigits: 2 
-                });
-                
-                // Update change display
-                changeElement.innerHTML = '';
-                const changeSpan = document.createElement('span');
-                changeSpan.textContent = `${changePercent}%`;
-                
-                if (fluctuation >= 0) {
-                    changeSpan.className = 'positive';
-                } else {
-                    changeSpan.className = 'negative';
-                }
-                
-                changeElement.appendChild(changeSpan);
-            }
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            const modalManager = new ModalManager();
-            const tradingPairs = new TradingPairs();
-            
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
+                // Purchase form
+                document.getElementById('completePurchase').addEventListener('click', () => {
+                    const paymentMethod = document.getElementById('paymentMethod').value;
+                    if (!paymentMethod) {
+                        this.showNotification('Please select a cryptocurrency for payment.', 'error');
+                        return;
+                    }
                     
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
+                    const cryptoNames = {
+                        bitcoin: 'Bitcoin (BTC)',
+                        ethereum: 'Ethereum (ETH)', 
+                        usdt: 'Tether (USDT)',
+                        usdc: 'USD Coin (USDC)',
+                        bnb: 'Binance Coin (BNB)',
+                        ada: 'Cardano (ADA)',
+                        sol: 'Solana (SOL)'
+                    };
+                    
+                    this.showNotification(`Processing ${cryptoNames[paymentMethod]} payment... You will receive wallet address shortly.`, 'success');
+                    this.hideAllModals();
+                });
+
+                // Trading plans
+                document.getElementById('basicPlan').addEventListener('click', () => {
+                    this.showNotification('Redirecting to Mega Spikes Max checkout...', 'info');
+                    this.hideAllModals();
+                });
+
+                document.getElementById('proPlan').addEventListener('click', () => {
+                    this.showNotification('Redirecting to Spike Phantom checkout...', 'info');
+                    this.hideAllModals();
+                });
+
+                document.getElementById('signalPlan').addEventListener('click', () => {
+                    this.showNotification('Redirecting to Bundle Package checkout...', 'info');
+                    this.hideAllModals();
+                });
+
+                // View Indicators button
+                document.getElementById('viewIndicatorsBtn').addEventListener('click', () => {
+                    const toolsSection = document.getElementById('tools');
+                    if (toolsSection) {
+                        const headerOffset = 80;
+                        const elementPosition = toolsSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
                         });
                     }
                 });
-            });
-            
-            // Animate stats counters
-            const animateCounters = () => {
-                const counters = document.querySelectorAll('.stat-number, .metric-number');
+            }
+
+            showNotification(message, type = 'info') {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 4000);
+            }
+        }
+
+        // Enhanced Price Update System with Deriv API
+        class PriceManager {
+            constructor() {
+                this.wsConnections = new Map();
+                this.indices = [
+                    { id: 'vix', symbol: 'R_75', name: 'Volatility 75 Index' },
+                    { id: 'boom', symbol: 'BOOM1000', name: 'Boom 1000 Index' },
+                    { id: 'crash', symbol: 'CRASH1000', name: 'Crash 1000 Index' },
+                    { id: 'jump50', symbol: 'JD50', name: 'Jump 50 Index' },
+                    { id: 'jump75', symbol: 'JD75', name: 'Jump 75 Index' },
+                    { id: 'vol100', symbol: 'R_100', name: 'Volatility 100 Index' }
+                ];
                 
-                counters.forEach(counter => {
-                    const target = parseInt(counter.textContent.replace(/[+,%]/g, ''));
-                    let current = 0;
-                    const increment = target / 100;
-                    const duration = 2000;
-                    const steps = duration / 20;
+                this.currentPrices = new Map();
+                this.previousPrices = new Map();
+                this.initializeWebSocketConnections();
+            }
+
+            initializeWebSocketConnections() {
+                // Connect to Deriv's WebSocket API for real-time prices
+                try {
+                    const ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
                     
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= target) {
-                            counter.textContent = counter.id === 'activeTraders' ? '12,500+' : 
-                                                counter.id === 'monthlyReturn' ? '+24.7%' : 
-                                                counter.textContent.includes('%') ? `${target}%` : 
-                                                target.toLocaleString();
-                            clearInterval(timer);
-                        } else {
-                            counter.textContent = Math.floor(current).toLocaleString();
-                        }
-                    }, steps);
+                    ws.onopen = () => {
+                        console.log('Connected to Deriv WebSocket');
+                        this.subscribeToTicks(ws);
+                    };
+
+                    ws.onmessage = (event) => {
+                        const data = JSON.parse(event.data);
+                        this.handleTickData(data);
+                    };
+
+                    ws.onerror = (error) => {
+                        console.error('WebSocket error:', error);
+                        // Fallback to simulation if WebSocket fails
+                        this.fallbackToSimulation();
+                    };
+
+                    ws.onclose = () => {
+                        console.log('WebSocket connection closed, attempting to reconnect...');
+                        setTimeout(() => this.initializeWebSocketConnections(), 5000);
+                    };
+
+                    this.mainWs = ws;
+                } catch (error) {
+                    console.error('Failed to connect to Deriv API:', error);
+                    this.fallbackToSimulation();
+                }
+            }
+
+            subscribeToTicks(ws) {
+                this.indices.forEach(index => {
+                    const subscribeMessage = {
+                        ticks: index.symbol,
+                        subscribe: 1
+                    };
+                    ws.send(JSON.stringify(subscribeMessage));
                 });
-            };
-            
-            // Run counter animation when performance section is in view
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounters();
-                        observer.unobserve(entry.target);
+            }
+
+            handleTickData(data) {
+                if (data.tick) {
+                    const symbol = data.tick.symbol;
+                    const price = parseFloat(data.tick.quote);
+                    
+                    // Find corresponding index
+                    const index = this.indices.find(idx => idx.symbol === symbol);
+                    if (index) {
+                        const previousPrice = this.currentPrices.get(index.id) || price;
+                        this.previousPrices.set(index.id, previousPrice);
+                        this.currentPrices.set(index.id, price);
+                        
+                        this.updatePriceDisplay(index.id, price, previousPrice);
+                    }
+                }
+            }
+
+            updatePriceDisplay(indexId, currentPrice, previousPrice) {
+                const priceElement = document.getElementById(`${indexId}-price`);
+                const changeElement = document.getElementById(`${indexId}-change`);
+                
+                if (priceElement && changeElement) {
+                    // Format price based on index type
+                    const formattedPrice = indexId.includes('vol') || indexId === 'vix' 
+                        ? currentPrice.toFixed(0)
+                        : currentPrice.toFixed(2);
+                    
+                    priceElement.textContent = formattedPrice;
+                    
+                    // Calculate percentage change
+                    const percentChange = ((currentPrice - previousPrice) / previousPrice) * 100;
+                    const changeText = (percentChange > 0 ? '+' : '') + percentChange.toFixed(2) + '%';
+                    changeElement.textContent = changeText;
+                    
+                    // Update styling with animation
+                    changeElement.style.transition = 'all 0.3s ease';
+                    
+                    if (percentChange > 0) {
+                        changeElement.className = 'pair-change positive';
+                        priceElement.style.color = 'var(--success)';
+                    } else if (percentChange < 0) {
+                        changeElement.className = 'pair-change negative';
+                        priceElement.style.color = 'var(--danger)';
+                    } else {
+                        changeElement.className = 'pair-change';
+                        priceElement.style.color = 'var(--primary)';
+                    }
+                    
+                    // Reset price color after animation
+                    setTimeout(() => {
+                        priceElement.style.color = 'var(--primary)';
+                    }, 1000);
+                }
+            }
+
+            fallbackToSimulation() {
+                console.log('Using simulated price data as fallback');
+                
+                // Fallback price bases (approximate real values)
+                const fallbackData = [
+                    { id: 'vix', base: 2847592, volatility: 15000 },
+                    { id: 'boom', base: 1547.83, volatility: 25 },
+                    { id: 'crash', base: 1204.67, volatility: 20 },
+                    { id: 'jump50', base: 48.92, volatility: 2 },
+                    { id: 'jump75', base: 73.45, volatility: 3 },
+                    { id: 'vol100', base: 4792845, volatility: 25000 }
+                ];
+
+                // Initialize with fallback prices
+                fallbackData.forEach(item => {
+                    this.currentPrices.set(item.id, item.base);
+                    this.previousPrices.set(item.id, item.base);
+                });
+
+                // Update prices every 2 seconds with realistic simulation
+                setInterval(() => {
+                    fallbackData.forEach(item => {
+                        const currentPrice = this.currentPrices.get(item.id);
+                        const volatilityFactor = 0.1 + Math.random() * 0.4;
+                        const direction = Math.random() > 0.51 ? 1 : -1;
+                        const change = direction * item.volatility * volatilityFactor * Math.random();
+                        
+                        const newPrice = Math.max(currentPrice + change, item.base * 0.85);
+                        this.previousPrices.set(item.id, currentPrice);
+                        this.currentPrices.set(item.id, newPrice);
+                        
+                        this.updatePriceDisplay(item.id, newPrice, currentPrice);
+                    });
+                }, 2000);
+            }
+        }
+
+        // Enhanced Navigation System
+        class NavigationManager {
+            constructor() {
+                this.initializeNavigation();
+                this.initializeScrollEffects();
+                this.initializeSignalsPage();
+            }
+
+            initializeNavigation() {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href');
+                        
+                        if (targetId && targetId !== '#' && !link.id) {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const headerOffset = 80;
+                                const elementPosition = targetElement.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+
+            initializeSignalsPage() {
+                const signalsPageLink = document.getElementById('signalsPageLink');
+                const signalsPage = document.getElementById('signalsPage');
+                const closeSignalsPage = document.getElementById('closeSignalsPage');
+
+                // Open signals page
+                const openSignalsPage = (e) => {
+                    e.preventDefault();
+                    signalsPage.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                };
+
+                // Close signals page
+                const closeSignalsPageFunc = () => {
+                    signalsPage.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                };
+
+                if (signalsPageLink) signalsPageLink.addEventListener('click', openSignalsPage);
+                if (closeSignalsPage) closeSignalsPage.addEventListener('click', closeSignalsPageFunc);
+
+                // Close on ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && signalsPage.style.display === 'block') {
+                        closeSignalsPageFunc();
                     }
                 });
-            }, { threshold: 0.5 });
-            
-            const performanceSection = document.getElementById('performance');
-            if (performanceSection) {
-                observer.observe(performanceSection);
             }
+
+            initializeScrollEffects() {
+                const header = document.querySelector('header');
+                let lastScrollTop = 0;
+
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Header hide/show effect
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                    }
+                    
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                });
+            }
+        }
+
+        // Animated Counter System
+        class CounterManager {
+            constructor() {
+                this.initializeCounters();
+            }
+
+            initializeCounters() {
+                const observerOptions = {
+                    threshold: 0.5,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.animateCounter(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe stat numbers
+                document.querySelectorAll('.stat-number, .metric-number').forEach(counter => {
+                    observer.observe(counter);
+                });
+            }
+
+            animateCounter(element) {
+                const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        element.textContent = this.formatNumber(Math.floor(current), element);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.textContent = this.formatNumber(target, element);
+                    }
+                };
+
+                updateCounter();
+            }
+
+            formatNumber(number, element) {
+                const originalText = element.textContent;
+                
+                if (originalText.includes('+') && originalText.includes('%')) {
+                    return `+${number}%`;
+                } else if (originalText.includes('%')) {
+                    return `${number}%`;
+                } else if (originalText.includes('M+')) {
+                    return `${(number / 1000000).toFixed(1)}M+`;
+                } else if (originalText.includes('K+')) {
+                    return `${(number / 1000).toFixed(0)}K+`;
+                } else if (originalText.includes(':')) {
+                    return `${(number / 10).toFixed(1)}:1`;
+                } else if (originalText.includes('/')) {
+                    return '24/7';
+                } else {
+                    return number.toLocaleString();
+                }
+            }
+        }
+
+        // Button Interaction Effects
+        class InteractionManager {
+            constructor() {
+                this.initializeButtonEffects();
+                this.initializeCardEffects();
+            }
+
+            initializeButtonEffects() {
+                document.querySelectorAll('.btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        // Ripple effect
+                        const rect = button.getBoundingClientRect();
+                        const size = Math.max(rect.width, rect.height);
+                        const x = e.clientX - rect.left - size / 2;
+                        const y = e.clientY - rect.top - size / 2;
+
+                        const ripple = document.createElement('span');
+                        ripple.style.cssText = `
+                            position: absolute;
+                            width: ${size}px;
+                            height: ${size}px;
+                            left: ${x}px;
+                            top: ${y}px;
+                            background: rgba(255, 255, 255, 0.3);
+                            border-radius: 50%;
+                            transform: scale(0);
+                            animation: ripple 0.6s linear;
+                            pointer-events: none;
+                        `;
+
+                        button.style.position = 'relative';
+                        button.style.overflow = 'hidden';
+                        button.appendChild(ripple);
+
+                        setTimeout(() => {
+                            ripple.remove();
+                        }, 600);
+                    });
+                });
+            }
+
+            initializeCardEffects() {
+                // Parallax effect for cards
+                document.querySelectorAll('.feature-card, .tool-card').forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = (y - centerY) / 20;
+                        const rotateY = (centerX - x) / 20;
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+                    });
+                });
+            }
+        }
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize all systems when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ModalManager();
+            new PriceManager();
+            new NavigationManager();
+            new CounterManager();
+            new InteractionManager();
+
+            // Add loading complete effect
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+
+            console.log('VolatilityPlus Enhanced Platform Loaded Successfully! 🚀');
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Page loaded in ${Math.round(loadTime)}ms`);
         });
     </script>
 </body>
 </html>
+                
