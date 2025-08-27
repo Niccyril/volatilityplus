@@ -1866,7 +1866,7 @@
                             Detailed analysis with each signal
                         </li>
                         <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--success); font-weight: bold;">✓</span>
+                            <span style="position: absolute; left; color: var(--success); font-weight: bold;">✓</span>
                             Telegram & email alerts
                         </li>
                         <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
@@ -1996,6 +1996,11 @@
                 let clicks = JSON.parse(localStorage.getItem('brokerClicks') || '[]');
                 clicks.push(clickData);
                 localStorage.setItem('brokerClicks', JSON.stringify(clicks));
+                
+                // Update admin dashboard if open
+                if (document.getElementById('adminDashboard').style.display === 'block') {
+                    window.leadManager.updateDashboardData();
+                }
             }
 
             processBrokerVerification() {
@@ -2004,7 +2009,8 @@
                     accountId: document.getElementById('accountId').value,
                     telegram: document.getElementById('telegramHandle').value,
                     whatsapp: document.getElementById('whatsappNumber').value,
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    status: 'pending'
                 };
 
                 let verifications = JSON.parse(localStorage.getItem('brokerVerifications') || '[]');
@@ -2017,6 +2023,11 @@
                 );
 
                 this.hideAllModals();
+                
+                // Update admin dashboard if open
+                if (document.getElementById('adminDashboard').style.display === 'block') {
+                    window.leadManager.updateDashboardData();
+                }
             }
 
             initializeEventListeners() {
