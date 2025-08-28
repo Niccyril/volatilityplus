@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+        .signal-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
+        }
+
+        .signal-card.premium-blur:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -500,9 +510,22 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        .unlock-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+        .loading-signals {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .loading-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .signal-header {
@@ -1156,95 +1179,14 @@
                 <p class="section-subtitle">Real-time signals updating every few seconds</p>
             </div>
 
-            <div class="signals-grid">
-                <div class="signal-card">
-                    <div class="signal-header">
-                        <div class="signal-pair">EUR/USD</div>
-                        <div class="signal-status active">ACTIVE</div>
-                    </div>
-                    <div class="signal-details">
-                        <div class="signal-item">
-                            <div class="signal-label">Direction</div>
-                            <div class="signal-value">BUY</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Entry</div>
-                            <div class="signal-value">1.0845</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Target</div>
-                            <div class="signal-value profit">1.0895</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Stop Loss</div>
-                            <div class="signal-value loss">1.0820</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="signal-card premium-blur">
-                    <div class="signal-header">
-                        <div class="signal-pair">GBP/JPY</div>
-                        <div class="signal-status active">ACTIVE</div>
-                    </div>
-                    <div class="signal-details">
-                        <div class="signal-item">
-                            <div class="signal-label">Direction</div>
-                            <div class="signal-value">SELL</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Entry</div>
-                            <div class="signal-value">185.42</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Target</div>
-                            <div class="signal-value profit">184.85</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Stop Loss</div>
-                            <div class="signal-value loss">185.78</div>
-                        </div>
-                    </div>
-                    <div class="premium-overlay">
-                        <div class="premium-content">
-                            <div class="premium-icon">🔒</div>
-                            <div class="premium-title">Premium Signal</div>
-                            <div class="premium-subtitle">Join VIP for full access</div>
-                            <div class="unlock-btn">Unlock Now</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="signal-card premium-blur">
-                    <div class="signal-header">
-                        <div class="signal-pair">XAU/USD</div>
-                        <div class="signal-status pending">PENDING</div>
-                    </div>
-                    <div class="signal-details">
-                        <div class="signal-item">
-                            <div class="signal-label">Direction</div>
-                            <div class="signal-value">BUY</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Entry</div>
-                            <div class="signal-value">2045.50</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Target</div>
-                            <div class="signal-value profit">2065.00</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Stop Loss</div>
-                            <div class="signal-value loss">2035.00</div>
-                        </div>
-                    </div>
-                    <div class="premium-overlay">
-                        <div class="premium-content">
-                            <div class="premium-icon">💎</div>
-                            <div class="premium-title">VIP Signal</div>
-                            <div class="premium-subtitle">Register & get instant access</div>
-                            <div class="unlock-btn">Get VIP Access</div>
-                        </div>
+            <div class="signals-grid" id="signalsGrid">
+                <!-- Signals will be loaded from CSV file -->
+                <div class="loading-signals">
+                    <div class="loading-text">Loading live signals...</div>
+                    <div class="loading-dots">
+                        <span class="loading-dot"></span>
+                        <span class="loading-dot"></span>
+                        <span class="loading-dot"></span>
                     </div>
                 </div>
             </div>
@@ -1412,27 +1354,108 @@
     </footer>
 
     <script>
-        // Simulate real-time signal updates
-        function updateSignals() {
-            const signalCards = document.querySelectorAll('.signal-card');
-            
-            signalCards.forEach(card => {
-                const entryValue = card.querySelector('.signal-details .signal-value');
-                if (entryValue && !isNaN(parseFloat(entryValue.textContent))) {
-                    const currentValue = parseFloat(entryValue.textContent);
-                    const variation = (Math.random() - 0.5) * 0.001; // Small random variation
-                    const newValue = currentValue + variation;
-                    
-                    // Update entry price with subtle changes
-                    if (entryValue.textContent.includes('.')) {
-                        entryValue.textContent = newValue.toFixed(4);
-                    }
+        // Load signals from CSV file
+        async function loadSignalsFromCSV() {
+            try {
+                const response = await fetch('signals.csv');
+                if (!response.ok) {
+                    console.log('CSV file not found, showing demo signals');
+                    showDemoSignals();
+                    return;
                 }
+                
+                const csvText = await response.text();
+                const signals = parseCSV(csvText);
+                displaySignals(signals);
+                
+            } catch (error) {
+                console.log('Error loading CSV, showing demo signals');
+                showDemoSignals();
+            }
+        }
+
+        // Parse CSV data
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const signals = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',').map(v => v.trim());
+                const signal = {};
+                headers.forEach((header, index) => {
+                    signal[header.toLowerCase()] = values[index];
+                });
+                signals.push(signal);
+            }
+            return signals;
+        }
+
+        // Display signals from CSV
+        function displaySignals(signals) {
+            const container = document.getElementById('signalsGrid');
+            container.innerHTML = '';
+
+            signals.forEach((signal, index) => {
+                const isPremium = index > 0; // First signal free, rest premium
+                const statusClass = signal.status === 'ACTIVE' ? 'active' : 'pending';
+                
+                const signalHTML = `
+                    <div class="signal-card ${isPremium ? 'premium-blur' : ''}">
+                        <div class="signal-header">
+                            <div class="signal-pair">${signal.pair || signal.symbol}</div>
+                            <div class="signal-status ${statusClass}">${signal.status || 'ACTIVE'}</div>
+                        </div>
+                        <div class="signal-details">
+                            <div class="signal-item">
+                                <div class="signal-label">Direction</div>
+                                <div class="signal-value">${signal.direction || signal.type}</div>
+                            </div>
+                            <div class="signal-item">
+                                <div class="signal-label">Entry</div>
+                                <div class="signal-value">${signal.entry}</div>
+                            </div>
+                            <div class="signal-item">
+                                <div class="signal-label">Target</div>
+                                <div class="signal-value profit">${signal.target || signal.tp}</div>
+                            </div>
+                            <div class="signal-item">
+                                <div class="signal-label">Stop Loss</div>
+                                <div class="signal-value loss">${signal.stoploss || signal.sl}</div>
+                            </div>
+                        </div>
+                        ${isPremium ? `
+                            <div class="premium-overlay">
+                                <div class="premium-content">
+                                    <div class="premium-icon">${index === 1 ? '🔒' : '💎'}</div>
+                                    <div class="premium-title">${index === 1 ? 'Premium Signal' : 'VIP Signal'}</div>
+                                    <div class="premium-subtitle">Register & get instant access</div>
+                                    <div class="unlock-btn">Get VIP Access</div>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                container.innerHTML += signalHTML;
             });
         }
 
-        // Update signals every 3 seconds
-        setInterval(updateSignals, 3000);
+        // Demo signals fallback
+        function showDemoSignals() {
+            const demoSignals = [
+                { pair: 'EUR/USD', direction: 'BUY', entry: '1.0845', target: '1.0895', stoploss: '1.0820', status: 'ACTIVE' },
+                { pair: 'GBP/JPY', direction: 'SELL', entry: '185.42', target: '184.85', stoploss: '185.78', status: 'ACTIVE' },
+                { pair: 'XAU/USD', direction: 'BUY', entry: '2045.50', target: '2065.00', stoploss: '2035.00', status: 'PENDING' }
+            ];
+            displaySignals(demoSignals);
+        }
+
+        // Load signals when page loads
+        window.addEventListener('load', loadSignalsFromCSV);
+        
+        // Refresh signals every 30 seconds
+        setInterval(loadSignalsFromCSV, 30000);
 
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
