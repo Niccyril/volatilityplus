@@ -1030,6 +1030,61 @@
             font-size: 0.85rem;
         }
 
+        /* Payment specific styles */
+        .payment-address {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .payment-actions .btn {
+            flex: 1;
+        }
+
+        .payment-status {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .payment-status.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .payment-status.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .payment-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .crypto-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
         /* Admin Dashboard */
         .admin-dashboard {
             display: none;
@@ -1240,6 +1295,10 @@
 
             .offer-title {
                 font-size: 1.8rem;
+            }
+
+            .payment-actions {
+                flex-direction: column;
             }
         }
 
@@ -1494,7 +1553,7 @@
                         <li>High accuracy rate</li>
                     </ul>
                     <div class="price-tag">$67</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Mega Spikes Max" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Mega Spikes Max</button>
+                    <button class="btn btn-primary purchase-btn" data-product="Mega Spikes Max" data-price="67" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Mega Spikes Max</button>
                 </div>
                 <div class="tool-card">
                     <div class="tool-icon">
@@ -1511,7 +1570,7 @@
                         <li>Professional grade accuracy</li>
                     </ul>
                     <div class="price-tag">$50</div>
-                    <button class="btn btn-primary purchase-btn" data-product="Spike Phantom" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Spike Phantom</button>
+                    <button class="btn btn-primary purchase-btn" data-product="Spike Phantom" data-price="50" style="width: 100%;"><i class="fas fa-shopping-cart"></i>Get Spike Phantom</button>
                 </div>
             </div>
         </div>
@@ -1727,6 +1786,16 @@
         </div>
     </div>
 
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Complete Payment</h2>
+            <div id="paymentContent">
+                <!-- Payment content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="startTradingModal">
         <div class="modal-content" style="max-width: 450px; padding: 40px;">
             <span class="close-modal">&times;</span>
@@ -1878,7 +1947,7 @@
                             Weekly performance reports
                         </li>
                     </ul>
-                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" style="padding: 15px 40px; font-size: 1.1rem; margin-top: 20px;">
+                    <button class="btn btn-primary purchase-btn" data-product="VIP Signal Service" data-price="25.99" style="padding: 15px 40px; font-size: 1.1rem; margin-top: 20px;">
                         <i class="fas fa-crown"></i>Subscribe to VIP Signals
                     </button>
                 </div>
@@ -1941,6 +2010,197 @@
     <div id="notification" class="notification"></div>
 
     <script>
+        // Payment Manager with cryptocurrency processing
+        class PaymentManager {
+            constructor() {
+                this.cryptoAddresses = {
+                    bitcoin: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+                    ethereum: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+                    usdt: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+                    usdc: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+                    bnb: "bnb1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+                    ada: "addr1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+                    sol: "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+                };
+                this.currentProduct = null;
+                this.currentPrice = 0;
+                this.paymentStatus = 'pending';
+                this.initializePaymentHandlers();
+            }
+
+            initializePaymentHandlers() {
+                // Handle purchase button clicks
+                document.querySelectorAll('.purchase-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const product = button.getAttribute('data-product');
+                        const price = button.getAttribute('data-price');
+                        this.showPaymentModal(product, price);
+                    });
+                });
+
+                // Handle complete purchase button
+                document.getElementById('completePurchase').addEventListener('click', () => {
+                    const paymentMethod = document.getElementById('paymentMethod').value;
+                    if (!paymentMethod) {
+                        this.showNotification('Please select a payment method', 'error');
+                        return;
+                    }
+                    this.processPayment(paymentMethod);
+                });
+
+                // Handle payment verification
+                document.addEventListener('click', (e) => {
+                    if (e.target.id === 'verifyPayment') {
+                        this.verifyPayment();
+                    } else if (e.target.id === 'simulatePayment') {
+                        this.simulatePayment();
+                    }
+                });
+            }
+
+            showPaymentModal(product, price) {
+                this.currentProduct = product;
+                this.currentPrice = price;
+                
+                document.getElementById('productName').textContent = product;
+                modalManager.showModal('purchase');
+            }
+
+            processPayment(paymentMethod) {
+                // Hide purchase modal and show payment modal
+                modalManager.hideAllModals();
+                
+                const walletAddress = this.cryptoAddresses[paymentMethod];
+                
+                // Show payment details
+                const paymentContent = document.getElementById('paymentContent');
+                paymentContent.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <i class="fab fa-${paymentMethod}" style="font-size: 3rem; color: var(--primary);"></i>
+                        <h3 style="margin: 15px 0; color: var(--dark);">Send ${paymentMethod.toUpperCase()} Payment</h3>
+                        <p style="color: var(--text-light);">Send <strong>$${this.currentPrice}</strong> worth of ${paymentMethod.toUpperCase()} to the address below</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Wallet Address</label>
+                        <div class="payment-address">
+                            ${walletAddress}
+                            <button style="background: none; border: none; color: var(--primary); cursor: pointer; float: right;" onclick="navigator.clipboard.writeText('${walletAddress}'); paymentManager.showNotification('Address copied to clipboard!', 'success')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="txHash">Transaction Hash (Optional)</label>
+                        <input type="text" id="txHash" placeholder="Enter your transaction hash for faster verification">
+                    </div>
+                    
+                    <div class="payment-status pending">
+                        <i class="fas fa-clock"></i> Waiting for payment confirmation...
+                    </div>
+                    
+                    <div class="payment-actions">
+                        <button class="btn btn-outline" onclick="modalManager.showModal('purchase')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="btn btn-primary" id="verifyPayment">
+                            <i class="fas fa-check-circle"></i> Verify Payment
+                        </button>
+                        <button class="btn btn-secondary" id="simulatePayment">
+                            <i class="fas fa-bolt"></i> Simulate Payment
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        <h4 style="margin-bottom: 10px; color: var(--dark); font-size: 1rem;">Payment Instructions:</h4>
+                        <ol style="margin: 0; padding-left: 20px; color: var(--text-light); font-size: 0.9rem;">
+                            <li>Send exactly $${this.currentPrice} worth of ${paymentMethod.toUpperCase()} to the address above</li>
+                            <li>Wait for blockchain confirmation (typically 10-30 minutes)</li>
+                            <li>Click "Verify Payment" to check transaction status</li>
+                            <li>You'll receive your product immediately after confirmation</li>
+                        </ol>
+                    </div>
+                `;
+                
+                modalManager.showModal('paymentModal');
+            }
+
+            verifyPayment() {
+                const statusElement = document.querySelector('.payment-status');
+                statusElement.innerHTML = '<div class="spinner"></div> Checking blockchain for payment...';
+                
+                // Simulate checking payment (in real scenario, this would be an API call)
+                setTimeout(() => {
+                    // For demo purposes, we'll randomly determine if payment was found
+                    const isPaid = Math.random() > 0.3;
+                    
+                    if (isPaid) {
+                        statusElement.className = 'payment-status success';
+                        statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Payment confirmed! Preparing your download...';
+                        this.deliverProduct();
+                    } else {
+                        statusElement.className = 'payment-status error';
+                        statusElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> Payment not yet confirmed. Please wait for blockchain confirmation or try again.';
+                    }
+                }, 2000);
+            }
+
+            simulatePayment() {
+                const statusElement = document.querySelector('.payment-status');
+                statusElement.innerHTML = '<div class="spinner"></div> Simulating payment...';
+                
+                // Simulate payment processing
+                setTimeout(() => {
+                    statusElement.className = 'payment-status success';
+                    statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Payment confirmed! Preparing your download...';
+                    this.deliverProduct();
+                }, 3000);
+            }
+
+            deliverProduct() {
+                // Disable verify button
+                document.getElementById('verifyPayment').disabled = true;
+                document.getElementById('simulatePayment').disabled = true;
+                
+                // Show download options
+                setTimeout(() => {
+                    const paymentContent = document.getElementById('paymentContent');
+                    paymentContent.innerHTML += `
+                        <div style="margin-top: 30px; padding: 20px; background: rgba(16, 185, 129, 0.1); border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <h4 style="margin-bottom: 15px; color: var(--success);"><i class="fas fa-download"></i> Your Product is Ready!</h4>
+                            <p style="margin-bottom: 15px; color: var(--text);">Thank you for your purchase. Your ${this.currentProduct} is now available for download.</p>
+                            <button class="btn btn-primary" onclick="paymentManager.downloadProduct()" style="width: 100%;">
+                                <i class="fas fa-download"></i> Download ${this.currentProduct}
+                            </button>
+                            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">You will also receive installation instructions via email.</p>
+                        </div>
+                    `;
+                }, 1500);
+            }
+
+            downloadProduct() {
+                // Create a fake download
+                const element = document.createElement('a');
+                const fileContent = `This is your ${this.currentProduct} installation file. Thank you for your purchase!`;
+                const blob = new Blob([fileContent], {type: 'text/plain'});
+                const url = URL.createObjectURL(blob);
+                element.setAttribute('href', url);
+                element.setAttribute('download', `${this.currentProduct.replace(/\s+/g, '_')}.zip`);
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+                
+                this.showNotification('Download started!', 'success');
+                modalManager.hideAllModals();
+            }
+
+            showNotification(message, type) {
+                modalManager.showNotification(message, type);
+            }
+        }
+
         // Modal Manager with Affiliate Features
         class ModalManager {
             constructor() {
@@ -1948,6 +2208,7 @@
                     login: document.getElementById('loginModal'),
                     register: document.getElementById('registerModal'),
                     purchase: document.getElementById('purchaseModal'),
+                    payment: document.getElementById('paymentModal'),
                     startTrading: document.getElementById('startTradingModal'),
                     brokerRegistration: document.getElementById('brokerRegistrationModal')
                 };
@@ -2045,14 +2306,6 @@
                     });
                 });
 
-                document.querySelectorAll('.purchase-btn').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const productName = button.getAttribute('data-product');
-                        document.getElementById('productName').textContent = productName;
-                        this.showModal('purchase');
-                    });
-                });
-
                 this.initializeFormHandlers();
             }
 
@@ -2089,17 +2342,6 @@
                     }
                     
                     this.showNotification('Account created successfully!', 'success');
-                    this.hideAllModals();
-                });
-
-                document.getElementById('completePurchase').addEventListener('click', () => {
-                    const paymentMethod = document.getElementById('paymentMethod').value;
-                    if (!paymentMethod) {
-                        this.showNotification('Please select a cryptocurrency for payment.', 'error');
-                        return;
-                    }
-                    
-                    this.showNotification('Processing payment... You will receive wallet address shortly.', 'success');
                     this.hideAllModals();
                 });
 
@@ -2468,6 +2710,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.modalManager = new ModalManager();
             window.leadManager = new LeadManager();
+            window.paymentManager = new PaymentManager();
             new PriceManager();
             new NavigationManager();
             new CounterManager();
@@ -2479,7 +2722,7 @@
                 document.body.style.opacity = '1';
             }, 100);
 
-            console.log('VolatilityPlus with Affiliate Marketing loaded successfully!');
+            console.log('VolatilityPlus with Payment System loaded successfully!');
             console.log('Press Ctrl+Shift+A to access admin dashboard');
         });
     </script>
