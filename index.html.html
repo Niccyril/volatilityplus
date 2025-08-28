@@ -1,14 +1,4 @@
-        .signal-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
-        }
-
-        .signal-card.premium-blur:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -155,6 +145,18 @@
             animation: slideUp 1s ease-out 0.2s both;
         }
 
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Broker Registration Buttons */
         .broker-buttons {
             display: flex;
             flex-direction: column;
@@ -231,7 +233,7 @@
             right: -2px;
             bottom: -2px;
             background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary));
-            border-radius: 25px;
+            border-radius: 20px;
             z-index: -1;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -271,15 +273,15 @@
         }
 
         .btn-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: rgba(251, 191, 36, 0.2);
-            border-radius: 20px;
+            border-radius: 15px;
             backdrop-filter: blur(10px);
             animation: bounce 2s ease-in-out infinite;
         }
@@ -296,27 +298,27 @@
         }
 
         .btn-title {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             line-height: 1.2;
         }
 
         .btn-subtitle {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .btn-bonus {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--accent);
             font-weight: 600;
             background: rgba(251, 191, 36, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
             display: inline-block;
             animation: pulse 2s ease-in-out infinite;
         }
@@ -358,31 +360,14 @@
             font-weight: 500;
         }
 
-        /* Enhanced pulse animations */
-        @keyframes pulse-border {
-            0%, 100% { 
-                border-color: transparent;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            }
-            50% { 
-                border-color: rgba(251, 191, 36, 0.5);
-                box-shadow: 0 15px 40px rgba(251, 191, 36, 0.2);
-            }
+        @keyframes glow {
+            from { box-shadow: 0 0 5px currentColor; }
+            to { box-shadow: 0 0 20px currentColor; }
         }
 
-        .broker-btn {
-            animation: pulse-border 3s ease-in-out infinite;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
         }
 
         /* Live Signals Section */
@@ -439,9 +424,10 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        .signal-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
         }
 
         .signal-card.premium-blur {
@@ -451,6 +437,12 @@
         .signal-card.premium-blur .signal-details {
             filter: blur(3px);
             opacity: 0.3;
+        }
+
+        .signal-card.premium-blur:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
         }
 
         .premium-overlay {
@@ -510,22 +502,9 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        .loading-signals {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
-        }
-
-        .loading-text {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .loading-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
+        .unlock-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
         }
 
         .signal-header {
@@ -559,15 +538,10 @@
             color: var(--warning);
         }
 
-        @keyframes glow {
-            from { box-shadow: 0 0 5px currentColor; }
-            to { box-shadow: 0 0 20px currentColor; }
-        }
-
         .signal-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .signal-item {
@@ -576,13 +550,14 @@
 
         .signal-label {
             color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
         }
 
         .signal-value {
             font-weight: 600;
             color: var(--text);
+            font-size: 0.9rem;
         }
 
         .signal-value.profit {
@@ -593,145 +568,22 @@
             color: var(--danger);
         }
 
-        /* Main Content Grid */
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .section-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), transparent);
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .section-card:hover::before {
-            opacity: 1;
-        }
-
-        .section-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 25px 50px rgba(251, 191, 36, 0.1);
-        }
-
-        .section-card h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .icon {
-            width: 24px;
-            height: 24px;
-            fill: var(--primary);
-        }
-
-        .telegram-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .telegram-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 1rem 1.5rem;
-            background: linear-gradient(135deg, #0088cc, #229ED9);
-            color: white;
-            text-decoration: none;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .telegram-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .telegram-btn:hover::before {
-            left: 100%;
-        }
-
-        .telegram-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.3);
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .feature-list li {
-            padding: 0.75rem 0;
-            position: relative;
-            padding-left: 2rem;
+        .loading-signals {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
             color: var(--text-muted);
-            transition: color 0.3s ease;
         }
 
-        .feature-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.2rem;
+        .loading-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
         }
 
-        .feature-list li:hover {
-            color: var(--text);
-        }
-
-        .coming-soon {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: inline-block;
-            margin-top: 1.5rem;
-            animation: shimmer 2s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; transform: scale(1.02); }
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         /* Stats Section */
@@ -767,38 +619,28 @@
             margin-top: 0.4rem;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 3rem;
-        }
-
         /* Community Section */
         .community-section {
-            margin: 4rem 0;
-            padding: 2rem 0;
+            margin: 3rem 0;
+            padding: 1.5rem 0;
         }
 
         .telegram-channels {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .telegram-channel {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            padding: 2rem;
+            gap: 1.25rem;
+            padding: 1.5rem;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             border: 2px solid transparent;
-            border-radius: 20px;
+            border-radius: 15px;
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
@@ -845,10 +687,10 @@
 
         .channel-icon {
             flex-shrink: 0;
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: rgba(251, 191, 36, 0.1);
-            border-radius: 20px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -871,41 +713,41 @@
 
         .channel-content h3 {
             color: var(--text);
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .channel-content p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.4rem;
             line-height: 1.4;
         }
 
         .channel-stats {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
         }
 
         .member-count,
         .success-rate {
             background: rgba(251, 191, 36, 0.1);
             color: var(--accent);
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: 500;
         }
 
         .join-btn {
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: 15px;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
@@ -950,35 +792,147 @@
             line-height: 1.4;
         }
 
-        /* Mobile responsiveness for community section */
-        @media (max-width: 768px) {
-            .telegram-channels {
-                grid-template-columns: 1fr;
-            }
-
-            .telegram-channel {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-            }
-
-            .channel-content {
-                text-align: center;
-            }
-
-            .channel-stats {
-                justify-content: center;
-            }
-
-            .community-benefits {
-                grid-template-columns: 1fr;
-            }
-
-            .benefit-item {
-                flex-direction: column;
-                text-align: center;
-            }
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
         }
+
+        .section-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), transparent);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .section-card:hover::before {
+            opacity: 1;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 25px 50px rgba(251, 191, 36, 0.1);
+        }
+
+        .section-card h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 0.75rem;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .feature-list li:hover {
+            color: var(--text);
+        }
+
+        .coming-soon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 1rem;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+
+        /* Floating Chat Button */
+        .floating-chat-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
+        }
+
+        .floating-chat-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.4);
+        }
+
+        .floating-chat-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -1041,6 +995,44 @@
             .countdown {
                 font-size: 1rem;
             }
+
+            .telegram-channels {
+                grid-template-columns: 1fr;
+            }
+
+            .telegram-channel {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .channel-content {
+                text-align: center;
+            }
+
+            .channel-stats {
+                justify-content: center;
+            }
+
+            .community-benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .benefit-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .floating-chat-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .floating-chat-btn span {
+                display: none;
+            }
         }
 
         /* Loading Animation */
@@ -1056,55 +1048,6 @@
 
         .loading-dot:nth-child(1) { animation-delay: -0.32s; }
         .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-
-        /* Floating Chat Button */
-        .floating-chat-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
-            transition: all 0.3s ease;
-            animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
-        }
-
-        .floating-chat-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.4);
-        }
-
-        .floating-chat-btn svg {
-            flex-shrink: 0;
-        }
-
-        /* Animation for floating effect */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @media (max-width: 768px) {
-            .floating-chat-btn {
-                bottom: 15px;
-                right: 15px;
-                padding: 0.75rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .floating-chat-btn span {
-                display: none;
-            }
-        }
 
         @keyframes loading {
             0%, 80%, 100% { transform: scale(0); }
@@ -1176,13 +1119,13 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">🔴 Live Trading Signals</h2>
-                <p class="section-subtitle">Real-time signals updating every few seconds</p>
+                <p class="section-subtitle">Real-time signals updating automatically from MT5</p>
             </div>
 
             <div class="signals-grid" id="signalsGrid">
                 <!-- Signals will be loaded from CSV file -->
                 <div class="loading-signals">
-                    <div class="loading-text">Loading live signals...</div>
+                    <div class="loading-text">Loading live signals from MT5...</div>
                     <div class="loading-dots">
                         <span class="loading-dot"></span>
                         <span class="loading-dot"></span>
@@ -1212,83 +1155,82 @@
         </div>
     </section>
 
+    <!-- Community Section -->
+    <section class="community-section" id="community">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🔗 Join Our Trading Community</h2>
+                <p class="section-subtitle">Connect with fellow traders and get exclusive signals</p>
+            </div>
+            
+            <div class="telegram-channels">
+                <a href="https://t.me/beststrateg" class="telegram-channel deriv-channel" target="_blank">
+                    <div class="channel-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </div>
+                    <div class="channel-content">
+                        <h3>Deriv Signals Channel</h3>
+                        <p>📊 Premium Deriv trading signals</p>
+                        <p>⚡ Real-time market alerts</p>
+                        <p>💰 High-profit opportunities</p>
+                        <div class="channel-stats">
+                            <span class="member-count">🔥 1,250+ Members</span>
+                            <span class="success-rate">📈 89% Success Rate</span>
+                        </div>
+                    </div>
+                    <div class="join-btn">Join Now →</div>
+                </a>
+
+                <a href="https://t.me/weltradeauto" class="telegram-channel weltrade-channel" target="_blank">
+                    <div class="channel-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </div>
+                    <div class="channel-content">
+                        <h3>Weltrade Signals Channel</h3>
+                        <p>📈 Professional Forex signals</p>
+                        <p>🎯 Technical analysis insights</p>
+                        <p>💎 Expert trading strategies</p>
+                        <div class="channel-stats">
+                            <span class="member-count">🔥 980+ Members</span>
+                            <span class="success-rate">📊 92% Success Rate</span>
+                        </div>
+                    </div>
+                    <div class="join-btn">Join Now →</div>
+                </a>
+            </div>
+
+            <div class="community-benefits">
+                <div class="benefit-item">
+                    <div class="benefit-icon">🎯</div>
+                    <div class="benefit-text">
+                        <h4>Exclusive Signals</h4>
+                        <p>Get premium trading signals before anyone else</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">👥</div>
+                    <div class="benefit-text">
+                        <h4>Active Community</h4>
+                        <p>Discuss strategies with experienced traders</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">📚</div>
+                    <div class="benefit-text">
+                        <h4>Free Education</h4>
+                        <p>Learn from market analysis and trading tips</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="container">
         <div class="main-content">
-            <!-- Community Section -->
-            <section class="community-section" id="community">
-                <div class="section-header">
-                    <h2 class="section-title">🔗 Join Our Trading Community</h2>
-                    <p class="section-subtitle">Connect with fellow traders and get exclusive signals</p>
-                </div>
-                
-                <div class="telegram-channels">
-                    <a href="https://t.me/beststrateg" class="telegram-channel deriv-channel" target="_blank">
-                        <div class="channel-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                            </svg>
-                        </div>
-                        <div class="channel-content">
-                            <h3>Deriv Signals Channel</h3>
-                            <p>📊 Premium Deriv trading signals</p>
-                            <p>⚡ Real-time market alerts</p>
-                            <p>💰 High-profit opportunities</p>
-                            <div class="channel-stats">
-                                <span class="member-count">🔥 1,250+ Members</span>
-                                <span class="success-rate">📈 89% Success Rate</span>
-                            </div>
-                        </div>
-                        <div class="join-btn">Join Now →</div>
-                    </a>
-
-                    <a href="https://t.me/weltradeauto" class="telegram-channel weltrade-channel" target="_blank">
-                        <div class="channel-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                            </svg>
-                        </div>
-                        <div class="channel-content">
-                            <h3>Weltrade Signals Channel</h3>
-                            <p>📈 Professional Forex signals</p>
-                            <p>🎯 Technical analysis insights</p>
-                            <p>💎 Expert trading strategies</p>
-                            <div class="channel-stats">
-                                <span class="member-count">🔥 980+ Members</span>
-                                <span class="success-rate">📊 92% Success Rate</span>
-                            </div>
-                        </div>
-                        <div class="join-btn">Join Now →</div>
-                    </a>
-                </div>
-
-                <div class="community-benefits">
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🎯</div>
-                        <div class="benefit-text">
-                            <h4>Exclusive Signals</h4>
-                            <p>Get premium trading signals before anyone else</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">👥</div>
-                        <div class="benefit-text">
-                            <h4>Active Community</h4>
-                            <p>Discuss strategies with experienced traders</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">📚</div>
-                        <div class="benefit-text">
-                            <h4>Free Education</h4>
-                            <p>Learn from market analysis and trading tips</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div class="main-content">
-
-
             <!-- Trading Tools Section -->
             <div class="section-card" id="tools">
                 <h2>
@@ -1354,10 +1296,12 @@
     </footer>
 
     <script>
-        // Load signals from CSV file
+        // Load signals from CSV file (supports multiple sources)
         async function loadSignalsFromCSV() {
             try {
-                const response = await fetch('signals.csv');
+                // Try loading from local CSV file first
+                let response = await fetch('signals.csv');
+                
                 if (!response.ok) {
                     console.log('CSV file not found, showing demo signals');
                     showDemoSignals();
@@ -1368,60 +1312,80 @@
                 const signals = parseCSV(csvText);
                 displaySignals(signals);
                 
+                // Update last refresh time
+                updateLastRefreshTime();
+                
             } catch (error) {
                 console.log('Error loading CSV, showing demo signals');
                 showDemoSignals();
             }
         }
 
-        // Parse CSV data
+        // Parse CSV data with flexible column names
         function parseCSV(text) {
             const lines = text.trim().split('\n');
-            const headers = lines[0].split(',').map(h => h.trim());
+            if (lines.length < 2) return [];
+            
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
             const signals = [];
 
             for (let i = 1; i < lines.length; i++) {
                 const values = lines[i].split(',').map(v => v.trim());
+                if (values.length < headers.length) continue;
+                
                 const signal = {};
                 headers.forEach((header, index) => {
-                    signal[header.toLowerCase()] = values[index];
+                    signal[header] = values[index];
                 });
                 signals.push(signal);
             }
             return signals;
         }
 
-        // Display signals from CSV
+        // Display signals from CSV with premium blur logic
         function displaySignals(signals) {
             const container = document.getElementById('signalsGrid');
             container.innerHTML = '';
 
+            if (signals.length === 0) {
+                container.innerHTML = '<div class="loading-signals"><div class="loading-text">No signals available</div></div>';
+                return;
+            }
+
             signals.forEach((signal, index) => {
                 const isPremium = index > 0; // First signal free, rest premium
-                const statusClass = signal.status === 'ACTIVE' ? 'active' : 'pending';
+                const statusClass = (signal.status || 'ACTIVE').toLowerCase() === 'active' ? 'active' : 'pending';
+                
+                // Support multiple column name formats
+                const pair = signal.pair || signal.symbol || signal.instrument || 'N/A';
+                const direction = signal.direction || signal.type || signal.action || 'BUY';
+                const entry = signal.entry || signal.price || signal.open || '0';
+                const target = signal.target || signal.tp || signal.takeprofit || '0';
+                const stoploss = signal.stoploss || signal.sl || signal.stop || '0';
+                const status = signal.status || 'ACTIVE';
                 
                 const signalHTML = `
                     <div class="signal-card ${isPremium ? 'premium-blur' : ''}">
                         <div class="signal-header">
-                            <div class="signal-pair">${signal.pair || signal.symbol}</div>
-                            <div class="signal-status ${statusClass}">${signal.status || 'ACTIVE'}</div>
+                            <div class="signal-pair">${pair}</div>
+                            <div class="signal-status ${statusClass}">${status}</div>
                         </div>
                         <div class="signal-details">
                             <div class="signal-item">
                                 <div class="signal-label">Direction</div>
-                                <div class="signal-value">${signal.direction || signal.type}</div>
+                                <div class="signal-value">${direction}</div>
                             </div>
                             <div class="signal-item">
                                 <div class="signal-label">Entry</div>
-                                <div class="signal-value">${signal.entry}</div>
+                                <div class="signal-value">${entry}</div>
                             </div>
                             <div class="signal-item">
                                 <div class="signal-label">Target</div>
-                                <div class="signal-value profit">${signal.target || signal.tp}</div>
+                                <div class="signal-value profit">${target}</div>
                             </div>
                             <div class="signal-item">
                                 <div class="signal-label">Stop Loss</div>
-                                <div class="signal-value loss">${signal.stoploss || signal.sl}</div>
+                                <div class="signal-value loss">${stoploss}</div>
                             </div>
                         </div>
                         ${isPremium ? `
@@ -1451,11 +1415,20 @@
             displaySignals(demoSignals);
         }
 
-        // Load signals when page loads
-        window.addEventListener('load', loadSignalsFromCSV);
-        
-        // Refresh signals every 30 seconds
-        setInterval(loadSignalsFromCSV, 30000);
+        function updateLastRefreshTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            
+            // Add refresh indicator
+            let refreshIndicator = document.querySelector('.refresh-indicator');
+            if (!refreshIndicator) {
+                refreshIndicator = document.createElement('div');
+                refreshIndicator.className = 'refresh-indicator';
+                refreshIndicator.style.cssText = 'text-align: center; margin-top: 1rem;';
+                document.querySelector('.section-header').appendChild(refreshIndicator);
+            }
+            refreshIndicator.innerHTML = `<span style="color: var(--accent); font-size: 0.8rem;">🔄 Last updated: ${timeString}</span>`;
+        }
 
         // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1468,17 +1441,6 @@
                         block: 'start'
                     });
                 }
-            });
-        });
-
-        // Add loading animation to telegram buttons
-        document.querySelectorAll('.telegram-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                this.style.opacity = '0.7';
-                setTimeout(() => {
-                    this.style.opacity = '1';
-                }, 300);
             });
         });
 
@@ -1531,6 +1493,35 @@
         document.querySelectorAll('.stat-card').forEach(card => {
             observer.observe(card);
         });
+
+        // Floating chat button functionality
+        function createFloatingChatButton() {
+            const chatBtn = document.createElement('div');
+            chatBtn.innerHTML = `
+                <div class="floating-chat-btn" onclick="openChat()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                    </svg>
+                    <span>Chat with us!</span>
+                </div>
+            `;
+            document.body.appendChild(chatBtn);
+        }
+
+        // Function to handle chat button click
+        function openChat() {
+            // You can integrate with any chat service here
+            alert('Chat will be available soon! For immediate support, contact us at support@volatilityplus.com');
+        }
+
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            loadSignalsFromCSV();
+            createFloatingChatButton();
+        });
+        
+        // Refresh signals every 30 seconds
+        setInterval(loadSignalsFromCSV, 30000);
 
         // Add dynamic background particles effect
         function createParticle() {
