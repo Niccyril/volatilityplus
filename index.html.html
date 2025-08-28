@@ -67,7 +67,7 @@
             background: var(--glass);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1.5rem 0;
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -80,7 +80,7 @@
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
@@ -123,14 +123,14 @@
 
         /* Hero Section */
         .hero {
-            padding: 6rem 0;
+            padding: 4rem 0 3rem 0;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -139,25 +139,24 @@
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             animation: slideUp 1s ease-out 0.2s both;
         }
 
-        /* Broker Registration Buttons */
         .broker-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            max-width: 700px;
+            gap: 1.25rem;
+            max-width: 650px;
             margin: 0 auto;
             animation: slideUp 1s ease-out 0.4s both;
         }
 
         .special-offer {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -165,17 +164,17 @@
             display: inline-block;
             background: linear-gradient(135deg, #ff6b6b, #ff8e53);
             color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 25px;
+            padding: 0.4rem 1.25rem;
+            border-radius: 20px;
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
             animation: glow 2s ease-in-out infinite alternate;
         }
 
         .special-offer h3 {
             color: var(--text);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 600;
             margin: 0;
             background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -188,16 +187,16 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 2rem 2.5rem;
+            padding: 1.5rem 2rem;
             background: linear-gradient(135deg, var(--card-bg), rgba(251, 191, 36, 0.1));
             backdrop-filter: blur(20px);
             border: 3px solid transparent;
-            border-radius: 25px;
+            border-radius: 20px;
             text-decoration: none;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .broker-btn::before {
@@ -378,18 +377,18 @@
 
         /* Live Signals Section */
         .live-signals {
-            margin: 4rem 0;
+            margin: 3rem 0;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             background: linear-gradient(135deg, var(--accent), var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -398,22 +397,22 @@
 
         .section-subtitle {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .signals-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .signal-card {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 15px;
+            padding: 1.25rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -445,19 +444,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         .signal-pair {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text);
         }
 
         .signal-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
             font-weight: 500;
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -665,7 +664,7 @@
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--accent), var(--primary));
             -webkit-background-clip: text;
@@ -676,18 +675,18 @@
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 0;
+            padding: 2rem 0;
             background: var(--glass);
             backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
 
         /* Community Section */
