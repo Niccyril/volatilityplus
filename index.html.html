@@ -690,7 +690,208 @@
             margin-top: 4rem;
         }
 
-        /* Mobile Responsive */
+        /* Community Section */
+        .community-section {
+            margin: 4rem 0;
+            padding: 2rem 0;
+        }
+
+        .telegram-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .telegram-channel {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .telegram-channel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .telegram-channel:hover::before {
+            left: 100%;
+        }
+
+        .telegram-channel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .deriv-channel {
+            border-image: linear-gradient(135deg, #ff4500, #ff6b35) 1;
+        }
+
+        .deriv-channel:hover {
+            border-color: #ff4500;
+            box-shadow: 0 20px 40px rgba(255, 69, 0, 0.2);
+        }
+
+        .weltrade-channel {
+            border-image: linear-gradient(135deg, #007bbf, #00a8ff) 1;
+        }
+
+        .weltrade-channel:hover {
+            border-color: #007bbf;
+            box-shadow: 0 20px 40px rgba(0, 123, 191, 0.2);
+        }
+
+        .channel-icon {
+            flex-shrink: 0;
+            width: 70px;
+            height: 70px;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0088cc;
+        }
+
+        .deriv-channel .channel-icon {
+            background: rgba(255, 69, 0, 0.1);
+            color: #ff4500;
+        }
+
+        .weltrade-channel .channel-icon {
+            background: rgba(0, 123, 191, 0.1);
+            color: #007bbf;
+        }
+
+        .channel-content {
+            flex: 1;
+        }
+
+        .channel-content h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .channel-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .channel-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .member-count,
+        .success-rate {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .telegram-channel:hover .join-btn {
+            transform: scale(1.05);
+        }
+
+        .community-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-text h4 {
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .benefit-text p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Mobile responsiveness for community section */
+        @media (max-width: 768px) {
+            .telegram-channels {
+                grid-template-columns: 1fr;
+            }
+
+            .telegram-channel {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .channel-content {
+                text-align: center;
+            }
+
+            .channel-stats {
+                justify-content: center;
+            }
+
+            .community-benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .benefit-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -769,6 +970,55 @@
         .loading-dot:nth-child(1) { animation-delay: -0.32s; }
         .loading-dot:nth-child(2) { animation-delay: -0.16s; }
 
+        /* Floating Chat Button */
+        .floating-chat-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
+        }
+
+        .floating-chat-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.4);
+        }
+
+        .floating-chat-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* Animation for floating effect */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .floating-chat-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .floating-chat-btn span {
+                display: none;
+            }
+        }
+
         @keyframes loading {
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1); }
@@ -784,7 +1034,7 @@
                     <ul class="nav-links">
                         <li><a href="#signals">Live Signals</a></li>
                         <li><a href="#tools">Tools</a></li>
-                        <li><a href="#telegram">Community</a></li>
+                        <li><a href="#community">Community</a></li>
                         <li><a href="#about">About</a></li>
                     </ul>
                 </nav>
@@ -942,6 +1192,79 @@
 
     <div class="container">
         <div class="main-content">
+            <!-- Community Section -->
+            <section class="community-section" id="community">
+                <div class="section-header">
+                    <h2 class="section-title">🔗 Join Our Trading Community</h2>
+                    <p class="section-subtitle">Connect with fellow traders and get exclusive signals</p>
+                </div>
+                
+                <div class="telegram-channels">
+                    <a href="https://t.me/beststrateg" class="telegram-channel deriv-channel" target="_blank">
+                        <div class="channel-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>Deriv Signals Channel</h3>
+                            <p>📊 Premium Deriv trading signals</p>
+                            <p>⚡ Real-time market alerts</p>
+                            <p>💰 High-profit opportunities</p>
+                            <div class="channel-stats">
+                                <span class="member-count">🔥 1,250+ Members</span>
+                                <span class="success-rate">📈 89% Success Rate</span>
+                            </div>
+                        </div>
+                        <div class="join-btn">Join Now →</div>
+                    </a>
+
+                    <a href="https://t.me/weltradeauto" class="telegram-channel weltrade-channel" target="_blank">
+                        <div class="channel-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>Weltrade Signals Channel</h3>
+                            <p>📈 Professional Forex signals</p>
+                            <p>🎯 Technical analysis insights</p>
+                            <p>💎 Expert trading strategies</p>
+                            <div class="channel-stats">
+                                <span class="member-count">🔥 980+ Members</span>
+                                <span class="success-rate">📊 92% Success Rate</span>
+                            </div>
+                        </div>
+                        <div class="join-btn">Join Now →</div>
+                    </a>
+                </div>
+
+                <div class="community-benefits">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎯</div>
+                        <div class="benefit-text">
+                            <h4>Exclusive Signals</h4>
+                            <p>Get premium trading signals before anyone else</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">👥</div>
+                        <div class="benefit-text">
+                            <h4>Active Community</h4>
+                            <p>Discuss strategies with experienced traders</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📚</div>
+                        <div class="benefit-text">
+                            <h4>Free Education</h4>
+                            <p>Learn from market analysis and trading tips</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="main-content">
 
 
             <!-- Trading Tools Section -->
