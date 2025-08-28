@@ -434,10 +434,75 @@
             50% { opacity: 1; }
         }
 
-        .signal-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
+        .signal-card.premium-blur {
+            position: relative;
+        }
+
+        .signal-card.premium-blur .signal-details {
+            filter: blur(3px);
+            opacity: 0.3;
+        }
+
+        .premium-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .premium-overlay:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .premium-content {
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+
+        .premium-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .premium-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--accent);
+        }
+
+        .premium-subtitle {
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .unlock-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
         }
 
         .signal-header {
@@ -1117,7 +1182,7 @@
                     </div>
                 </div>
 
-                <div class="signal-card">
+                <div class="signal-card premium-blur">
                     <div class="signal-header">
                         <div class="signal-pair">GBP/JPY</div>
                         <div class="signal-status active">ACTIVE</div>
@@ -1140,9 +1205,17 @@
                             <div class="signal-value loss">185.78</div>
                         </div>
                     </div>
+                    <div class="premium-overlay">
+                        <div class="premium-content">
+                            <div class="premium-icon">🔒</div>
+                            <div class="premium-title">Premium Signal</div>
+                            <div class="premium-subtitle">Join VIP for full access</div>
+                            <div class="unlock-btn">Unlock Now</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="signal-card">
+                <div class="signal-card premium-blur">
                     <div class="signal-header">
                         <div class="signal-pair">XAU/USD</div>
                         <div class="signal-status pending">PENDING</div>
@@ -1163,6 +1236,14 @@
                         <div class="signal-item">
                             <div class="signal-label">Stop Loss</div>
                             <div class="signal-value loss">2035.00</div>
+                        </div>
+                    </div>
+                    <div class="premium-overlay">
+                        <div class="premium-content">
+                            <div class="premium-icon">💎</div>
+                            <div class="premium-title">VIP Signal</div>
+                            <div class="premium-subtitle">Register & get instant access</div>
+                            <div class="unlock-btn">Get VIP Access</div>
                         </div>
                     </div>
                 </div>
