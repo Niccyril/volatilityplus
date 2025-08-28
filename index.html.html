@@ -13,6 +13,25 @@
             box-sizing: border-box;
         }
 
+        // Simulate real-time signal updates
+        function updateSignals() {
+            const signalCards = document.querySelectorAll('.signal-card:not(.premium-blur)');
+            
+            signalCards.forEach(card => {
+                const entryValue = card.querySelector('.signal-details .signal-value');
+                if (entryValue && !isNaN(parseFloat(entryValue.textContent))) {
+                    const currentValue = parseFloat(entryValue.textContent);
+                    const variation = (Math.random() - 0.5) * 0.0002; // Small random variation
+                    const newValue = currentValue + variation;
+                    
+                    // Update entry price with subtle changes
+                    if (entryValue.textContent.includes('.')) {
+                        entryValue.textContent = newValue.toFixed(4);
+                    }
+                }
+            });
+        }
+
         :root {
             --primary: #fbbf24;
             --secondary: #f59e0b;
@@ -119,6 +138,20 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .auth-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+            color: white !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 20px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .auth-btn:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3) !important;
         }
 
         /* Hero Section */
@@ -1053,6 +1086,291 @@
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1); }
         }
+
+        /* User Authentication Modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-modal.active {
+            display: flex !important;
+        }
+
+        .auth-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .auth-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .auth-close:hover {
+            color: var(--primary);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 0.75rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .auth-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .auth-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .auth-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        .premium-upgrade {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1));
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .upgrade-text {
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upgrade-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* User Dashboard */
+        .user-dashboard {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .user-dashboard.active {
+            display: block;
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .user-details h3 {
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .user-status {
+            font-size: 0.9rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+
+        .user-status.premium {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .user-status.free {
+            background: rgba(156, 163, 175, 0.2);
+            color: var(--text-muted);
+        }
+
+        .dashboard-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .dashboard-close:hover {
+            color: var(--primary);
+        }
+
+        .account-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        .action-btn.logout {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .action-btn.logout:hover {
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -1176,8 +1494,8 @@
                         <div class="premium-content">
                             <div class="premium-icon">🔒</div>
                             <div class="premium-title">Premium Signal</div>
-                            <div class="premium-subtitle">Register & get instant access</div>
-                            <div class="unlock-btn">Get VIP Access</div>
+                            <div class="premium-subtitle">Login with premium account to view</div>
+                            <div class="unlock-btn" onclick="openAuthModal()">Login / Sign Up</div>
                         </div>
                     </div>
                 </div>
@@ -1209,8 +1527,8 @@
                         <div class="premium-content">
                             <div class="premium-icon">💎</div>
                             <div class="premium-title">VIP Signal</div>
-                            <div class="premium-subtitle">Register & get instant access</div>
-                            <div class="unlock-btn">Get VIP Access</div>
+                            <div class="premium-subtitle">Login with premium account to view</div>
+                            <div class="unlock-btn" onclick="openAuthModal()">Login / Sign Up</div>
                         </div>
                     </div>
                 </div>
@@ -1377,24 +1695,281 @@
         </div>
     </footer>
 
-    <script>
-        // Simulate real-time signal updates
-        function updateSignals() {
-            const signalCards = document.querySelectorAll('.signal-card:not(.premium-blur)');
+    <!-- Authentication Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <button class="auth-close" onclick="closeAuthModal()">×</button>
             
-            signalCards.forEach(card => {
-                const entryValue = card.querySelector('.signal-details .signal-value');
-                if (entryValue && !isNaN(parseFloat(entryValue.textContent))) {
-                    const currentValue = parseFloat(entryValue.textContent);
-                    const variation = (Math.random() - 0.5) * 0.0002; // Small random variation
-                    const newValue = currentValue + variation;
-                    
-                    // Update entry price with subtle changes
-                    if (entryValue.textContent.includes('.')) {
-                        entryValue.textContent = newValue.toFixed(4);
-                    }
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="auth-submit">Login</button>
+                
+                <div class="premium-upgrade">
+                    <div class="upgrade-text">Want to see all signals?</div>
+                    <button type="button" class="upgrade-btn" onclick="showPremiumDemo()">Try Premium Demo</button>
+                </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form class="auth-form" id="signupForm">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Create password" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Account Type</label>
+                    <select class="form-input" id="accountType">
+                        <option value="free">Free Account</option>
+                        <option value="premium">Premium Account ($29/month)</option>
+                    </select>
+                </div>
+                <button type="submit" class="auth-submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Dashboard Modal -->
+    <div class="user-dashboard" id="userDashboard">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">J</div>
+                    <div class="user-details">
+                        <h3 id="userName">John Doe</h3>
+                        <span class="user-status" id="userStatus">Free Account</span>
+                    </div>
+                </div>
+                <button class="dashboard-close" onclick="closeDashboard()">×</button>
+            </div>
+            
+            <div class="account-actions">
+                <button class="action-btn" onclick="upgradeToPremium()" id="upgradeBtn">Upgrade to Premium</button>
+                <button class="action-btn logout" onclick="logout()">Logout</button>
+            </div>
+
+            <div class="premium-upgrade" id="dashboardUpgrade">
+                <div class="upgrade-text">Upgrade to Premium to unlock all signals!</div>
+                <button type="button" class="upgrade-btn" onclick="upgradeToPremium()">Upgrade Now - $29/month</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    <script>
+        // User Authentication System
+        let currentUser = null;
+        
+        // Demo users database (in real app, this would be server-side)
+        const users = {
+            'demo@free.com': { 
+                password: 'demo123', 
+                name: 'Demo User', 
+                type: 'free',
+                avatar: 'D'
+            },
+            'premium@demo.com': { 
+                password: 'premium123', 
+                name: 'Premium User', 
+                type: 'premium',
+                avatar: 'P'
+            }
+        };
+
+        // Authentication Modal Functions
+        function openAuthModal() {
+            document.getElementById('authModal').classList.add('active');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.auth-tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update forms
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            document.getElementById(tab + 'Form').classList.add('active');
+        }
+
+        // Login Function
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            
+            if (users[email] && users[email].password === password) {
+                currentUser = users[email];
+                currentUser.email = email;
+                updateUI();
+                closeAuthModal();
+                showDashboard();
+                
+                // Show success message
+                alert(`Welcome back, ${currentUser.name}! ${currentUser.type === 'premium' ? 'You can now view all signals!' : 'Upgrade to Premium to see all signals.'}`);
+            } else {
+                alert('Invalid credentials! Try:\n• demo@free.com / demo123 (Free Account)\n• premium@demo.com / premium123 (Premium Account)');
+            }
+        });
+
+        // Signup Function
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const password = this.querySelector('input[type="password"]').value;
+            const type = this.querySelector('#accountType').value;
+            
+            if (users[email]) {
+                alert('Email already exists! Try logging in instead.');
+                return;
+            }
+            
+            // Create new user
+            users[email] = {
+                name: name,
+                password: password,
+                type: type,
+                avatar: name.charAt(0).toUpperCase()
+            };
+            
+            currentUser = users[email];
+            currentUser.email = email;
+            updateUI();
+            closeAuthModal();
+            showDashboard();
+            
+            alert(`Account created successfully! Welcome, ${name}!${type === 'premium' ? ' You can now view all signals!' : ' Upgrade to Premium to unlock all signals.'}`);
+        });
+
+        // Dashboard Functions
+        function showDashboard() {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
+            
+            document.getElementById('userAvatar').textContent = currentUser.avatar;
+            document.getElementById('userName').textContent = currentUser.name;
+            
+            const statusElement = document.getElementById('userStatus');
+            statusElement.textContent = currentUser.type === 'premium' ? 'Premium Account' : 'Free Account';
+            statusElement.className = `user-status ${currentUser.type}`;
+            
+            const upgradeBtn = document.getElementById('upgradeBtn');
+            const dashboardUpgrade = document.getElementById('dashboardUpgrade');
+            
+            if (currentUser.type === 'premium') {
+                upgradeBtn.style.display = 'none';
+                dashboardUpgrade.style.display = 'none';
+            } else {
+                upgradeBtn.style.display = 'block';
+                dashboardUpgrade.style.display = 'block';
+            }
+            
+            document.getElementById('userDashboard').classList.add('active');
+        }
+
+        function closeDashboard() {
+            document.getElementById('userDashboard').classList.remove('active');
+        }
+
+        function logout() {
+            currentUser = null;
+            updateUI();
+            closeDashboard();
+            alert('Logged out successfully!');
+        }
+
+        function upgradeToPremium() {
+            if (currentUser) {
+                currentUser.type = 'premium';
+                updateUI();
+                showDashboard();
+                alert('Upgraded to Premium! You can now view all signals!');
+            }
+        }
+
+        function showPremiumDemo() {
+            // Temporarily show premium access
+            currentUser = {
+                name: 'Premium Demo',
+                email: 'demo@premium.com',
+                type: 'premium',
+                avatar: 'P'
+            };
+            updateUI();
+            closeAuthModal();
+            alert('Welcome to Premium Demo! All signals are now visible for 5 minutes.');
+            
+            // Reset after 5 minutes
+            setTimeout(() => {
+                if (currentUser && currentUser.email === 'demo@premium.com') {
+                    currentUser = null;
+                    updateUI();
+                    alert('Premium demo expired. Please create an account to continue.');
                 }
-            });
+            }, 300000); // 5 minutes
+        }
+
+        // Update UI based on user status
+        function updateUI() {
+            const authBtn = document.querySelector('.auth-btn');
+            const signalCards = document.querySelectorAll('.signal-card.premium-blur');
+            
+            if (currentUser) {
+                authBtn.textContent = currentUser.name;
+                authBtn.onclick = showDashboard;
+                
+                if (currentUser.type === 'premium') {
+                    // Remove blur from premium signals
+                    signalCards.forEach(card => {
+                        card.classList.remove('premium-blur');
+                        const overlay = card.querySelector('.premium-overlay');
+                        if (overlay) overlay.style.display = 'none';
+                    });
+                } else {
+                    // Keep blur for free users
+                    signalCards.forEach(card => {
+                        card.classList.add('premium-blur');
+                        const overlay = card.querySelector('.premium-overlay');
+                        if (overlay) overlay.style.display = 'flex';
+                    });
+                }
+            } else {
+                authBtn.textContent = 'Login / Sign Up';
+                authBtn.onclick = openAuthModal;
+                
+                // Show blur for all premium signals
+                signalCards.forEach(card => {
+                    card.classList.add('premium-blur');
+                    const overlay = card.querySelector('.premium-overlay');
+                    if (overlay) overlay.style.display = 'flex';
+                });
+            }
         }
 
         // Update last refresh time
