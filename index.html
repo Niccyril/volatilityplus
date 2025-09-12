@@ -904,6 +904,10 @@
             .tool-actions {
                 width: 100%;
             }
+            
+            .crypto-options {
+                grid-template-columns: 1fr;
+            }
         }
         
         /* Active nav link */
@@ -1181,7 +1185,7 @@
                                 $80 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('mega-spikes-max', 80, 'Mega Spikes Max - Boom & Crash Spike Detector')" style="width: 100%;">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('mega-spikes-max', 80, 'Mega Spikes Max - Boom & Crash Spike Detector')">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1207,7 +1211,7 @@
                                 $55 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('spike-phantom', 55, 'Spike Phantom - PainX & GainX Spike Detector')" style="width: 100%;">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('spike-phantom', 55, 'Spike Phantom - PainX & GainX Spike Detector')">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1234,7 +1238,7 @@
                                 $120 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('complete-bundle', 120, 'Complete Bundle - All Trading Tools')" style="width: 100%;">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('complete-bundle', 120, 'Complete Bundle - All Trading Tools')">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1399,7 +1403,7 @@
                     <div class="payment-address">
                         <h4>Send Payment To:</h4>
                         <div class="address-container">
-                            <input type="text" id="paymentAddress" readonly onclick="copyAddress()">
+                            <input type="text" id="paymentAddress" readonly>
                             <button onclick="copyAddress()" class="copy-btn">
                                 <i class="fas fa-copy"></i>
                             </button>
@@ -1485,11 +1489,6 @@
     </div>
 
     <script>
-        // PayerURL API Configuration - Replace with your credentials
-        const PAYERURL_API_KEY = 'YOUR_PAYERURL_API_KEY';
-        const PAYERURL_MERCHANT_ID = 'YOUR_MERCHANT_ID';
-        const PAYERURL_API_URL = 'https://payerurl.com/api/v1';
-
         // Current payment data
         let currentPayment = {
             productId: '',
@@ -1499,8 +1498,7 @@
             customerEmail: '',
             paymentAddress: '',
             cryptoAmount: 0,
-            paymentId: '',
-            payerUrlId: ''
+            paymentId: ''
         };
 
         let paymentTimer = null;
@@ -1539,8 +1537,7 @@
                     customerEmail: '',
                     paymentAddress: '',
                     cryptoAmount: 0,
-                    paymentId: '',
-                    payerUrlId: ''
+                    paymentId: ''
                 };
             }
             document.getElementById(modalId).style.display = 'none';
@@ -1591,10 +1588,10 @@
             document.querySelectorAll('.crypto-option').forEach(option => {
                 option.classList.remove('selected');
             });
-            event.target.closest('.crypto-option').classList.add('selected');
+            event.target.classList.add('selected');
         }
 
-        async function proceedToPayment() {
+        function proceedToPayment() {
             const email = document.getElementById('customerEmail').value;
             
             if (!email || !currentPayment.selectedCrypto) {
@@ -1610,62 +1607,21 @@
             
             currentPayment.customerEmail = email;
             
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.textContent = 'Creating Payment...';
-            btn.disabled = true;
+            document.getElementById('paymentStep1').style.display = 'none';
+            document.getElementById('paymentStep2').style.display = 'block';
             
-            try {
-                await createCryptoPayment();
-                
-                document.getElementById('paymentStep1').style.display = 'none';
-                document.getElementById('paymentStep2').style.display = 'block';
-                
-                startPaymentTimer();
-                startPaymentStatusCheck();
-                
-            } catch (error) {
-                console.error('Payment creation failed:', error);
-                showMessage('Payment Error', error.message);
-                
-                document.getElementById('paymentStep2').style.display = 'none';
-                document.getElementById('paymentStep1').style.display = 'block';
-            } finally {
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
+            document.getElementById('finalProductName').textContent = currentPayment.productName;
+            document.getElementById('finalPrice').textContent = '$' + currentPayment.priceUSD;
+            document.getElementById('selectedCrypto').textContent = currentPayment.selectedCrypto.toUpperCase();
+            
+            // Generate mock payment details for demo
+            generateMockPayment();
+            
+            startPaymentTimer();
+            startPaymentStatusCheck();
         }
 
-        // PayerURL Authentication Helper
-        function generatePayerURLSignature(data, timestamp) {
-            // PayerURL typically requires HMAC-SHA256 signature
-            // In production, this would be done server-side for security
-            const payload = JSON.stringify(data) + timestamp;
-            // This is a simplified version - implement proper HMAC-SHA256 on server
-            return btoa(payload + PAYERURL_SECRET_KEY).substring(0, 32);
-        }
-
-        function getPayerURLHeaders(data = null) {
-            const timestamp = Math.floor(Date.now() / 1000);
-            const headers = {
-                'Content-Type': 'application/json',
-                'X-API-Key': PAYERURL_API_KEY,
-                'X-Timestamp': timestamp.toString()
-            };
-            
-            if (data) {
-                headers['X-Signature'] = generatePayerURLSignature(data, timestamp);
-            }
-            
-            return headers;
-        }
-
-        async function createCryptoPayment() {
-            try {
-                document.getElementById('finalProductName').textContent = currentPayment.productName;
-                document.getElementById('finalPrice').textContent = '
-
-        async function generateMockPayment() {
+        function generateMockPayment() {
             // Mock payment data for demo
             currentPayment.paymentId = 'VP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
             
@@ -1691,14 +1647,13 @@
             const amount = (currentPayment.priceUSD / rate).toFixed(8);
             const address = mockAddresses[currentPayment.selectedCrypto];
             
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            document.getElementById('cryptoAmount').textContent = amount + ' ' + currentPayment.selectedCrypto.toUpperCase();
+            document.getElementById('paymentAddress').value = address;
             
-            return {
-                address: address,
-                amount: amount,
-                paymentId: currentPayment.paymentId
-            };
+            generateQRCode(address, amount, currentPayment.selectedCrypto);
+            
+            currentPayment.cryptoAmount = amount;
+            currentPayment.paymentAddress = address;
         }
 
         function generateQRCode(address, amount, crypto) {
@@ -1748,497 +1703,19 @@
         }
 
         function startPaymentStatusCheck() {
-            paymentCheckInterval = setInterval(async () => {
-                try {
-                    // Mock payment confirmation for demo
-                    const randomConfirm = Math.random() < 0.05;
-                    
-                    if (randomConfirm) {
-                        clearInterval(paymentTimer);
-                        stopPaymentStatusCheck();
-                        
-                        setTimeout(() => {
-                            showPaymentSuccess();
-                        }, 2000);
-                    }
-                } catch (error) {
-                    console.error('Error in payment status check:', error);
-                }
-            }, 15000);
-        }
-
-        function stopPaymentStatusCheck() {
-            if (paymentCheckInterval) {
-                clearInterval(paymentCheckInterval);
-                paymentCheckInterval = null;
-            }
-        }
-
-        function showPaymentSuccess() {
-            document.getElementById('paymentStep2').style.display = 'none';
-            document.getElementById('paymentStep3').style.display = 'block';
-            document.getElementById('confirmEmail').textContent = currentPayment.customerEmail;
-            document.getElementById('confirmProduct').textContent = currentPayment.productName;
-            document.getElementById('confirmMT5').textContent = currentPayment.mt5Account;
-            
-            sendConfirmationEmail();
-        }
-
-        async function sendConfirmationEmail() {
-            try {
-                const emailData = {
-                    to: currentPayment.customerEmail,
-                    subject: `VolatilityPlus: Your ${currentPayment.productName} License`,
-                    productId: currentPayment.productId,
-                    productName: currentPayment.productName,
-                    paymentId: currentPayment.paymentId,
-                    amount: currentPayment.priceUSD,
-                    crypto: currentPayment.selectedCrypto.toUpperCase(),
-                    cryptoAmount: currentPayment.cryptoAmount,
-                    purchaseDate: new Date().toISOString()
-                };
+            paymentCheckInterval = setInterval(() => {
+                // Mock payment confirmation for demo
+                const randomConfirm = Math.random() < 0.05;
                 
-                console.log('Demo: License would be delivered to:', emailData.to);
-                
-                const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
-                orders.push({
-                    ...emailData,
-                    status: 'completed',
-                    completedAt: new Date().toISOString()
-                });
-                localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
-                
-            } catch (error) {
-                console.error('Error in license delivery:', error);
-            }
-        }
-
-        function cleanupPaymentProcess() {
-            if (paymentTimer) {
-                clearInterval(paymentTimer);
-                paymentTimer = null;
-            }
-            if (paymentCheckInterval) {
-                clearInterval(paymentCheckInterval);
-                paymentCheckInterval = null;
-            }
-        }
-
-        // Enhanced affiliate signup function
-        function joinAffiliate() {
-            const name = document.getElementById('affiliateName').value;
-            const email = document.getElementById('affiliateEmail').value;
-            const website = document.getElementById('website').value;
-            const promotionMethods = document.getElementById('promotionMethods').value;
-            
-            if (!name || !email) {
-                showMessage('Error', 'Please fill in all required fields');
-                return;
-            }
-
-            const submitBtn = event.target;
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting...';
-            submitBtn.disabled = true;
-
-            setTimeout(() => {
-                showMessage('Application Received', 'Thank you for applying to our affiliate program! Please contact us at support@volatilityplus.com for further processing.');
-                closeModal('affiliateModal');
-                
-                document.getElementById('affiliateName').value = '';
-                document.getElementById('affiliateEmail').value = '';
-                document.getElementById('website').value = '';
-                document.getElementById('promotionMethods').value = '';
-
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
-        }
-        
-        // Other page functions
-        function showAbout() {
-            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals and powerful tools to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
-        }
-        
-        function showContact() {
-            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
-        }
-        
-        function showCareers() {
-            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@volatilityplus.com along with a cover letter explaining why you would be a good fit.');
-        }
-        
-        function showTerms() {
-            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. Please read the full document on our website.');
-        }
-        
-        function showPrivacy() {
-            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent.');
-        }
-        
-        function showDisclaimer() {
-            showMessage('Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
-        }
-        
-        function showRefund() {
-            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
-        
-        // Animation on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
-            
-            function checkScroll() {
-                featureCards.forEach(card => {
-                    const cardPosition = card.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
-                    
-                    if (cardPosition < screenPosition) {
-                        card.style.opacity = 1;
-                        card.style.transform = 'translateY(0)';
-                    }
-                });
-            }
-            
-            featureCards.forEach(card => {
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            });
-            
-            window.addEventListener('scroll', checkScroll);
-            checkScroll();
-        });
-    </script>
-</body>
-</html> + currentPayment.priceUSD;
-                document.getElementById('selectedCrypto').textContent = currentPayment.selectedCrypto.toUpperCase();
-                document.getElementById('cryptoAmount').textContent = 'Calculating...';
-                document.getElementById('paymentAddress').value = 'Generating address...';
-                
-                // Test PayerURL API connection
-                try {
-                    const statusResponse = await fetch(`${PAYERURL_API_URL}/status`, {
-                        headers: getPayerURLHeaders()
-                    });
-                    
-                    if (!statusResponse.ok) {
-                        throw new Error('PayerURL API connection failed');
-                    }
-                    
-                    console.log('PayerURL API connected successfully');
-                    
-                    // Create real payment with PayerURL
-                    const paymentData = await generatePayerURLPayment();
-                    
-                    document.getElementById('cryptoAmount').textContent = paymentData.amount + ' ' + currentPayment.selectedCrypto.toUpperCase();
-                    document.getElementById('paymentAddress').value = paymentData.address;
-                    
-                    generateQRCode(paymentData.address, paymentData.amount, currentPayment.selectedCrypto);
-                    
-                    currentPayment.cryptoAmount = paymentData.amount;
-                    currentPayment.paymentAddress = paymentData.address;
-                    currentPayment.payerUrlId = paymentData.paymentId;
-                    
-                } catch (apiError) {
-                    console.warn('PayerURL API not available, using demo mode:', apiError);
-                    
-                    // Fallback to mock payment for demo
-                    const mockPaymentData = await generateMockPayment();
-                    
-                    document.getElementById('cryptoAmount').textContent = mockPaymentData.amount + ' ' + currentPayment.selectedCrypto.toUpperCase();
-                    document.getElementById('paymentAddress').value = mockPaymentData.address;
-                    
-                    generateQRCode(mockPaymentData.address, mockPaymentData.amount, currentPayment.selectedCrypto);
-                    
-                    currentPayment.cryptoAmount = mockPaymentData.amount;
-                    currentPayment.paymentAddress = mockPaymentData.address;
-                    currentPayment.payerUrlId = mockPaymentData.paymentId;
-                    
-                    showMessage('Demo Mode', 'PayerURL API not configured. Using demo mode for testing. Add your API credentials for live payments.');
-                }
-                
-                console.log('Payment setup completed:', currentPayment);
-                
-            } catch (error) {
-                console.error('Error creating payment:', error);
-                throw error;
-            }
-        }
-
-        async function generatePayerURLPayment() {
-            try {
-                currentPayment.paymentId = 'VP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                
-                const paymentData = {
-                    order_id: currentPayment.paymentId,
-                    amount: currentPayment.priceUSD,
-                    currency: 'USD',
-                    pay_currency: currentPayment.selectedCrypto.toUpperCase(),
-                    description: currentPayment.productName,
-                    callback_url: `${window.location.origin}/webhook`,
-                    success_url: `${window.location.origin}/success`,
-                    cancel_url: `${window.location.origin}/cancel`,
-                    customer_email: currentPayment.customerEmail
-                };
-                
-                console.log('Creating PayerURL payment:', paymentData);
-                
-                const response = await fetch(`${PAYERURL_API_URL}/create-payment`, {
-                    method: 'POST',
-                    headers: getPayerURLHeaders(paymentData),
-                    body: JSON.stringify(paymentData)
-                });
-                
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('PayerURL API Error:', errorText);
-                    
-                    let errorMessage;
-                    try {
-                        const errorData = JSON.parse(errorText);
-                        errorMessage = errorData.message || errorData.error || 'Payment creation failed';
-                    } catch {
-                        errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-                    }
-                    
-                    throw new Error(errorMessage);
-                }
-                
-                const result = await response.json();
-                console.log('PayerURL payment created successfully:', result);
-                
-                return {
-                    address: result.address || result.payment_address || result.crypto_address,
-                    amount: result.amount || result.crypto_amount || result.pay_amount,
-                    paymentId: result.payment_id || result.id || currentPayment.paymentId
-                };
-                
-            } catch (error) {
-                console.error('PayerURL payment creation failed:', error);
-                
-                // User-friendly error messages
-                if (error.message.includes('API key') || error.message.includes('401')) {
-                    throw new Error('PayerURL authentication failed. Please check your API credentials.');
-                } else if (error.message.includes('currency')) {
-                    throw new Error(`${currentPayment.selectedCrypto.toUpperCase()} is not supported by PayerURL.`);
-                } else {
-                    throw new Error('PayerURL payment creation failed. Please try again or contact support.');
-                }
-            }
-        }
-
-        async function checkPayerURLStatus() {
-            try {
-                if (!currentPayment.payerUrlId) {
-                    return 'waiting';
-                }
-                
-                const response = await fetch(`${PAYERURL_API_URL}/payment-status/${currentPayment.payerUrlId}`, {
-                    method: 'GET',
-                    headers: getPayerURLHeaders()
-                });
-                
-                if (!response.ok) {
-                    console.error('Error checking PayerURL status:', response.status, response.statusText);
-                    return 'error';
-                }
-                
-                const data = await response.json();
-                console.log('PayerURL payment status:', data);
-                
-                const status = data.status || data.payment_status;
-                const statusElement = document.getElementById('paymentStatus');
-                
-                switch (status.toLowerCase()) {
-                    case 'completed':
-                    case 'confirmed':
-                    case 'paid':
-                    case 'success':
-                        statusElement.innerHTML = '<p><i class="fas fa-check-circle" style="color: var(--success);"></i> Payment confirmed! Processing...</p>';
-                        statusElement.classList.add('confirmed');
-                        return 'confirmed';
-                        
-                    case 'pending':
-                    case 'processing':
-                        statusElement.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Payment received, processing...</p>';
-                        return 'processing';
-                        
-                    case 'partially_paid':
-                    case 'partial':
-                        const received = data.received_amount || data.paid_amount || 0;
-                        const expected = currentPayment.cryptoAmount;
-                        statusElement.innerHTML = `<p><i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i> Partial payment: ${received}/${expected} ${currentPayment.selectedCrypto.toUpperCase()}</p>`;
-                        return 'partial';
-                        
-                    case 'failed':
-                    case 'error':
-                        statusElement.innerHTML = '<p><i class="fas fa-times-circle" style="color: var(--danger);"></i> Payment failed. Please create a new payment.</p>';
-                        return 'failed';
-                        
-                    case 'expired':
-                    case 'timeout':
-                        statusElement.innerHTML = '<p><i class="fas fa-clock" style="color: var(--danger);"></i> Payment expired. Please create a new payment.</p>';
-                        return 'expired';
-                        
-                    case 'waiting':
-                    case 'created':
-                    case 'pending_payment':
-                    default:
-                        statusElement.innerHTML = '<p><i class="fas fa-clock"></i> Waiting for payment...</p>';
-                        return 'waiting';
-                }
-                
-            } catch (error) {
-                console.error('Error checking PayerURL payment status:', error);
-                return 'error';
-            }
-        }
-
-        function startPaymentStatusCheck() {
-            paymentCheckInterval = setInterval(async () => {
-                try {
-                    let status;
-                    
-                    // Try to check PayerURL status first
-                    if (PAYERURL_API_KEY !== 'YOUR_PAYERURL_API_KEY') {
-                        status = await checkPayerURLStatus();
-                    } else {
-                        // Mock status check for demo
-                        status = Math.random() < 0.05 ? 'confirmed' : 'waiting';
-                    }
-                    
-                    if (status === 'confirmed' || status === 'completed') {
-                        clearInterval(paymentTimer);
-                        stopPaymentStatusCheck();
-                        
-                        setTimeout(() => {
-                            showPaymentSuccess();
-                        }, 2000);
-                        
-                    } else if (status === 'failed' || status === 'expired') {
-                        clearInterval(paymentTimer);
-                        stopPaymentStatusCheck();
-                        
-                        document.getElementById('paymentStatus').innerHTML = 
-                            '<p><i class="fas fa-times-circle" style="color: var(--danger);"></i> Payment failed or expired. Please create a new payment.</p>';
-                    }
-                } catch (error) {
-                    console.error('Error in payment status check:', error);
-                }
-            }, 15000);
-        }
-
-        async function generateMockPayment() {
-            // Mock payment data for demo
-            currentPayment.paymentId = 'VP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            
-            const mockAddresses = {
-                'btc': '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
-                'eth': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
-                'usdt': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
-                'ltc': 'LTC1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
-                'bch': 'bitcoincash:qr4aadjrpu73d2wxwkxkcrt6gqxgu6a7usxfm96fst',
-                'ada': 'addr1q8s2xuqq3lhul4s1m7ch6v5qz7w8rz9l2k8h3j9p4n5b3c2d1f'
-            };
-            
-            const mockRates = {
-                'btc': 43000,
-                'eth': 2200,
-                'usdt': 1.00,
-                'ltc': 70,
-                'bch': 230,
-                'ada': 0.45
-            };
-            
-            const rate = mockRates[currentPayment.selectedCrypto];
-            const amount = (currentPayment.priceUSD / rate).toFixed(8);
-            const address = mockAddresses[currentPayment.selectedCrypto];
-            
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            return {
-                address: address,
-                amount: amount,
-                paymentId: currentPayment.paymentId
-            };
-        }
-
-        function generateQRCode(address, amount, crypto) {
-            const qrContainer = document.getElementById('qrCode');
-            const qrData = `${crypto}:${address}?amount=${amount}`;
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
-            
-            qrContainer.innerHTML = `<img src="${qrUrl}" alt="Payment QR Code" style="max-width: 200px;">`;
-        }
-
-        function copyAddress() {
-            const addressInput = document.getElementById('paymentAddress');
-            addressInput.select();
-            addressInput.setSelectionRange(0, 99999);
-            
-            try {
-                document.execCommand('copy');
-                showMessage('Copied!', 'Payment address copied to clipboard.');
-            } catch (err) {
-                console.error('Copy failed:', err);
-                showMessage('Error', 'Failed to copy address. Please copy manually.');
-            }
-        }
-
-        function startPaymentTimer() {
-            let timeLeft = 15 * 60;
-            const timerElement = document.getElementById('timer');
-            const progressElement = document.getElementById('timerProgress');
-            const totalTime = timeLeft;
-            
-            paymentTimer = setInterval(() => {
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                
-                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                progressElement.style.width = `${(timeLeft / totalTime) * 100}%`;
-                
-                if (timeLeft <= 0) {
+                if (randomConfirm) {
                     clearInterval(paymentTimer);
-                    document.getElementById('paymentStatus').innerHTML = '<p><i class="fas fa-times-circle" style="color: var(--danger);"></i> Payment expired. Please create a new payment.</p>';
                     stopPaymentStatusCheck();
-                    return;
-                }
-                
-                timeLeft--;
-            }, 1000);
-        }
-
-        function startPaymentStatusCheck() {
-            paymentCheckInterval = setInterval(async () => {
-                try {
-                    // Mock payment confirmation for demo
-                    const randomConfirm = Math.random() < 0.05;
                     
-                    if (randomConfirm) {
-                        clearInterval(paymentTimer);
-                        stopPaymentStatusCheck();
-                        
-                        setTimeout(() => {
-                            showPaymentSuccess();
-                        }, 2000);
-                    }
-                } catch (error) {
-                    console.error('Error in payment status check:', error);
+                    setTimeout(() => {
+                        showPaymentSuccess();
+                    }, 2000);
                 }
-            }, 15000);
+            }, 5000);
         }
 
         function stopPaymentStatusCheck() {
@@ -2256,33 +1733,22 @@
             sendConfirmationEmail();
         }
 
-        async function sendConfirmationEmail() {
-            try {
-                const emailData = {
-                    to: currentPayment.customerEmail,
-                    subject: `VolatilityPlus: Your ${currentPayment.productName} License`,
-                    productId: currentPayment.productId,
-                    productName: currentPayment.productName,
-                    paymentId: currentPayment.paymentId,
-                    amount: currentPayment.priceUSD,
-                    crypto: currentPayment.selectedCrypto.toUpperCase(),
-                    cryptoAmount: currentPayment.cryptoAmount,
-                    purchaseDate: new Date().toISOString()
-                };
-                
-                console.log('Demo: License would be delivered to:', emailData.to);
-                
-                const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
-                orders.push({
-                    ...emailData,
-                    status: 'completed',
-                    completedAt: new Date().toISOString()
-                });
-                localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
-                
-            } catch (error) {
-                console.error('Error in license delivery:', error);
-            }
+        function sendConfirmationEmail() {
+            // In a real implementation, this would call your backend
+            console.log('Demo: License would be delivered to:', currentPayment.customerEmail);
+            
+            // Store order in localStorage for demo purposes
+            const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
+            orders.push({
+                productId: currentPayment.productId,
+                productName: currentPayment.productName,
+                price: currentPayment.priceUSD,
+                crypto: currentPayment.selectedCrypto,
+                cryptoAmount: currentPayment.cryptoAmount,
+                email: currentPayment.customerEmail,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
         }
 
         function cleanupPaymentProcess() {
