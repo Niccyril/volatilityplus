@@ -91,9 +91,12 @@
             color: var(--primary);
         }
         
-        .auth-buttons {
+        .contact-info {
             display: flex;
+            align-items: center;
             gap: 15px;
+            color: var(--primary);
+            font-weight: 500;
         }
         
         .btn {
@@ -342,7 +345,7 @@
             z-index: 1;
         }
         
-        /* Tools Section - MODERNIZED */
+        /* Tools Section */
         .tools {
             padding: 80px 0;
             background: #0f0f0f;
@@ -396,7 +399,6 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-            z-index: 3;
         }
         
         .tool-content {
@@ -637,7 +639,6 @@
         
         .form-group {
             margin-bottom: 20px;
-            position: relative;
         }
         
         .form-group label {
@@ -655,38 +656,6 @@
             font-size: 1rem;
             background: #1a1a1a;
             color: white;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        /* Stats Section */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .stat-item {
-            padding: 20px;
-            min-width: 200px;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            color: #94a3b8;
-            font-size: 1rem;
         }
         
         /* Responsive Design */
@@ -710,7 +679,7 @@
                 font-size: 1rem;
             }
             
-            .auth-buttons {
+            .contact-info {
                 margin-top: 15px;
             }
             
@@ -731,11 +700,6 @@
             .tool-actions {
                 width: 100%;
                 justify-content: space-between;
-            }
-            
-            .stats {
-                flex-direction: column;
-                gap: 20px;
             }
         }
         
@@ -822,7 +786,6 @@
             font-size: 0.8rem;
             font-weight: 600;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            z-index: 2;
         }
         
         .tool-card.featured {
@@ -832,6 +795,31 @@
         
         .tool-card.featured:hover {
             transform: scale(1.02) translateY(-5px);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -850,13 +838,12 @@
                         <li><a onclick="scrollToSection('signals')">Signals</a></li>
                         <li><a onclick="scrollToSection('tools')">Tools</a></li>
                         <li><a onclick="scrollToSection('affiliate')">Affiliate</a></li>
-                        <li><a onclick="showSignup()">Pricing</a></li>
-                        <li><a onclick="showLogin()">Login</a></li>
+                        <li><a onclick="showContact()">Contact</a></li>
                     </ul>
                 </nav>
-                <div class="auth-buttons">
-                    <a class="btn btn-outline" onclick="showLogin()">Login</a>
-                    <a class="btn btn-primary" onclick="showSignup()">Sign Up</a>
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span>support@volatilityplus.com</span>
                 </div>
             </div>
         </div>
@@ -868,7 +855,7 @@
             <div class="hero-content animated">
                 <h1>Advanced Boom & Crash Trading Signals</h1>
                 <p>Get precise Boom and Crash indices signals, Spike Detectors, and PainX/GainX trading alerts. Maximize your profits with our expert analysis and real-time notifications.</p>
-                <a class="btn btn-accent" onclick="showSignup()">Start Free Trial</a>
+                <a class="btn btn-accent" onclick="showContact()">Get Started Today</a>
             </div>
         </div>
     </section>
@@ -943,7 +930,7 @@
                             <li><i class="fas fa-check"></i> 7-day free trial</li>
                         </ul>
                         <div class="price">$49/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="showContact()">Contact Us</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -960,7 +947,7 @@
                             <li><i class="fas fa-check"></i> 14-day free trial</li>
                         </ul>
                         <div class="price">$99/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="showContact()">Contact Us</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -978,7 +965,7 @@
                             <li><i class="fas fa-check"></i> 30-day free trial</li>
                         </ul>
                         <div class="price">$199/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="showContact()">Contact Us</a>
                     </div>
                 </div>
             </div>
@@ -1019,7 +1006,7 @@
         </div>
     </section>
 
-    <!-- Tools Section - MODERNIZED -->
+    <!-- Tools Section -->
     <section class="tools" id="tools">
         <div class="container">
             <h2 class="section-title">Our Trading Tools</h2>
@@ -1048,7 +1035,7 @@
                             </div>
                             <div class="tool-actions">
                                 <a class="tool-btn tool-btn-outline" onclick="showToolDetail('mega-spikes-max')">Details</a>
-                                <a class="tool-btn tool-btn-primary" onclick="showToolDetail('mega-spikes-max')">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showContact()">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1075,7 +1062,7 @@
                             </div>
                             <div class="tool-actions">
                                 <a class="tool-btn tool-btn-outline" onclick="showToolDetail('spike-phantom')">Details</a>
-                                <a class="tool-btn tool-btn-primary" onclick="showToolDetail('spike-phantom')">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showContact()">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1103,7 +1090,7 @@
                             </div>
                             <div class="tool-actions">
                                 <a class="tool-btn tool-btn-outline" onclick="showToolDetail('bundle-offer')">Details</a>
-                                <a class="tool-btn tool-btn-primary" onclick="showToolDetail('bundle-offer')">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showContact()">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1172,7 +1159,7 @@
                         <li><a onclick="scrollToSection('signals')">Boom & Crash Signals</a></li>
                         <li><a onclick="scrollToSection('tools')">Spike Detectors</a></li>
                         <li><a onclick="scrollToSection('tools')">PainX/GainX Signals</a></li>
-                        <li><a onclick="showSignup()">Trading Tools</a></li>
+                        <li><a onclick="scrollToSection('tools')">Trading Tools</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1199,54 +1186,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
-            <h2 class="modal-title">Login to Your Account</h2>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="login()">Login</button>
-            <p style="text-align: center; margin-top: 20px;">
-                Don't have an account? <a onclick="switchToSignup()" style="color: var(--primary); cursor: pointer;">Sign up</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div class="modal" id="signupModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('signupModal')">&times;</span>
-            <h2 class="modal-title">Create an Account</h2>
-            <div class="form-group">
-                <label for="signupName">Full Name</label>
-                <input type="text" id="signupName" placeholder="Enter your full name">
-            </div>
-            <div class="form-group">
-                <label for="signupEmail">Email</label>
-                <input type="email" id="signupEmail" placeholder="Enter your email">
-            </div>
-            <div class="form-group">
-                <label for="signupPassword">Password</label>
-                <input type="password" id="signupPassword" placeholder="Create a password">
-            </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" placeholder="Confirm your password">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="signup()">Create Account</button>
-            <p style="text-align: center; margin-top: 20px;">
-                Already have an account? <a onclick="switchToLogin()" style="color: var(--primary); cursor: pointer;">Login</a>
-            </p>
-        </div>
-    </div>
 
     <!-- Affiliate Signup Modal -->
     <div class="modal" id="affiliateModal">
@@ -1281,7 +1220,7 @@
             <div id="toolDescription">
                 <!-- Content will be loaded dynamically -->
             </div>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="purchaseTool()">Purchase License</button>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="showContact()">Contact for Purchase</button>
         </div>
     </div>
 
@@ -1300,12 +1239,15 @@
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
+                // Update active nav link
                 document.querySelectorAll('nav a').forEach(link => {
                     link.classList.remove('active');
                 });
-                if (event && event.target) {
-                    event.target.classList.add('active');
-                }
+                
+                // Add active class to the clicked link
+                event.target.classList.add('active');
+                
+                // Scroll to the section
                 window.scrollTo({
                     top: section.offsetTop - 80,
                     behavior: 'smooth'
@@ -1322,19 +1264,103 @@
             document.getElementById(modalId).style.display = 'none';
         }
         
-        function showLogin() {
-            closeAllModals();
-            showModal('loginModal');
-        }
-        
-        function showSignup() {
-            closeAllModals();
-            showModal('signupModal');
-        }
-        
         function showAffiliateSignup() {
             closeAllModals();
             showModal('affiliateModal');
+        }
+        
+        function showToolDetail(toolId) {
+            closeAllModals();
+            
+            // Set tool title and description based on toolId
+            const toolTitle = document.getElementById('toolTitle');
+            const toolDescription = document.getElementById('toolDescription');
+            
+            switch(toolId) {
+                case 'mega-spikes-max':
+                    toolTitle.textContent = 'Mega Spikes Max - Boom & Crash Spike Detector';
+                    toolDescription.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="price" style="color: var(--primary); font-size: 2rem;">$80 USD</div>
+                            <p style="color: #94a3b8;">Lifetime License</p>
+                        </div>
+                        <p>Mega Spikes Max is our flagship spike detector for Boom 1000 and Crash 1000 indices, featuring advanced algorithms that predict spikes before they happen.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Real-time spike prediction for Boom 1000 and Crash 1000</li>
+                            <li>Advanced pattern recognition algorithms</li>
+                            <li>Visual and audio alerts with customizable settings</li>
+                            <li>Historical spike analysis and backtesting</li>
+                            <li>Multiple timeframe analysis</li>
+                            <li>Risk management indicators</li>
+                            <li>Works with MetaTrader 4/5</li>
+                            <li>Lifetime updates and support</li>
+                        </ul>
+                        <p><strong>What's Included:</strong></p>
+                        <ul>
+                            <li>Mega Spikes Max EA/Indicator</li>
+                            <li>Installation guide and user manual</li>
+                            <li>Video tutorials</li>
+                            <li>Email support</li>
+                        </ul>
+                    `;
+                    break;
+                case 'spike-phantom':
+                    toolTitle.textContent = 'Spike Phantom - PainX & GainX Spike Detector';
+                    toolDescription.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="price" style="color: var(--primary); font-size: 2rem;">$55 USD</div>
+                            <p style="color: #94a3b8;">Lifetime License</p>
+                        </div>
+                        <p>Spike Phantom is specifically engineered for PainX and GainX indices, with unique algorithms designed to handle their distinct volatility patterns.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Specialized detection for PainX and GainX indices</li>
+                            <li>Unique volatility pattern recognition</li>
+                            <li>Customizable alert system</li>
+                            <li>Multi-timeframe analysis capabilities</li>
+                            <li>Advanced filtering to reduce false signals</li>
+                            <li>Compatible with MetaTrader 4/5</li>
+                            <li>Lifetime updates included</li>
+                        </ul>
+                        <p><strong>What's Included:</strong></p>
+                        <ul>
+                            <li>Spike Phantom EA/Indicator</li>
+                            <li>Setup and configuration guide</li>
+                            <li>Video tutorials</li>
+                            <li>Technical support</li>
+                        </ul>
+                    `;
+                    break;
+                case 'bundle-offer':
+                    toolTitle.textContent = 'Bundle Offer - Complete Spike Detection Suite';
+                    toolDescription.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="price" style="color: var(--primary); font-size: 2rem;">$120 USD</div>
+                            <p style="color: #94a3b8;">Lifetime License - Save $15!</p>
+                        </div>
+                        <p>Get both Mega Spikes Max and Spike Phantom together in this exclusive bundle offer and cover all major volatility indices.</p>
+                        <p><strong>Bundle Includes:</strong></p>
+                        <ul>
+                            <li><strong>Mega Spikes Max</strong> - Boom & Crash spike detector ($80 value)</li>
+                            <li><strong>Spike Phantom</strong> - PainX & GainX spike detector ($55 value)</li>
+                            <li>Combined installation and setup guides</li>
+                            <li>Comprehensive video tutorial series</li>
+                            <li>Priority email support</li>
+                            <li>Lifetime updates for both tools</li>
+                        </ul>
+                        <p><strong>Perfect For:</strong></p>
+                        <ul>
+                            <li>Professional traders covering multiple volatility indices</li>
+                            <li>Traders looking for comprehensive spike detection</li>
+                            <li>Those wanting maximum market coverage</li>
+                        </ul>
+                        <p style="color: var(--primary); font-weight: 600;">Save $15 compared to buying separately!</p>
+                    `;
+                    break;
+            }
+            
+            showModal('toolModal');
         }
         
         function showMessage(title, content) {
@@ -1350,141 +1376,8 @@
             });
         }
         
-        // WORKING AUTHENTICATION FUNCTIONS
-        async function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (!email || !password) {
-                showMessage('Error', 'Please fill in all fields');
-                return;
-            }
-
-            const loginBtn = event.target;
-            const originalText = loginBtn.textContent;
-            loginBtn.textContent = 'Logging in...';
-            loginBtn.disabled = true;
-
-            try {
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    showMessage('Success', 'Login successful! Welcome back.');
-                    closeModal('loginModal');
-                    updateAuthUI(true, data.user);
-                } else {
-                    showMessage('Error', data.message || 'Login failed');
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                showMessage('Error', 'Network error. Please try again.');
-            } finally {
-                loginBtn.textContent = originalText;
-                loginBtn.disabled = false;
-            }
-        }
-
-        async function signup() {
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (!name || !email || !password || !confirmPassword) {
-                showMessage('Error', 'Please fill in all fields');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showMessage('Error', 'Passwords do not match');
-                return;
-            }
-
-            if (password.length < 6) {
-                showMessage('Error', 'Password must be at least 6 characters long');
-                return;
-            }
-
-            const signupBtn = event.target;
-            const originalText = signupBtn.textContent;
-            signupBtn.textContent = 'Creating Account...';
-            signupBtn.disabled = true;
-
-            try {
-                const response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name, email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    showMessage('Success', 'Account created successfully! Welcome to VolatilityPlus.');
-                    closeModal('signupModal');
-                    updateAuthUI(true, data.user);
-                } else {
-                    showMessage('Error', data.message || 'Registration failed');
-                }
-            } catch (error) {
-                console.error('Signup error:', error);
-                showMessage('Error', 'Network error. Please try again.');
-            } finally {
-                signupBtn.textContent = originalText;
-                signupBtn.disabled = false;
-            }
-        }
-
-        async function logout() {
-            try {
-                await fetch('/api/auth/logout', {
-                    method: 'POST',
-                    credentials: 'include'
-                });
-                localStorage.removeItem('user');
-                updateAuthUI(false);
-                showMessage('Success', 'You have been logged out successfully.');
-            } catch (error) {
-                localStorage.removeItem('user');
-                updateAuthUI(false);
-                showMessage('Success', 'You have been logged out.');
-            }
-        }
-
-        function updateAuthUI(isLoggedIn, user = null) {
-            const authButtons = document.querySelector('.auth-buttons');
-            
-            if (isLoggedIn && user) {
-                authButtons.innerHTML = `
-                    <span style="color: var(--primary); margin-right: 15px;">Welcome, ${user.name}!</span>
-                    <a class="btn btn-outline" onclick="showDashboard()">Dashboard</a>
-                    <a class="btn btn-primary" onclick="logout()">Logout</a>
-                `;
-            } else {
-                authButtons.innerHTML = `
-                    <a class="btn btn-outline" onclick="showLogin()">Login</a>
-                    <a class="btn btn-primary" onclick="showSignup()">Sign Up</a>
-                `;
-            }
-        }
-
-        function showDashboard() {
-            showMessage('Dashboard', 'Dashboard functionality coming soon!');
-        }
-
-        async function joinAffiliate() {
+        // Enhanced affiliate signup function
+        function joinAffiliate() {
             const name = document.getElementById('affiliateName').value;
             const email = document.getElementById('affiliateEmail').value;
             const website = document.getElementById('website').value;
@@ -1495,106 +1388,59 @@
                 return;
             }
 
+            // Show loading state
             const submitBtn = event.target;
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Submitting...';
             submitBtn.disabled = true;
 
-            try {
-                const response = await fetch('/api/affiliate/apply', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name, email, website, promotionMethods })
-                });
+            // Simulate processing (since we removed backend functionality)
+            setTimeout(() => {
+                showMessage('Application Received', 'Thank you for applying to our affiliate program! Please contact us at support@volatilityplus.com for further processing.');
+                closeModal('affiliateModal');
+                
+                // Clear form
+                document.getElementById('affiliateName').value = '';
+                document.getElementById('affiliateEmail').value = '';
+                document.getElementById('website').value = '';
+                document.getElementById('promotionMethods').value = '';
 
-                const data = await response.json();
-
-                if (response.ok) {
-                    showMessage('Application Received', 'Thank you for applying to our affiliate program!');
-                    closeModal('affiliateModal');
-                    document.getElementById('affiliateName').value = '';
-                    document.getElementById('affiliateEmail').value = '';
-                    document.getElementById('website').value = '';
-                    document.getElementById('promotionMethods').value = '';
-                } else {
-                    showMessage('Error', data.message || 'Failed to submit application');
-                }
-            } catch (error) {
-                console.error('Affiliate application error:', error);
-                showMessage('Error', 'Network error. Please try again.');
-            } finally {
+                // Restore button state
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-            }
+            }, 2000);
         }
         
-        function switchToSignup() {
-            closeModal('loginModal');
-            showSignup();
-        }
-        
-        function switchToLogin() {
-            closeModal('signupModal');
-            showLogin();
-        }
-        
-        function showToolDetail(toolId) {
-            closeAllModals();
-            const toolTitle = document.getElementById('toolTitle');
-            const toolDescription = document.getElementById('toolDescription');
-            
-            switch(toolId) {
-                case 'mega-spikes-max':
-                    toolTitle.textContent = 'Mega Spikes Max - Boom & Crash Spike Detector';
-                    toolDescription.innerHTML = `
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <div class="price" style="color: var(--primary); font-size: 2rem;">$80 USD</div>
-                        </div>
-                        <p>Professional Boom & Crash spike detector with advanced algorithms.</p>
-                    `;
-                    break;
-                default:
-                    toolTitle.textContent = 'Tool Details';
-                    toolDescription.innerHTML = '<p>Tool information will be displayed here.</p>';
-            }
-            showModal('toolModal');
-        }
-        
+        // Other page functions
         function showAbout() {
-            showMessage('About Us', 'VolatilityPlus provides premium trading signals and tools.');
+            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals and powerful tools to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
         }
         
         function showContact() {
-            showMessage('Contact Us', 'Email: support@volatilityplus.com');
+            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
         }
         
         function showCareers() {
-            showMessage('Careers', 'Send your resume to careers@volatilityplus.com');
+            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@volatilityplus.com along with a cover letter explaining why you would be a good fit.');
         }
         
         function showTerms() {
-            showMessage('Terms of Service', 'Please read our terms and conditions.');
+            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. Please read the full document on our website.');
         }
         
         function showPrivacy() {
-            showMessage('Privacy Policy', 'We protect your personal information.');
+            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent.');
         }
         
         function showDisclaimer() {
-            showMessage('Disclaimer', 'Trading involves risk. Past performance is not indicative of future results.');
+            showMessage('Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
         }
         
         function showRefund() {
-            showMessage('Refund Policy', '7-day money-back guarantee on all plans.');
+            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
         }
         
-        function purchaseTool() {
-            showMessage('Purchase Information', 'Contact sales@volatilityplus.com to purchase.');
-            closeModal('toolModal');
-        }
-        
+        // Close modal when clicking outside of it
         window.onclick = function(event) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
@@ -1604,18 +1450,8 @@
             });
         }
         
+        // Animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
-            const savedUser = localStorage.getItem('user');
-            if (savedUser) {
-                try {
-                    const user = JSON.parse(savedUser);
-                    updateAuthUI(true, user);
-                } catch (error) {
-                    console.error('Error parsing saved user:', error);
-                    localStorage.removeItem('user');
-                }
-            }
-
             const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
             
             function checkScroll() {
@@ -1630,6 +1466,7 @@
                 });
             }
             
+            // Set initial state for animation
             featureCards.forEach(card => {
                 card.style.opacity = 0;
                 card.style.transform = 'translateY(20px)';
@@ -1637,7 +1474,7 @@
             });
             
             window.addEventListener('scroll', checkScroll);
-            checkScroll();
+            checkScroll(); // Check on initial load
         });
     </script>
 </body>
