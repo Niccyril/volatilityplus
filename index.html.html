@@ -808,29 +808,38 @@
             <div class="tool-cards">
                 <div class="tool-card">
                     <div class="tool-content">
-                        <h3>Boom & Crash Spike Detector</h3>
-                        <p>Our proprietary algorithm detects potential spikes in Boom and Crash indices before they happen, giving you the edge.</p>
+                        <h3>Mega Spikes Max</h3>
+                        <p>Professional Boom & Crash spike detector with advanced algorithms to predict spikes before they happen, giving you the ultimate trading edge.</p>
                         <span class="signal-badge boom">Boom 1000</span>
                         <span class="signal-badge crash">Crash 1000</span>
-                        <a class="btn btn-outline" onclick="showToolDetail('boom-crash-detector')">Learn More</a>
+                        <div class="price" style="font-size: 1.8rem; margin: 15px 0; color: var(--accent);">$80 USD</div>
+                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">Lifetime License</p>
+                        <a class="btn btn-primary" onclick="showToolDetail('mega-spikes-max')">Buy Now</a>
+                        <a class="btn btn-outline" style="margin-left: 10px;" onclick="showToolDetail('mega-spikes-max')">Learn More</a>
                     </div>
                 </div>
                 <div class="tool-card">
                     <div class="tool-content">
-                        <h3>PainX/GainX Analyzer</h3>
-                        <p>Specialized tool for analyzing PainX and GainX indices with unique indicators designed for these markets.</p>
+                        <h3>Spike Phantom</h3>
+                        <p>Specialized spike detector for PainX and GainX indices with unique algorithms designed specifically for these volatile markets.</p>
                         <span class="signal-badge spike">PainX</span>
                         <span class="signal-badge spike">GainX</span>
-                        <a class="btn btn-outline" onclick="showToolDetail('painx-gainx-analyzer')">Learn More</a>
+                        <div class="price" style="font-size: 1.8rem; margin: 15px 0; color: var(--accent);">$55 USD</div>
+                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">Lifetime License</p>
+                        <a class="btn btn-primary" onclick="showToolDetail('spike-phantom')">Buy Now</a>
+                        <a class="btn btn-outline" style="margin-left: 10px;" onclick="showToolDetail('spike-phantom')">Learn More</a>
                     </div>
                 </div>
                 <div class="tool-card">
                     <div class="tool-content">
-                        <h3>Volatility Calculator</h3>
-                        <p>Calculate potential profits and risks specific to volatility indices before entering any trade.</p>
-                        <span class="signal-badge boom">Risk Management</span>
-                        <span class="signal-badge crash">Profit Calculation</span>
-                        <a class="btn btn-outline" onclick="showToolDetail('volatility-calculator')">Learn More</a>
+                        <h3>Bundle Offer</h3>
+                        <p>Get both Mega Spikes Max and Spike Phantom together and save money. Complete spike detection for all volatility indices.</p>
+                        <span class="signal-badge boom">Boom & Crash</span>
+                        <span class="signal-badge spike">PainX & GainX</span>
+                        <div class="price" style="font-size: 1.8rem; margin: 15px 0; color: var(--success);">$120 USD</div>
+                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">Lifetime License - Save $15</p>
+                        <a class="btn btn-accent" onclick="showToolDetail('bundle-offer')">Buy Bundle</a>
+                        <a class="btn btn-outline" style="margin-left: 10px;" onclick="showToolDetail('bundle-offer')">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -1006,7 +1015,7 @@
             <div id="toolDescription">
                 <!-- Content will be loaded dynamically -->
             </div>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="showSignup()">Get Access Now</button>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="purchaseTool()">Purchase License</button>
         </div>
     </div>
 
@@ -1073,49 +1082,85 @@
             const toolDescription = document.getElementById('toolDescription');
             
             switch(toolId) {
-                case 'boom-crash-detector':
-                    toolTitle.textContent = 'Boom & Crash Spike Detector';
+                case 'mega-spikes-max':
+                    toolTitle.textContent = 'Mega Spikes Max - Boom & Crash Spike Detector';
                     toolDescription.innerHTML = `
-                        <p>Our Boom & Crash Spike Detector is a proprietary tool that analyzes volatility patterns in real-time to predict potential spikes before they happen.</p>
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="price" style="color: var(--accent); font-size: 2rem;">$80 USD</div>
+                            <p style="color: #94a3b8;">Lifetime License</p>
+                        </div>
+                        <p>Mega Spikes Max is our flagship spike detector for Boom 1000 and Crash 1000 indices, featuring advanced algorithms that predict spikes before they happen.</p>
                         <p><strong>Key Features:</strong></p>
                         <ul>
-                            <li>Real-time analysis of Boom 1000 and Crash 1000 indices</li>
-                            <li>Advanced algorithms to detect potential spikes</li>
-                            <li>Visual and audio alerts for upcoming volatility</li>
-                            <li>Historical spike data and patterns</li>
-                            <li>Customizable sensitivity settings</li>
+                            <li>Real-time spike prediction for Boom 1000 and Crash 1000</li>
+                            <li>Advanced pattern recognition algorithms</li>
+                            <li>Visual and audio alerts with customizable settings</li>
+                            <li>Historical spike analysis and backtesting</li>
+                            <li>Multiple timeframe analysis</li>
+                            <li>Risk management indicators</li>
+                            <li>Works with MetaTrader 4/5</li>
+                            <li>Lifetime updates and support</li>
                         </ul>
-                        <p>This tool helps identify the best entry and exit points for Boom and Crash indices, maximizing profit potential while minimizing risk.</p>
+                        <p><strong>What's Included:</strong></p>
+                        <ul>
+                            <li>Mega Spikes Max EA/Indicator</li>
+                            <li>Installation guide and user manual</li>
+                            <li>Video tutorials</li>
+                            <li>Email support</li>
+                        </ul>
                     `;
                     break;
-                case 'painx-gainx-analyzer':
-                    toolTitle.textContent = 'PainX/GainX Analyzer';
+                case 'spike-phantom':
+                    toolTitle.textContent = 'Spike Phantom - PainX & GainX Spike Detector';
                     toolDescription.innerHTML = `
-                        <p>Our PainX/GainX Analyzer is specifically designed for these unique indices, providing specialized indicators and signals.</p>
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="price" style="color: var(--accent); font-size: 2rem;">$55 USD</div>
+                            <p style="color: #94a3b8;">Lifetime License</p>
+                        </div>
+                        <p>Spike Phantom is specifically engineered for PainX and GainX indices, with unique algorithms designed to handle their distinct volatility patterns.</p>
                         <p><strong>Key Features:</strong></p>
                         <ul>
-                            <li>Dedicated analysis for PainX and GainX indices</li>
-                            <li>Custom volatility indicators</li>
-                            <li>Pattern recognition for these specific markets</li>
-                            <li>Real-time trend analysis</li>
-                            <li>Risk management guidance</li>
+                            <li>Specialized detection for PainX and GainX indices</li>
+                            <li>Unique volatility pattern recognition</li>
+                            <li>Customizable alert system</li>
+                            <li>Multi-timeframe analysis capabilities</li>
+                            <li>Advanced filtering to reduce false signals</li>
+                            <li>Compatible with MetaTrader 4/5</li>
+                            <li>Lifetime updates included</li>
                         </ul>
-                        <p>Navigate the unique challenges of PainX and GainX trading with our specialized analyzer tool.</p>
+                        <p><strong>What's Included:</strong></p>
+                        <ul>
+                            <li>Spike Phantom EA/Indicator</li>
+                            <li>Setup and configuration guide</li>
+                            <li>Video tutorials</li>
+                            <li>Technical support</li>
+                        </ul>
                     `;
                     break;
-                case 'volatility-calculator':
-                    toolTitle.textContent = 'Volatility Calculator';
+                case 'bundle-offer':
+                    toolTitle.textContent = 'Bundle Offer - Complete Spike Detection Suite';
                     toolDescription.innerHTML = `
-                        <p>Our Volatility Calculator helps you determine potential profits and risks specific to volatility indices before entering any trade.</p>
-                        <p><strong>Key Features:</strong></p>
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="price" style="color: var(--success); font-size: 2rem;">$120 USD</div>
+                            <p style="color: #94a3b8;">Lifetime License - Save $15!</p>
+                        </div>
+                        <p>Get both Mega Spikes Max and Spike Phantom together in this exclusive bundle offer and cover all major volatility indices.</p>
+                        <p><strong>Bundle Includes:</strong></p>
                         <ul>
-                            <li>Calculate potential profit/loss for volatility indices</li>
-                            <li>Risk management guidance specific to Boom/Crash</li>
-                            <li>Position sizing recommendations</li>
-                            <li>Multiple account currency support</li>
-                            <li>Save and compare different scenarios</li>
+                            <li><strong>Mega Spikes Max</strong> - Boom & Crash spike detector ($80 value)</li>
+                            <li><strong>Spike Phantom</strong> - PainX & GainX spike detector ($55 value)</li>
+                            <li>Combined installation and setup guides</li>
+                            <li>Comprehensive video tutorial series</li>
+                            <li>Priority email support</li>
+                            <li>Lifetime updates for both tools</li>
                         </ul>
-                        <p>Manage your risk effectively and optimize your trading strategy with our Volatility Calculator.</p>
+                        <p><strong>Perfect For:</strong></p>
+                        <ul>
+                            <li>Professional traders covering multiple volatility indices</li>
+                            <li>Traders looking for comprehensive spike detection</li>
+                            <li>Those wanting maximum market coverage</li>
+                        </ul>
+                        <p style="color: var(--success); font-weight: 600;">Save $15 compared to buying separately!</p>
                     `;
                     break;
             }
@@ -1220,6 +1265,11 @@
         
         function showRefund() {
             showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
+        }
+        
+        function purchaseTool() {
+            showMessage('Purchase Information', 'To purchase this tool, please contact us at sales@volatilityplus.com or use our secure payment portal. We accept PayPal, bank transfers, and cryptocurrency payments. You will receive your license and download links within 24 hours of payment confirmation.');
+            closeModal('toolModal');
         }
         
         // Close modal when clicking outside of it
