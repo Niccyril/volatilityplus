@@ -647,6 +647,221 @@
             color: white;
         }
         
+        /* Crypto Payment Styles */
+        .payment-step {
+            min-height: 400px;
+        }
+        
+        .product-summary {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid #333;
+        }
+        
+        .price-display {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .payment-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .crypto-selection h4 {
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .crypto-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .crypto-option {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+        
+        .crypto-option:hover {
+            border-color: var(--primary);
+            background: #222;
+        }
+        
+        .crypto-option.selected {
+            border-color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .crypto-option i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--primary);
+        }
+        
+        .payment-info {
+            text-align: left;
+        }
+        
+        .payment-summary {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #333;
+        }
+        
+        .payment-summary p {
+            margin: 8px 0;
+            color: #e2e8f0;
+        }
+        
+        .payment-address h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .address-container {
+            display: flex;
+            margin: 10px 0;
+        }
+        
+        .address-container input {
+            flex: 1;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px 0 0 8px;
+            color: white;
+            font-family: monospace;
+        }
+        
+        .copy-btn {
+            background: var(--primary);
+            color: var(--text-dark);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .qr-code img {
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .payment-timer {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .payment-timer p {
+            margin-bottom: 10px;
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .timer-bar {
+            background: #333;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .timer-progress {
+            background: var(--primary);
+            height: 100%;
+            width: 100%;
+            transition: width 1s linear;
+        }
+        
+        .payment-status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--primary);
+        }
+        
+        .payment-status.confirmed {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .payment-instructions {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            margin-top: 20px;
+        }
+        
+        .payment-instructions h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .payment-instructions ol {
+            padding-left: 20px;
+        }
+        
+        .payment-instructions li {
+            margin: 8px 0;
+            color: #e2e8f0;
+        }
+        
+        .payment-success {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+        
+        .payment-success h3 {
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+        
+        .payment-success p {
+            margin: 15px 0;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -706,7 +921,7 @@
             animation: fadeIn 1s ease-out;
         }
         
-        /* New modern elements */
+        /* Modern elements */
         .ribbon {
             position: absolute;
             top: 15px;
@@ -966,7 +1181,7 @@
                                 $80 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="showContact()" style="width: 100%;">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('mega-spikes-max', 80, 'Mega Spikes Max - Boom & Crash Spike Detector')" style="width: 100%;">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -992,7 +1207,7 @@
                                 $55 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="showContact()" style="width: 100%;">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('spike-phantom', 55, 'Spike Phantom - PainX & GainX Spike Detector')" style="width: 100%;">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1019,7 +1234,7 @@
                                 $120 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="showContact()" style="width: 100%;">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('complete-bundle', 120, 'Complete Bundle - All Trading Tools')" style="width: 100%;">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1116,6 +1331,124 @@
         </div>
     </footer>
 
+    <!-- Crypto Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
+            <h2 class="modal-title" id="paymentTitle">Crypto Payment</h2>
+            
+            <div id="paymentStep1" class="payment-step">
+                <div class="product-summary">
+                    <h3 id="productName">Product Name</h3>
+                    <p id="productDescription">Product description will appear here</p>
+                    <div class="price-display">
+                        <span class="payment-price" id="paymentPrice">$0</span>
+                    </div>
+                </div>
+                
+                <div class="crypto-selection">
+                    <h4>Select Payment Method:</h4>
+                    <div class="crypto-options">
+                        <div class="crypto-option" onclick="selectCrypto('btc')">
+                            <i class="fab fa-bitcoin"></i>
+                            <span>Bitcoin (BTC)</span>
+                        </div>
+                        <div class="crypto-option" onclick="selectCrypto('eth')">
+                            <i class="fab fa-ethereum"></i>
+                            <span>Ethereum (ETH)</span>
+                        </div>
+                        <div class="crypto-option" onclick="selectCrypto('usdt')">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Tether (USDT)</span>
+                        </div>
+                        <div class="crypto-option" onclick="selectCrypto('ltc')">
+                            <i class="fab fa-litecoin"></i>
+                            <span>Litecoin (LTC)</span>
+                        </div>
+                        <div class="crypto-option" onclick="selectCrypto('bch')">
+                            <i class="fab fa-bitcoin"></i>
+                            <span>Bitcoin Cash (BCH)</span>
+                        </div>
+                        <div class="crypto-option" onclick="selectCrypto('ada')">
+                            <i class="fas fa-coins"></i>
+                            <span>Cardano (ADA)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerEmail">Email Address (for license delivery)</label>
+                    <input type="email" id="customerEmail" placeholder="Enter your email" required>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="proceedToPayment()">
+                    Continue to Payment
+                </button>
+            </div>
+            
+            <div id="paymentStep2" class="payment-step" style="display: none;">
+                <div class="payment-info">
+                    <h4>Payment Details</h4>
+                    <div class="payment-summary">
+                        <p><strong>Product:</strong> <span id="finalProductName"></span></p>
+                        <p><strong>Price:</strong> <span id="finalPrice"></span></p>
+                        <p><strong>Currency:</strong> <span id="selectedCrypto"></span></p>
+                        <p><strong>Amount to Pay:</strong> <span id="cryptoAmount"></span></p>
+                    </div>
+                    
+                    <div class="payment-address">
+                        <h4>Send Payment To:</h4>
+                        <div class="address-container">
+                            <input type="text" id="paymentAddress" readonly onclick="copyAddress()">
+                            <button onclick="copyAddress()" class="copy-btn">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="qr-code" id="qrCode">
+                            <!-- QR code will be generated here -->
+                        </div>
+                        
+                        <div class="payment-timer">
+                            <p>Time remaining: <span id="timer">15:00</span></p>
+                            <div class="timer-bar">
+                                <div class="timer-progress" id="timerProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-status" id="paymentStatus">
+                        <p><i class="fas fa-clock"></i> Waiting for payment...</p>
+                    </div>
+                    
+                    <div class="payment-instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li>Copy the wallet address above</li>
+                            <li>Send the exact amount shown to this address</li>
+                            <li>Wait for confirmation (usually 10-30 minutes)</li>
+                            <li>You'll receive your license via email</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="paymentStep3" class="payment-step" style="display: none;">
+                <div class="payment-success">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Payment Confirmed!</h3>
+                    <p>Thank you for your purchase. Your license has been sent to <span id="confirmEmail"></span></p>
+                    <p>Please check your email (including spam folder) for your download links and installation instructions.</p>
+                    <button class="btn btn-primary" onclick="closeModal('paymentModal')" style="margin-top: 20px;">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Affiliate Signup Modal -->
     <div class="modal" id="affiliateModal">
         <div class="modal-content">
@@ -1152,54 +1485,37 @@
     </div>
 
     <script>
+        // PayerURL API Configuration - Replace with your credentials
+        const PAYERURL_API_KEY = 'YOUR_PAYERURL_API_KEY';
+        const PAYERURL_MERCHANT_ID = 'YOUR_MERCHANT_ID';
+        const PAYERURL_API_URL = 'https://payerurl.com/api/v1';
+
+        // Current payment data
+        let currentPayment = {
+            productId: '',
+            productName: '',
+            priceUSD: 0,
+            selectedCrypto: '',
+            customerEmail: '',
+            paymentAddress: '',
+            cryptoAmount: 0,
+            paymentId: '',
+            payerUrlId: ''
+        };
+
+        let paymentTimer = null;
+        let paymentCheckInterval = null;
+
         // Navigation and scrolling functions
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
-                // Update active nav link
                 document.querySelectorAll('nav a').forEach(link => {
                     link.classList.remove('active');
                 });
-
-        // Enhanced affiliate signup function
-        function joinAffiliate() {
-            const name = document.getElementById('affiliateName').value;
-            const email = document.getElementById('affiliateEmail').value;
-            const website = document.getElementById('website').value;
-            const promotionMethods = document.getElementById('promotionMethods').value;
-            
-            if (!name || !email) {
-                showMessage('Error', 'Please fill in all required fields');
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = event.target;
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting...';
-            submitBtn.disabled = true;
-
-            // Simulate processing (since we removed backend functionality)
-            setTimeout(() => {
-                showMessage('Application Received', 'Thank you for applying to our affiliate program! Please contact us at support@volatilityplus.com for further processing.');
-                closeModal('affiliateModal');
                 
-                // Clear form
-                document.getElementById('affiliateName').value = '';
-                document.getElementById('affiliateEmail').value = '';
-                document.getElementById('website').value = '';
-                document.getElementById('promotionMethods').value = '';
-
-                // Restore button state
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
-        }
-                
-                // Add active class to the clicked link
                 event.target.classList.add('active');
                 
-                // Scroll to the section
                 window.scrollTo({
                     top: section.offsetTop - 80,
                     behavior: 'smooth'
@@ -1213,6 +1529,20 @@
         }
         
         function closeModal(modalId) {
+            if (modalId === 'paymentModal') {
+                cleanupPaymentProcess();
+                currentPayment = {
+                    productId: '',
+                    productName: '',
+                    priceUSD: 0,
+                    selectedCrypto: '',
+                    customerEmail: '',
+                    paymentAddress: '',
+                    cryptoAmount: 0,
+                    paymentId: '',
+                    payerUrlId: ''
+                };
+            }
             document.getElementById(modalId).style.display = 'none';
         }
         
@@ -1233,143 +1563,20 @@
                 modal.style.display = 'none';
             });
         }
-        
-        // Crypto Payment System
-        let currentPayment = {
-            productId: '',
-            productName: '',
-            priceUSD: 0,
-            selectedCrypto: '',
-            customerEmail: '',
-            paymentAddress: '',
-            cryptoAmount: 0,
-            paymentId: ''
-        };
 
-        let paymentTimer = null;
-        let paymentCheckInterval = null;
-
-        // NOWPayments API Configuration (Replace with your actual API key)
-        const NOWPAYMENTS_API_KEY = 'YOUR_NOWPAYMENTS_API_KEY';
-        const NOWPAYMENTS_API_URL = 'https://api.nowpayments.io/v1';
-
-        // Initiate payment process
+        // Crypto Payment Functions
         function initiatePayment(productId, price, productName) {
             currentPayment.productId = productId;
             currentPayment.priceUSD = price;
             currentPayment.productName = productName;
             
             document.getElementById('productName').textContent = productName;
-            document.getElementById('paymentPrice').textContent = '
-        function joinAffiliate() {
-            const name = document.getElementById('affiliateName').value;
-            const email = document.getElementById('affiliateEmail').value;
-            const website = document.getElementById('website').value;
-            const promotionMethods = document.getElementById('promotionMethods').value;
+            document.getElementById('paymentPrice').textContent = '$' + price;
             
-            if (!name || !email) {
-                showMessage('Error', 'Please fill in all required fields');
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = event.target;
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting...';
-            submitBtn.disabled = true;
-
-            // Simulate processing (since we removed backend functionality)
-            setTimeout(() => {
-                showMessage('Application Received', 'Thank you for applying to our affiliate program! Please contact us at support@volatilityplus.com for further processing.');
-                closeModal('affiliateModal');
-                
-                // Clear form
-                document.getElementById('affiliateName').value = '';
-                document.getElementById('affiliateEmail').value = '';
-                document.getElementById('website').value = '';
-                document.getElementById('promotionMethods').value = '';
-
-                // Restore button state
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
-        }
-        
-        // Other page functions
-        function showAbout() {
-            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals and powerful tools to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
-        }
-        
-        function showContact() {
-            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
-        }
-        
-        function showCareers() {
-            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@volatilityplus.com along with a cover letter explaining why you would be a good fit.');
-        }
-        
-        function showTerms() {
-            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. Please read the full document on our website.');
-        }
-        
-        function showPrivacy() {
-            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent.');
-        }
-        
-        function showDisclaimer() {
-            showMessage('Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
-        }
-        
-        function showRefund() {
-            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
-        }
-        
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
-        
-        // Animation on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
-            
-            function checkScroll() {
-                featureCards.forEach(card => {
-                    const cardPosition = card.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
-                    
-                    if (cardPosition < screenPosition) {
-                        card.style.opacity = 1;
-                        card.style.transform = 'translateY(0)';
-                    }
-                });
-            }
-            
-            // Set initial state for animation
-            featureCards.forEach(card => {
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            });
-            
-            window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Check on initial load
-        });
-    </script>
-</body>
-</html> + price;
-            
-            // Reset modal to step 1
             document.getElementById('paymentStep1').style.display = 'block';
             document.getElementById('paymentStep2').style.display = 'none';
             document.getElementById('paymentStep3').style.display = 'none';
             
-            // Clear previous selections
             document.querySelectorAll('.crypto-option').forEach(option => {
                 option.classList.remove('selected');
             });
@@ -1378,18 +1585,15 @@
             showModal('paymentModal');
         }
 
-        // Select cryptocurrency
         function selectCrypto(crypto) {
             currentPayment.selectedCrypto = crypto;
             
-            // Update UI
             document.querySelectorAll('.crypto-option').forEach(option => {
                 option.classList.remove('selected');
             });
             event.target.closest('.crypto-option').classList.add('selected');
         }
 
-        // Proceed to payment step 2
         async function proceedToPayment() {
             const email = document.getElementById('customerEmail').value;
             
@@ -1398,7 +1602,6 @@
                 return;
             }
             
-            // Validate email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showMessage('Error', 'Please enter a valid email address.');
@@ -1407,7 +1610,6 @@
             
             currentPayment.customerEmail = email;
             
-            // Show loading
             const btn = event.target;
             const originalText = btn.textContent;
             btn.textContent = 'Creating Payment...';
@@ -1416,151 +1618,46 @@
             try {
                 await createCryptoPayment();
                 
-                // Move to step 2
                 document.getElementById('paymentStep1').style.display = 'none';
                 document.getElementById('paymentStep2').style.display = 'block';
                 
-                // Start payment monitoring
                 startPaymentTimer();
                 startPaymentStatusCheck();
                 
             } catch (error) {
                 console.error('Payment creation failed:', error);
-                showMessage('Error', 'Failed to create payment. Please try again or contact support.');
+                showMessage('Payment Error', error.message);
+                
+                document.getElementById('paymentStep2').style.display = 'none';
+                document.getElementById('paymentStep1').style.display = 'block';
             } finally {
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
         }
 
-        // Create crypto payment
         async function createCryptoPayment() {
             try {
-                // Get current crypto rates
-                const rates = await getCryptoRates();
-                const cryptoRate = rates[currentPayment.selectedCrypto.toUpperCase()];
-                
-                if (!cryptoRate) {
-                    throw new Error('Unable to get current exchange rate');
-                }
-                
-                // Calculate crypto amount
-                currentPayment.cryptoAmount = (currentPayment.priceUSD / cryptoRate).toFixed(8);
-                
-                // Generate payment address (in real implementation, this would call NOWPayments API)
-                const paymentData = await generatePaymentAddress();
-                
-                // Update UI
                 document.getElementById('finalProductName').textContent = currentPayment.productName;
-                document.getElementById('finalPrice').textContent = '
-        function joinAffiliate() {
-            const name = document.getElementById('affiliateName').value;
-            const email = document.getElementById('affiliateEmail').value;
-            const website = document.getElementById('website').value;
-            const promotionMethods = document.getElementById('promotionMethods').value;
-            
-            if (!name || !email) {
-                showMessage('Error', 'Please fill in all required fields');
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = event.target;
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting...';
-            submitBtn.disabled = true;
-
-            // Simulate processing (since we removed backend functionality)
-            setTimeout(() => {
-                showMessage('Application Received', 'Thank you for applying to our affiliate program! Please contact us at support@volatilityplus.com for further processing.');
-                closeModal('affiliateModal');
-                
-                // Clear form
-                document.getElementById('affiliateName').value = '';
-                document.getElementById('affiliateEmail').value = '';
-                document.getElementById('website').value = '';
-                document.getElementById('promotionMethods').value = '';
-
-                // Restore button state
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
-        }
-        
-        // Other page functions
-        function showAbout() {
-            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals and powerful tools to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
-        }
-        
-        function showContact() {
-            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
-        }
-        
-        function showCareers() {
-            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@volatilityplus.com along with a cover letter explaining why you would be a good fit.');
-        }
-        
-        function showTerms() {
-            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. Please read the full document on our website.');
-        }
-        
-        function showPrivacy() {
-            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent.');
-        }
-        
-        function showDisclaimer() {
-            showMessage('Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
-        }
-        
-        function showRefund() {
-            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
-        }
-        
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        }
-        
-        // Animation on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
-            
-            function checkScroll() {
-                featureCards.forEach(card => {
-                    const cardPosition = card.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
-                    
-                    if (cardPosition < screenPosition) {
-                        card.style.opacity = 1;
-                        card.style.transform = 'translateY(0)';
-                    }
-                });
-            }
-            
-            // Set initial state for animation
-            featureCards.forEach(card => {
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            });
-            
-            window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Check on initial load
-        });
-    </script>
-</body>
-</html> + currentPayment.priceUSD;
+                document.getElementById('finalPrice').textContent = '$' + currentPayment.priceUSD;
                 document.getElementById('selectedCrypto').textContent = currentPayment.selectedCrypto.toUpperCase();
-                document.getElementById('cryptoAmount').textContent = currentPayment.cryptoAmount + ' ' + currentPayment.selectedCrypto.toUpperCase();
-                document.getElementById('paymentAddress').value = paymentData.address;
+                document.getElementById('cryptoAmount').textContent = 'Calculating...';
+                document.getElementById('paymentAddress').value = 'Generating address...';
                 
-                // Generate QR code
-                generateQRCode(paymentData.address, currentPayment.cryptoAmount, currentPayment.selectedCrypto);
+                // For demo purposes, generate mock payment data
+                // In production, this would call PayerURL API
+                const mockPaymentData = await generateMockPayment();
+                
+                document.getElementById('cryptoAmount').textContent = mockPaymentData.amount + ' ' + currentPayment.selectedCrypto.toUpperCase();
+                document.getElementById('paymentAddress').value = mockPaymentData.address;
+                
+                generateQRCode(mockPaymentData.address, mockPaymentData.amount, currentPayment.selectedCrypto);
+                
+                currentPayment.cryptoAmount = mockPaymentData.amount;
+                currentPayment.paymentAddress = mockPaymentData.address;
+                currentPayment.payerUrlId = mockPaymentData.paymentId;
+                
+                console.log('Payment setup completed:', currentPayment);
                 
             } catch (error) {
                 console.error('Error creating payment:', error);
@@ -1568,100 +1665,50 @@
             }
         }
 
-        // Get crypto exchange rates
-        async function getCryptoRates() {
-            try {
-                // In real implementation, use NOWPayments or CoinGecko API
-                // For demo purposes, using mock rates
-                const mockRates = {
-                    'BTC': 43000,
-                    'ETH': 2200,
-                    'USDT': 1.00,
-                    'LTC': 70,
-                    'BCH': 230,
-                    'ADA': 0.45
-                };
-                
-                // Simulate API call delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                return mockRates;
-                
-                // Real implementation would be:
-                // const response = await fetch(`${NOWPAYMENTS_API_URL}/exchange-rates`, {
-                //     headers: {
-                //         'x-api-key': NOWPAYMENTS_API_KEY
-                //     }
-                // });
-                // return await response.json();
-                
-            } catch (error) {
-                console.error('Error fetching rates:', error);
-                throw error;
-            }
+        async function generateMockPayment() {
+            // Mock payment data for demo
+            currentPayment.paymentId = 'VP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            const mockAddresses = {
+                'btc': '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
+                'eth': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
+                'usdt': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
+                'ltc': 'LTC1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
+                'bch': 'bitcoincash:qr4aadjrpu73d2wxwkxkcrt6gqxgu6a7usxfm96fst',
+                'ada': 'addr1q8s2xuqq3lhul4s1m7ch6v5qz7w8rz9l2k8h3j9p4n5b3c2d1f'
+            };
+            
+            const mockRates = {
+                'btc': 43000,
+                'eth': 2200,
+                'usdt': 1.00,
+                'ltc': 70,
+                'bch': 230,
+                'ada': 0.45
+            };
+            
+            const rate = mockRates[currentPayment.selectedCrypto];
+            const amount = (currentPayment.priceUSD / rate).toFixed(8);
+            const address = mockAddresses[currentPayment.selectedCrypto];
+            
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            return {
+                address: address,
+                amount: amount,
+                paymentId: currentPayment.paymentId
+            };
         }
 
-        // Generate payment address
-        async function generatePaymentAddress() {
-            try {
-                // Generate unique payment ID
-                currentPayment.paymentId = 'VP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                
-                // Mock payment address generation (replace with real API call)
-                const mockAddresses = {
-                    'btc': '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-                    'eth': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
-                    'usdt': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
-                    'ltc': 'LTC1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-                    'bch': 'bitcoincash:qr4aadjrpu73d2wxwkxkcrt6gqxgu6a7usxfm96fst',
-                    'ada': 'addr1q8s2xuqq3lhul4s1m7ch6v5qz7w8rz9l2k8h3j9p4n5b3c2d1f'
-                };
-                
-                currentPayment.paymentAddress = mockAddresses[currentPayment.selectedCrypto] || mockAddresses['btc'];
-                
-                // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 500));
-                
-                return {
-                    address: currentPayment.paymentAddress,
-                    paymentId: currentPayment.paymentId
-                };
-                
-                // Real implementation:
-                // const response = await fetch(`${NOWPAYMENTS_API_URL}/invoice`, {
-                //     method: 'POST',
-                //     headers: {
-                //         'x-api-key': NOWPAYMENTS_API_KEY,
-                //         'Content-Type': 'application/json'
-                //     },
-                //     body: JSON.stringify({
-                //         price_amount: currentPayment.priceUSD,
-                //         price_currency: 'USD',
-                //         pay_currency: currentPayment.selectedCrypto.toUpperCase(),
-                //         order_id: currentPayment.paymentId,
-                //         order_description: currentPayment.productName
-                //     })
-                // });
-                // return await response.json();
-                
-            } catch (error) {
-                console.error('Error generating address:', error);
-                throw error;
-            }
-        }
-
-        // Generate QR Code
         function generateQRCode(address, amount, crypto) {
             const qrContainer = document.getElementById('qrCode');
-            
-            // Create QR code URL (using QR Server API)
             const qrData = `${crypto}:${address}?amount=${amount}`;
             const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
             
             qrContainer.innerHTML = `<img src="${qrUrl}" alt="Payment QR Code" style="max-width: 200px;">`;
         }
 
-        // Copy payment address
         function copyAddress() {
             const addressInput = document.getElementById('paymentAddress');
             addressInput.select();
@@ -1676,9 +1723,8 @@
             }
         }
 
-        // Start payment timer (15 minutes)
         function startPaymentTimer() {
-            let timeLeft = 15 * 60; // 15 minutes in seconds
+            let timeLeft = 15 * 60;
             const timerElement = document.getElementById('timer');
             const progressElement = document.getElementById('timerProgress');
             const totalTime = timeLeft;
@@ -1701,51 +1747,26 @@
             }, 1000);
         }
 
-        // Start checking payment status
         function startPaymentStatusCheck() {
             paymentCheckInterval = setInterval(async () => {
                 try {
-                    const status = await checkPaymentStatus();
-                    if (status === 'confirmed') {
+                    // Mock payment confirmation for demo
+                    const randomConfirm = Math.random() < 0.05;
+                    
+                    if (randomConfirm) {
                         clearInterval(paymentTimer);
                         stopPaymentStatusCheck();
-                        showPaymentSuccess();
+                        
+                        setTimeout(() => {
+                            showPaymentSuccess();
+                        }, 2000);
                     }
                 } catch (error) {
-                    console.error('Error checking payment status:', error);
+                    console.error('Error in payment status check:', error);
                 }
-            }, 10000); // Check every 10 seconds
+            }, 15000);
         }
 
-        // Check payment status
-        async function checkPaymentStatus() {
-            try {
-                // Mock payment confirmation (replace with real API call)
-                // For demo purposes, randomly confirm payment after some time
-                const randomConfirm = Math.random() < 0.1; // 10% chance each check
-                
-                if (randomConfirm) {
-                    return 'confirmed';
-                }
-                
-                return 'waiting';
-                
-                // Real implementation:
-                // const response = await fetch(`${NOWPAYMENTS_API_URL}/payment/${currentPayment.paymentId}`, {
-                //     headers: {
-                //         'x-api-key': NOWPAYMENTS_API_KEY
-                //     }
-                // });
-                // const data = await response.json();
-                // return data.payment_status;
-                
-            } catch (error) {
-                console.error('Error checking payment status:', error);
-                return 'error';
-            }
-        }
-
-        // Stop payment status checking
         function stopPaymentStatusCheck() {
             if (paymentCheckInterval) {
                 clearInterval(paymentCheckInterval);
@@ -1753,38 +1774,51 @@
             }
         }
 
-        // Show payment success
         function showPaymentSuccess() {
             document.getElementById('paymentStep2').style.display = 'none';
             document.getElementById('paymentStep3').style.display = 'block';
             document.getElementById('confirmEmail').textContent = currentPayment.customerEmail;
             
-            // Send confirmation email (implement server-side)
             sendConfirmationEmail();
         }
 
-        // Send confirmation email (server-side implementation needed)
         async function sendConfirmationEmail() {
             try {
-                // This would call your backend API to send the license
-                const response = await fetch('/api/send-license', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        productId: currentPayment.productId,
-                        customerEmail: currentPayment.customerEmail,
-                        paymentId: currentPayment.paymentId
-                    })
-                });
+                const emailData = {
+                    to: currentPayment.customerEmail,
+                    subject: `VolatilityPlus: Your ${currentPayment.productName} License`,
+                    productId: currentPayment.productId,
+                    productName: currentPayment.productName,
+                    paymentId: currentPayment.paymentId,
+                    amount: currentPayment.priceUSD,
+                    crypto: currentPayment.selectedCrypto.toUpperCase(),
+                    cryptoAmount: currentPayment.cryptoAmount,
+                    purchaseDate: new Date().toISOString()
+                };
                 
-                if (!response.ok) {
-                    throw new Error('Failed to send license');
-                }
+                console.log('Demo: License would be delivered to:', emailData.to);
+                
+                const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
+                orders.push({
+                    ...emailData,
+                    status: 'completed',
+                    completedAt: new Date().toISOString()
+                });
+                localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
+                
             } catch (error) {
-                console.error('Error sending license:', error);
-                // Still show success to user, but log error for manual processing
+                console.error('Error in license delivery:', error);
+            }
+        }
+
+        function cleanupPaymentProcess() {
+            if (paymentTimer) {
+                clearInterval(paymentTimer);
+                paymentTimer = null;
+            }
+            if (paymentCheckInterval) {
+                clearInterval(paymentCheckInterval);
+                paymentCheckInterval = null;
             }
         }
 
@@ -1800,24 +1834,20 @@
                 return;
             }
 
-            // Show loading state
             const submitBtn = event.target;
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Submitting...';
             submitBtn.disabled = true;
 
-            // Simulate processing (since we removed backend functionality)
             setTimeout(() => {
                 showMessage('Application Received', 'Thank you for applying to our affiliate program! Please contact us at support@volatilityplus.com for further processing.');
                 closeModal('affiliateModal');
                 
-                // Clear form
                 document.getElementById('affiliateName').value = '';
                 document.getElementById('affiliateEmail').value = '';
                 document.getElementById('website').value = '';
                 document.getElementById('promotionMethods').value = '';
 
-                // Restore button state
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }, 2000);
@@ -1852,7 +1882,7 @@
             showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
         }
         
-        // Close modal when clicking outside of it
+        // Close modal when clicking outside
         window.onclick = function(event) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
@@ -1878,7 +1908,6 @@
                 });
             }
             
-            // Set initial state for animation
             featureCards.forEach(card => {
                 card.style.opacity = 0;
                 card.style.transform = 'translateY(20px)';
@@ -1886,7 +1915,7 @@
             });
             
             window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Check on initial load
+            checkScroll();
         });
     </script>
 </body>
