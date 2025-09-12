@@ -8,14 +8,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3a36e0;
-            --secondary: #151c3b;
-            --accent: #ff6b35;
+            --primary: #FFD700;
+            --primary-dark: #E5C100;
+            --secondary: #1a1a1a;
+            --accent: #FF9800;
             --light: #f8fafc;
             --dark: #1e293b;
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
+            --card-bg: #2a2a2a;
+            --text-light: #e2e8f0;
+            --text-dark: #1a1a1a;
         }
         
         * {
@@ -26,8 +30,8 @@
         }
         
         body {
-            background-color: #0f172a;
-            color: #e2e8f0;
+            background-color: #0f0f0f;
+            color: var(--text-light);
             line-height: 1.6;
             scroll-behavior: smooth;
         }
@@ -47,7 +51,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.1);
         }
         
         .header-content {
@@ -66,7 +70,7 @@
         }
         
         .logo i {
-            color: var(--accent);
+            color: var(--primary);
         }
         
         nav ul {
@@ -84,7 +88,7 @@
         }
         
         nav a:hover {
-            color: var(--accent);
+            color: var(--primary);
         }
         
         .auth-buttons {
@@ -105,25 +109,25 @@
         }
         
         .btn-outline {
-            border: 2px solid var(--accent);
-            color: var(--accent);
+            border: 2px solid var(--primary);
+            color: var(--primary);
             background: transparent;
         }
         
         .btn-outline:hover {
-            background: var(--accent);
-            color: white;
+            background: var(--primary);
+            color: var(--text-dark);
         }
         
         .btn-primary {
             background: var(--primary);
-            color: white;
+            color: var(--text-dark);
             border: 2px solid var(--primary);
         }
         
         .btn-primary:hover {
-            background: #2925c0;
-            border-color: #2925c0;
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
         }
         
         .btn-accent {
@@ -133,13 +137,13 @@
         }
         
         .btn-accent:hover {
-            background: #e55a2b;
-            border-color: #e55a2b;
+            background: #e58900;
+            border-color: #e58900;
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(to right, #151c3b, #3a36e0);
+            background: linear-gradient(to right, #1a1a1a, #333333);
             color: white;
             padding: 100px 0;
             text-align: center;
@@ -154,7 +158,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ff6b35" fill-opacity="0.2" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,224C672,235,768,181,864,160C960,139,1056,149,1152,144C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFD700" fill-opacity="0.2" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,224C672,235,768,181,864,160C960,139,1056,149,1152,144C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
             background-size: cover;
             background-position: center;
             opacity: 0.5;
@@ -205,22 +209,34 @@
         }
         
         .feature-card {
-            background: #1e293b;
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
-            border: 1px solid #334155;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
         
         .feature-icon {
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
+            color: var(--text-dark);
             width: 70px;
             height: 70px;
             border-radius: 50%;
@@ -239,7 +255,7 @@
         
         /* Signals Section */
         .signals {
-            background: #0f172a;
+            background: #0f0f0f;
             padding: 80px 0;
         }
         
@@ -250,21 +266,22 @@
         }
         
         .signal-card {
-            background: #1e293b;
+            background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid #334155;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
+            position: relative;
         }
         
         .signal-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
         
         .signal-header {
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
+            color: var(--text-dark);
             padding: 25px;
             text-align: center;
         }
@@ -299,7 +316,7 @@
         
         /* Affiliate Section */
         .affiliate {
-            background: linear-gradient(to right, #151c3b, #3a36e0);
+            background: linear-gradient(to right, #1a1a1a, #333333);
             color: white;
             padding: 100px 0;
             text-align: center;
@@ -314,7 +331,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ff6b35" fill-opacity="0.2" d="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,165.3C672,160,768,192,864,192C960,192,1056,160,1152,144C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFD700" fill-opacity="0.2" d="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,165.3C672,160,768,192,864,192C960,192,1056,160,1152,144C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
             background-size: cover;
             background-position: center;
             opacity: 0.5;
@@ -325,44 +342,150 @@
             z-index: 1;
         }
         
-        /* Tools Section */
+        /* Tools Section - MODERNIZED */
         .tools {
             padding: 80px 0;
-            background: #0f172a;
+            background: #0f0f0f;
         }
         
         .tool-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
         
         .tool-card {
-            background: #1e293b;
+            background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
-            transition: transform 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .tool-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tool-header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-dark);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .tool-header h3 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .tool-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
         
         .tool-content {
             padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
-        .tool-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: white;
+        .tool-features {
+            list-style: none;
+            margin: 15px 0;
+            flex-grow: 1;
+        }
+        
+        .tool-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tool-features i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .tool-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tool-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .tool-price .original {
+            font-size: 1.2rem;
+            text-decoration: line-through;
+            color: #94a3b8;
+            margin-right: 10px;
+        }
+        
+        .tool-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .tool-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            border: none;
+            font-size: 0.9rem;
+        }
+        
+        .tool-btn-primary {
+            background: var(--primary);
+            color: var(--text-dark);
+        }
+        
+        .tool-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .tool-btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .tool-btn-outline:hover {
+            background: var(--primary);
+            color: var(--text-dark);
         }
         
         /* Testimonials */
         .testimonials {
-            background: #0f172a;
+            background: #0f0f0f;
             padding: 80px 0;
         }
         
@@ -373,11 +496,11 @@
         }
         
         .testimonial-card {
-            background: #1e293b;
+            background: var(--card-bg);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #333;
         }
         
         .testimonial-author {
@@ -395,7 +518,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--text-dark);
             font-weight: bold;
             font-size: 1.2rem;
         }
@@ -417,7 +540,7 @@
         .footer-column h3 {
             font-size: 1.3rem;
             margin-bottom: 20px;
-            color: var(--accent);
+            color: var(--primary);
         }
         
         .footer-links {
@@ -436,7 +559,7 @@
         }
         
         .footer-links a:hover {
-            color: var(--accent);
+            color: var(--primary);
         }
         
         .social-links {
@@ -453,13 +576,13 @@
         }
         
         .social-links a:hover {
-            color: var(--accent);
+            color: var(--primary);
         }
         
         .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #334155;
+            border-top: 1px solid #333;
             color: #94a3b8;
             font-size: 0.9rem;
         }
@@ -480,13 +603,13 @@
         }
         
         .modal-content {
-            background-color: #1e293b;
+            background-color: var(--card-bg);
             padding: 40px;
             border-radius: 15px;
             width: 90%;
             max-width: 500px;
             position: relative;
-            border: 1px solid #334155;
+            border: 1px solid #333;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
         
@@ -501,7 +624,7 @@
         }
         
         .close-modal:hover {
-            color: var(--accent);
+            color: var(--primary);
         }
         
         .modal-title {
@@ -519,16 +642,16 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #e2e8f0;
+            color: var(--text-light);
         }
         
         .form-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #334155;
+            border: 1px solid #333;
             border-radius: 8px;
             font-size: 1rem;
-            background: #0f172a;
+            background: #1a1a1a;
             color: white;
         }
         
@@ -560,11 +683,26 @@
             .section-title {
                 font-size: 2rem;
             }
+            
+            .tool-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .tool-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
         
         /* Active nav link */
         .active {
-            color: var(--accent) !important;
+            color: var(--primary) !important;
         }
         
         /* Animation */
@@ -585,7 +723,7 @@
             margin: 30px 0;
             position: relative;
             overflow: hidden;
-            border: 1px solid #334155;
+            border: 1px solid #333;
         }
         
         .chart-line {
@@ -594,7 +732,7 @@
             left: 0;
             width: 100%;
             height: 80%;
-            background: linear-gradient(to top, rgba(58, 54, 224, 0.2), transparent);
+            background: linear-gradient(to top, rgba(255, 215, 0, 0.2), transparent);
         }
         
         .chart-line::before {
@@ -632,6 +770,54 @@
             background: var(--warning);
             color: white;
         }
+        
+        /* New modern elements */
+        .ribbon {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            transform: rotate(45deg);
+            background: var(--accent);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tool-card.featured {
+            border: 2px solid var(--primary);
+            transform: scale(1.02);
+        }
+        
+        .tool-card.featured:hover {
+            transform: scale(1.02) translateY(-5px);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -668,6 +854,28 @@
                 <h1>Advanced Boom & Crash Trading Signals</h1>
                 <p>Get precise Boom and Crash indices signals, Spike Detectors, and PainX/GainX trading alerts. Maximize your profits with our expert analysis and real-time notifications.</p>
                 <a class="btn btn-accent" onclick="showSignup()">Start Free Trial</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="container">
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Accuracy Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0.5s</div>
+                <div class="stat-label">Avg. Signal Speed</div>
             </div>
         </div>
     </section>
@@ -796,46 +1004,93 @@
         </div>
     </section>
 
-    <!-- Tools Section -->
+    <!-- Tools Section - MODERNIZED -->
     <section class="tools" id="tools">
         <div class="container">
             <h2 class="section-title">Our Trading Tools</h2>
             <p class="section-subtitle">Advanced tools designed specifically for volatility indices trading</p>
             <div class="tool-cards">
                 <div class="tool-card">
-                    <div class="tool-content">
+                    <div class="ribbon">BEST SELLER</div>
+                    <div class="tool-header">
                         <h3>Mega Spikes Max</h3>
+                        <div class="tool-badge">Boom & Crash</div>
+                    </div>
+                    <div class="tool-content">
                         <p>Professional Boom & Crash spike detector with advanced algorithms to predict spikes before they happen, giving you the ultimate trading edge.</p>
-                        <span class="signal-badge boom">Boom 1000</span>
-                        <span class="signal-badge crash">Crash 1000</span>
-                        <div class="price" style="font-size: 1.8rem; margin: 15px 0; color: var(--accent);">$80 USD</div>
-                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">Lifetime License</p>
-                        <a class="btn btn-primary" onclick="showToolDetail('mega-spikes-max')">Buy Now</a>
-                        <a class="btn btn-outline" style="margin-left: 10px;" onclick="showToolDetail('mega-spikes-max')">Learn More</a>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> Real-time spike prediction</li>
+                            <li><i class="fas fa-check"></i> Advanced pattern recognition</li>
+                            <li><i class="fas fa-check"></i> Visual and audio alerts</li>
+                            <li><i class="fas fa-check"></i> Historical analysis</li>
+                            <li><i class="fas fa-check"></i> Multiple timeframe analysis</li>
+                            <li><i class="fas fa-check"></i> Works with MT4/MT5</li>
+                        </ul>
+                        <div class="tool-footer">
+                            <div class="tool-price">
+                                <span class="original">$100</span>
+                                $80 USD
+                            </div>
+                            <div class="tool-actions">
+                                <a class="tool-btn tool-btn-outline" onclick="showToolDetail('mega-spikes-max')">Details</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showToolDetail('mega-spikes-max')">Buy Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tool-card">
-                    <div class="tool-content">
+                    <div class="tool-header">
                         <h3>Spike Phantom</h3>
+                        <div class="tool-badge">PainX & GainX</div>
+                    </div>
+                    <div class="tool-content">
                         <p>Specialized spike detector for PainX and GainX indices with unique algorithms designed specifically for these volatile markets.</p>
-                        <span class="signal-badge spike">PainX</span>
-                        <span class="signal-badge spike">GainX</span>
-                        <div class="price" style="font-size: 1.8rem; margin: 15px 0; color: var(--accent);">$55 USD</div>
-                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">Lifetime License</p>
-                        <a class="btn btn-primary" onclick="showToolDetail('spike-phantom')">Buy Now</a>
-                        <a class="btn btn-outline" style="margin-left: 10px;" onclick="showToolDetail('spike-phantom')">Learn More</a>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> Specialized detection</li>
+                            <li><i class="fas fa-check"></i> Unique volatility patterns</li>
+                            <li><i class="fas fa-check"></i> Customizable alert system</li>
+                            <li><i class="fas fa-check"></i> Multi-timeframe analysis</li>
+                            <li><i class="fas fa-check"></i> Advanced filtering</li>
+                            <li><i class="fas fa-check"></i> Works with MT4/MT5</li>
+                        </ul>
+                        <div class="tool-footer">
+                            <div class="tool-price">
+                                <span class="original">$70</span>
+                                $55 USD
+                            </div>
+                            <div class="tool-actions">
+                                <a class="tool-btn tool-btn-outline" onclick="showToolDetail('spike-phantom')">Details</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showToolDetail('spike-phantom')">Buy Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="tool-card">
+                <div class="tool-card featured">
+                    <div class="ribbon">POPULAR</div>
+                    <div class="tool-header">
+                        <h3>Complete Bundle</h3>
+                        <div class="tool-badge">All Tools</div>
+                    </div>
                     <div class="tool-content">
-                        <h3>Bundle Offer</h3>
                         <p>Get both Mega Spikes Max and Spike Phantom together and save money. Complete spike detection for all volatility indices.</p>
-                        <span class="signal-badge boom">Boom & Crash</span>
-                        <span class="signal-badge spike">PainX & GainX</span>
-                        <div class="price" style="font-size: 1.8rem; margin: 15px 0; color: var(--success);">$120 USD</div>
-                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 15px;">Lifetime License - Save $15</p>
-                        <a class="btn btn-accent" onclick="showToolDetail('bundle-offer')">Buy Bundle</a>
-                        <a class="btn btn-outline" style="margin-left: 10px;" onclick="showToolDetail('bundle-offer')">Learn More</a>
+                        <ul class="tool-features">
+                            <li><i class="fas fa-check"></i> Everything in Mega Spikes Max</li>
+                            <li><i class="fas fa-check"></i> Everything in Spike Phantom</li>
+                            <li><i class="fas fa-check"></i> Unified dashboard</li>
+                            <li><i class="fas fa-check"></i> Priority support</li>
+                            <li><i class="fas fa-check"></i> Exclusive training materials</li>
+                            <li><i class="fas fa-check"></i> Future updates included</li>
+                        </ul>
+                        <div class="tool-footer">
+                            <div class="tool-price">
+                                <span class="original">$170</span>
+                                $120 USD
+                            </div>
+                            <div class="tool-actions">
+                                <a class="tool-btn tool-btn-outline" onclick="showToolDetail('bundle-offer')">Details</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showToolDetail('bundle-offer')">Buy Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1082,7 +1337,7 @@
                     toolTitle.textContent = 'Mega Spikes Max - Boom & Crash Spike Detector';
                     toolDescription.innerHTML = `
                         <div style="text-align: center; margin-bottom: 20px;">
-                            <div class="price" style="color: var(--accent); font-size: 2rem;">$80 USD</div>
+                            <div class="price" style="color: var(--primary); font-size: 2rem;">$80 USD</div>
                             <p style="color: #94a3b8;">Lifetime License</p>
                         </div>
                         <p>Mega Spikes Max is our flagship spike detector for Boom 1000 and Crash 1000 indices, featuring advanced algorithms that predict spikes before they happen.</p>
@@ -1110,7 +1365,7 @@
                     toolTitle.textContent = 'Spike Phantom - PainX & GainX Spike Detector';
                     toolDescription.innerHTML = `
                         <div style="text-align: center; margin-bottom: 20px;">
-                            <div class="price" style="color: var(--accent); font-size: 2rem;">$55 USD</div>
+                            <div class="price" style="color: var(--primary); font-size: 2rem;">$55 USD</div>
                             <p style="color: #94a3b8;">Lifetime License</p>
                         </div>
                         <p>Spike Phantom is specifically engineered for PainX and GainX indices, with unique algorithms designed to handle their distinct volatility patterns.</p>
@@ -1137,7 +1392,7 @@
                     toolTitle.textContent = 'Bundle Offer - Complete Spike Detection Suite';
                     toolDescription.innerHTML = `
                         <div style="text-align: center; margin-bottom: 20px;">
-                            <div class="price" style="color: var(--success); font-size: 2rem;">$120 USD</div>
+                            <div class="price" style="color: var(--primary); font-size: 2rem;">$120 USD</div>
                             <p style="color: #94a3b8;">Lifetime License - Save $15!</p>
                         </div>
                         <p>Get both Mega Spikes Max and Spike Phantom together in this exclusive bundle offer and cover all major volatility indices.</p>
@@ -1156,7 +1411,7 @@
                             <li>Traders looking for comprehensive spike detection</li>
                             <li>Those wanting maximum market coverage</li>
                         </ul>
-                        <p style="color: var(--success); font-weight: 600;">Save $15 compared to buying separately!</p>
+                        <p style="color: var(--primary); font-weight: 600;">Save $15 compared to buying separately!</p>
                     `;
                     break;
             }
