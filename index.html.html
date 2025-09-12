@@ -1432,8 +1432,8 @@
             });
         }
         
-        // Form submission functions
-        function login() {
+        // UPDATED AUTHENTICATION FUNCTIONS
+        async function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
@@ -1441,12 +1441,48 @@
                 showMessage('Error', 'Please fill in all fields');
                 return;
             }
-            
-            showMessage('Success', 'Login successful! Redirecting to your dashboard...');
-            closeModal('loginModal');
+
+            // Show loading state
+            const loginBtn = event.target;
+            const originalText = loginBtn.textContent;
+            loginBtn.textContent = 'Logging in...';
+            loginBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store user info in localStorage
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    showMessage('Success', 'Login successful! Welcome back.');
+                    closeModal('loginModal');
+                    
+                    // Update UI to show user is logged in
+                    updateAuthUI(true, data.user);
+                    
+                } else {
+                    showMessage('Error', data.message || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage('Error', 'Network error. Please try again.');
+            } finally {
+                // Restore button state
+                loginBtn.textContent = originalText;
+                loginBtn.disabled = false;
+            }
         }
-        
-        function signup() {
+
+        async function signup() {
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
@@ -1461,22 +1497,148 @@
                 showMessage('Error', 'Passwords do not match');
                 return;
             }
-            
-            showMessage('Success', 'Account created successfully! Welcome to VolatilityPlus.');
-            closeModal('signupModal');
+
+            if (password.length < 6) {
+                showMessage('Error', 'Password must be at least 6 characters long');
+                return;
+            }
+
+            // Show loading state
+            const signupBtn = event.target;
+            const originalText = signupBtn.textContent;
+            signupBtn.textContent = 'Creating Account...';
+            signupBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store user info in localStorage
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    showMessage('Success', 'Account created successfully! Welcome to VolatilityPlus.');
+                    closeModal('signupModal');
+                    
+                    // Update UI to show user is logged in
+                    updateAuthUI(true, data.user);
+                    
+                } else {
+                    showMessage('Error', data.message || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showMessage('Error', 'Network error. Please try again.');
+            } finally {
+                // Restore button state
+                signupBtn.textContent = originalText;
+                signupBtn.disabled = false;
+            }
         }
-        
-        function joinAffiliate() {
+
+        async function logout() {
+            try {
+                const response = await fetch('/api/auth/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                // Clear local storage regardless of response
+                localStorage.removeItem('user');
+                
+                // Update UI to show user is logged out
+                updateAuthUI(false);
+                
+                showMessage('Success', 'You have been logged out successfully.');
+                
+            } catch (error) {
+                console.error('Logout error:', error);
+                // Still clear local storage and update UI
+                localStorage.removeItem('user');
+                updateAuthUI(false);
+                showMessage('Success', 'You have been logged out.');
+            }
+        }
+
+        // Function to update UI based on authentication status
+        function updateAuthUI(isLoggedIn, user = null) {
+            const authButtons = document.querySelector('.auth-buttons');
+            
+            if (isLoggedIn && user) {
+                authButtons.innerHTML = `
+                    <span style="color: var(--primary); margin-right: 15px;">Welcome, ${user.name}!</span>
+                    <a class="btn btn-outline" onclick="showDashboard()">Dashboard</a>
+                    <a class="btn btn-primary" onclick="logout()">Logout</a>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <a class="btn btn-outline" onclick="showLogin()">Login</a>
+                    <a class="btn btn-primary" onclick="showSignup()">Sign Up</a>
+                `;
+            }
+        }
+
+        // Function to show dashboard (placeholder)
+        function showDashboard() {
+            showMessage('Dashboard', 'Dashboard functionality coming soon! You will have access to your subscription details, affiliate earnings, and more.');
+        }
+
+        // Enhanced affiliate signup function
+        async function joinAffiliate() {
             const name = document.getElementById('affiliateName').value;
             const email = document.getElementById('affiliateEmail').value;
+            const website = document.getElementById('website').value;
+            const promotionMethods = document.getElementById('promotionMethods').value;
             
             if (!name || !email) {
                 showMessage('Error', 'Please fill in all required fields');
                 return;
             }
-            
-            showMessage('Application Received', 'Thank you for applying to our affiliate program! We will review your application and contact you within 2 business days.');
-            closeModal('affiliateModal');
+
+            // Show loading state
+            const submitBtn = event.target;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/affiliate/apply', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, website, promotionMethods })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('Application Received', 'Thank you for applying to our affiliate program! We will review your application and contact you within 2 business days.');
+                    closeModal('affiliateModal');
+                    
+                    // Clear form
+                    document.getElementById('affiliateName').value = '';
+                    document.getElementById('affiliateEmail').value = '';
+                    document.getElementById('website').value = '';
+                    document.getElementById('promotionMethods').value = '';
+                } else {
+                    showMessage('Error', data.message || 'Failed to submit application');
+                }
+            } catch (error) {
+                console.error('Affiliate application error:', error);
+                showMessage('Error', 'Network error. Please try again.');
+            } finally {
+                // Restore button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
         }
         
         function switchToSignup() {
@@ -1533,8 +1695,21 @@
             });
         }
         
-        // Animation on scroll
+        // Check if user is already logged in on page load and animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved user
+            const savedUser = localStorage.getItem('user');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    updateAuthUI(true, user);
+                } catch (error) {
+                    console.error('Error parsing saved user:', error);
+                    localStorage.removeItem('user');
+                }
+            }
+
+            // Existing animation code
             const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
             
             function checkScroll() {
