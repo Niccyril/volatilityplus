@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForexSignalPro - Premium Trading Signals & Tools</title>
+    <title>VolatilityPlus - Premium Boom & Crash Trading Signals</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #0f172a;
-            --accent: #f59e0b;
+            --primary: #3a36e0;
+            --secondary: #151c3b;
+            --accent: #ff6b35;
             --light: #f8fafc;
             --dark: #1e293b;
             --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         
         body {
-            background-color: #f1f5f9;
-            color: #334155;
+            background-color: #0f172a;
+            color: #e2e8f0;
             line-height: 1.6;
             scroll-behavior: smooth;
         }
@@ -44,7 +47,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
         
         .header-content {
@@ -90,8 +93,8 @@
         }
         
         .btn {
-            padding: 8px 20px;
-            border-radius: 4px;
+            padding: 10px 25px;
+            border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -119,26 +122,55 @@
         }
         
         .btn-primary:hover {
-            background: #1d4ed8;
-            border-color: #1d4ed8;
+            background: #2925c0;
+            border-color: #2925c0;
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background: #e55a2b;
+            border-color: #e55a2b;
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(to right, #1e3a8a, #2563eb);
+            background: linear-gradient(to right, #151c3b, #3a36e0);
             color: white;
-            padding: 80px 0;
+            padding: 100px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ff6b35" fill-opacity="0.2" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,224C672,235,768,181,864,160C960,139,1056,149,1152,144C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
         }
         
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            line-height: 1.2;
         }
         
         .hero p {
@@ -151,8 +183,18 @@
         .section-title {
             text-align: center;
             margin: 60px 0 40px;
-            color: var(--secondary);
-            font-size: 2.2rem;
+            color: white;
+            font-size: 2.5rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .features {
@@ -163,34 +205,42 @@
         }
         
         .feature-card {
-            background: white;
-            border-radius: 10px;
+            background: #1e293b;
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s;
+            border: 1px solid #334155;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
         }
         
         .feature-icon {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
         }
         
         /* Signals Section */
         .signals {
-            background: white;
-            padding: 60px 0;
+            background: #0f172a;
+            padding: 80px 0;
         }
         
         .signal-cards {
@@ -200,26 +250,27 @@
         }
         
         .signal-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            background: #1e293b;
+            border-radius: 15px;
             overflow: hidden;
             transition: transform 0.3s;
+            border: 1px solid #334155;
         }
         
         .signal-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
         }
         
         .signal-header {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
         }
         
         .signal-body {
-            padding: 25px;
+            padding: 30px;
         }
         
         .signal-features {
@@ -228,7 +279,7 @@
         }
         
         .signal-features li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -239,24 +290,45 @@
         }
         
         .price {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: var(--secondary);
+            color: white;
             text-align: center;
-            margin: 20px 0;
+            margin: 25px 0;
         }
         
         /* Affiliate Section */
         .affiliate {
-            background: linear-gradient(to right, #0f172a, #1e40af);
+            background: linear-gradient(to right, #151c3b, #3a36e0);
             color: white;
-            padding: 80px 0;
+            padding: 100px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .affiliate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ff6b35" fill-opacity="0.2" d="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,165.3C672,160,768,192,864,192C960,192,1056,160,1152,144C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+        }
+        
+        .affiliate-content {
+            position: relative;
+            z-index: 1;
         }
         
         /* Tools Section */
         .tools {
-            padding: 60px 0;
+            padding: 80px 0;
+            background: #0f172a;
         }
         
         .tool-cards {
@@ -266,20 +338,32 @@
         }
         
         .tool-card {
-            background: white;
-            border-radius: 8px;
+            background: #1e293b;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            transition: transform 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
         }
         
         .tool-content {
-            padding: 25px;
+            padding: 30px;
+        }
+        
+        .tool-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
         }
         
         /* Testimonials */
         .testimonials {
-            background: #f8fafc;
-            padding: 60px 0;
+            background: #0f172a;
+            padding: 80px 0;
         }
         
         .testimonial-cards {
@@ -289,10 +373,11 @@
         }
         
         .testimonial-card {
-            background: white;
+            background: #1e293b;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
         }
         
         .testimonial-author {
@@ -306,19 +391,20 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
+            font-size: 1.2rem;
         }
         
         /* Footer */
         footer {
             background: var(--secondary);
             color: white;
-            padding: 60px 0 30px;
+            padding: 80px 0 30px;
         }
         
         .footer-content {
@@ -329,7 +415,7 @@
         }
         
         .footer-column h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 20px;
             color: var(--accent);
         }
@@ -363,6 +449,11 @@
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
         }
         
         .copyright {
@@ -381,33 +472,43 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
         
         .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
+            background-color: #1e293b;
+            padding: 40px;
+            border-radius: 15px;
             width: 90%;
             max-width: 500px;
             position: relative;
+            border: 1px solid #334155;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
         
         .close-modal {
             position: absolute;
             top: 15px;
             right: 15px;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             color: #94a3b8;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
         }
         
         .modal-title {
             margin-bottom: 20px;
-            color: var(--secondary);
+            color: white;
+            font-size: 1.8rem;
+            text-align: center;
         }
         
         .form-group {
@@ -418,14 +519,17 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: #e2e8f0;
         }
         
         .form-group input {
             width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
+            padding: 12px 15px;
+            border: 1px solid #334155;
+            border-radius: 8px;
             font-size: 1rem;
+            background: #0f172a;
+            color: white;
         }
         
         /* Responsive Design */
@@ -442,7 +546,7 @@
             }
             
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .hero p {
@@ -452,11 +556,81 @@
             .auth-buttons {
                 margin-top: 15px;
             }
+            
+            .section-title {
+                font-size: 2rem;
+            }
         }
         
         /* Active nav link */
         .active {
             color: var(--accent) !important;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        /* Trading Chart Mockup */
+        .chart-mockup {
+            background: #0f172a;
+            border-radius: 10px;
+            height: 200px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80%;
+            background: linear-gradient(to top, rgba(58, 54, 224, 0.2), transparent);
+        }
+        
+        .chart-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        /* Signal Badge */
+        .signal-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 5px;
+        }
+        
+        .signal-badge.boom {
+            background: var(--success);
+            color: white;
+        }
+        
+        .signal-badge.crash {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .signal-badge.spike {
+            background: var(--warning);
+            color: white;
         }
     </style>
 </head>
@@ -467,7 +641,7 @@
             <div class="header-content">
                 <div class="logo" onclick="scrollToSection('hero')">
                     <i class="fas fa-chart-line"></i>
-                    <span>ForexSignalPro</span>
+                    <span>VolatilityPlus</span>
                 </div>
                 <nav>
                     <ul>
@@ -490,39 +664,44 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1>Premium Forex Trading Signals & Tools</h1>
-                <p>Get accurate forex trading signals, powerful analytical tools, and earn through our affiliate program. Join thousands of successful traders today.</p>
-                <a class="btn btn-primary" onclick="showSignup()">Get Started</a>
+            <div class="hero-content animated">
+                <h1>Advanced Boom & Crash Trading Signals</h1>
+                <p>Get precise Boom and Crash indices signals, Spike Detectors, and PainX/GainX trading alerts. Maximize your profits with our expert analysis and real-time notifications.</p>
+                <a class="btn btn-accent" onclick="showSignup()">Start Free Trial</a>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
     <section class="container">
-        <h2 class="section-title">Why Choose ForexSignalPro?</h2>
+        <h2 class="section-title">Why Choose VolatilityPlus?</h2>
+        <p class="section-subtitle">We provide cutting-edge trading signals and tools designed specifically for volatility indices trading</p>
         <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-bullseye"></i>
-                </div>
-                <h3>High Accuracy Signals</h3>
-                <p>Our signals are generated by professional traders with over 10 years of market experience.</p>
-            </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <h3>Real-time Alerts</h3>
-                <p>Receive instant notifications via SMS, email, or directly to our mobile app.</p>
+                <h3>Boom & Crash Signals</h3>
+                <p>Precise entry and exit points for Boom 1000, Crash 1000, and other volatility indices with high accuracy rates.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-chart-pie"></i>
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <h3>Advanced Tools</h3>
-                <p>Access our suite of proprietary trading tools and indicators.</p>
+                <h3>Spike Detectors</h3>
+                <p>Advanced algorithms that detect potential market spikes before they happen, giving you the edge.</p>
             </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>PainX & GainX Alerts</h3>
+                <p>Specialized signals for PainX and GainX indices to help you navigate these unique markets.</p>
+            </div>
+        </div>
+        
+        <div class="chart-mockup">
+            <div class="chart-line"></div>
         </div>
     </section>
 
@@ -530,35 +709,36 @@
     <section class="signals" id="signals">
         <div class="container">
             <h2 class="section-title">Our Signal Packages</h2>
+            <p class="section-subtitle">Choose the plan that works best for your trading style and goals</p>
             <div class="signal-cards">
                 <div class="signal-card">
                     <div class="signal-header">
-                        <h3>Basic</h3>
+                        <h3>Basic Plan</h3>
                     </div>
                     <div class="signal-body">
-                        <p>Perfect for beginners starting their trading journey</p>
+                        <p>Perfect for beginners starting with volatility indices</p>
                         <ul class="signal-features">
-                            <li><i class="fas fa-check"></i> 3-5 signals per week</li>
-                            <li><i class="fas fa-check"></i> Basic analysis</li>
+                            <li><i class="fas fa-check"></i> 3-5 Boom/Crash signals daily</li>
+                            <li><i class="fas fa-check"></i> Basic spike detection</li>
                             <li><i class="fas fa-check"></i> Email alerts</li>
-                            <li><i class="fas fa-check"></i> 7-day trial</li>
+                            <li><i class="fas fa-check"></i> 7-day free trial</li>
                         </ul>
                         <div class="price">$49/month</div>
                         <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
                     </div>
                 </div>
                 <div class="signal-card">
-                    <div class="signal-header" style="background: var(--primary);">
-                        <h3>Professional</h3>
+                    <div class="signal-header">
+                        <h3>Professional Plan</h3>
                     </div>
                     <div class="signal-body">
                         <p>Our most popular package for serious traders</p>
                         <ul class="signal-features">
-                            <li><i class="fas fa-check"></i> 5-7 signals per week</li>
-                            <li><i class="fas fa-check"></i> Detailed analysis</li>
-                            <li><i class="fas fa-check"></i> SMS & Email alerts</li>
-                            <li><i class="fas fa-check"></i> Risk management tips</li>
-                            <li><i class="fas fa-check"></i> 14-day trial</li>
+                            <li><i class="fas fa-check"></i> 5-7 Boom/Crash signals daily</li>
+                            <li><i class="fas fa-check"></i> Advanced spike detection</li>
+                            <li><i class="fas fa-check"></i> PainX/GainX signals</li>
+                            <li><i class="fas fa-check"></i> SMS & Telegram alerts</li>
+                            <li><i class="fas fa-check"></i> 14-day free trial</li>
                         </ul>
                         <div class="price">$99/month</div>
                         <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
@@ -566,17 +746,17 @@
                 </div>
                 <div class="signal-card">
                     <div class="signal-header">
-                        <h3>Enterprise</h3>
+                        <h3>Enterprise Plan</h3>
                     </div>
                     <div class="signal-body">
                         <p>For professional traders and institutions</p>
                         <ul class="signal-features">
-                            <li><i class="fas fa-check"></i> 10-15 signals per week</li>
-                            <li><i class="fas fa-check"></i> Comprehensive analysis</li>
+                            <li><i class="fas fa-check"></i> 10-15 signals daily</li>
+                            <li><i class="fas fa-check"></i> All signal types included</li>
+                            <li><i class="fas fa-check"></i> Real-time spike detection</li>
                             <li><i class="fas fa-check"></i> All alert methods</li>
                             <li><i class="fas fa-check"></i> Personal analyst support</li>
-                            <li><i class="fas fa-check"></i> Custom tools access</li>
-                            <li><i class="fas fa-check"></i> 30-day trial</li>
+                            <li><i class="fas fa-check"></i> 30-day free trial</li>
                         </ul>
                         <div class="price">$199/month</div>
                         <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
@@ -589,59 +769,68 @@
     <!-- Affiliate Section -->
     <section class="affiliate" id="affiliate">
         <div class="container">
-            <h2 class="section-title" style="color: white;">Affiliate Program</h2>
-            <p style="max-width: 800px; margin: 0 auto 30px; font-size: 1.2rem;">Earn generous commissions by referring traders to our platform. Our affiliate program offers one of the highest payout rates in the industry.</p>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-percent"></i>
+            <div class="affiliate-content">
+                <h2 class="section-title" style="color: white;">Affiliate Program</h2>
+                <p class="section-subtitle" style="color: #e2e8f0;">Earn generous commissions by referring traders to our platform. Our affiliate program offers one of the highest payout rates in the industry.</p>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-percent"></i>
+                        </div>
+                        <h3>High Commissions</h3>
+                        <p>Earn up to 30% recurring commission on every referral.</p>
                     </div>
-                    <h3>High Commissions</h3>
-                    <p>Earn up to 30% recurring commission on every referral.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-gift"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Marketing Materials</h3>
+                        <p>Access banners, landing pages, and other promotional materials.</p>
                     </div>
-                    <h3>Marketing Materials</h3>
-                    <p>Access banners, landing pages, and other promotional materials.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Real-time Tracking</h3>
+                        <p>Monitor your performance with our advanced dashboard.</p>
                     </div>
-                    <h3>Real-time Tracking</h3>
-                    <p>Monitor your performance with our advanced dashboard.</p>
                 </div>
+                <a class="btn btn-outline" style="margin-top: 30px;" onclick="showAffiliateSignup()">Join Affiliate Program</a>
             </div>
-            <a class="btn btn-outline" style="margin-top: 30px;" onclick="showAffiliateSignup()">Join Affiliate Program</a>
         </div>
     </section>
 
     <!-- Tools Section -->
     <section class="tools" id="tools">
         <div class="container">
-            <h2 class="section-title">Trading Tools</h2>
+            <h2 class="section-title">Our Trading Tools</h2>
+            <p class="section-subtitle">Advanced tools designed specifically for volatility indices trading</p>
             <div class="tool-cards">
                 <div class="tool-card">
                     <div class="tool-content">
-                        <h3>Currency Strength Meter</h3>
-                        <p>Our proprietary algorithm measures the strength of all major currencies in real-time.</p>
-                        <a class="btn btn-outline" onclick="showToolDetail('currency-strength')">Learn More</a>
+                        <h3>Boom & Crash Spike Detector</h3>
+                        <p>Our proprietary algorithm detects potential spikes in Boom and Crash indices before they happen, giving you the edge.</p>
+                        <span class="signal-badge boom">Boom 1000</span>
+                        <span class="signal-badge crash">Crash 1000</span>
+                        <a class="btn btn-outline" onclick="showToolDetail('boom-crash-detector')">Learn More</a>
                     </div>
                 </div>
                 <div class="tool-card">
                     <div class="tool-content">
-                        <h3>Signal Scanner</h3>
-                        <p>Automatically scans the market for the highest probability trading opportunities.</p>
-                        <a class="btn btn-outline" onclick="showToolDetail('signal-scanner')">Learn More</a>
+                        <h3>PainX/GainX Analyzer</h3>
+                        <p>Specialized tool for analyzing PainX and GainX indices with unique indicators designed for these markets.</p>
+                        <span class="signal-badge spike">PainX</span>
+                        <span class="signal-badge spike">GainX</span>
+                        <a class="btn btn-outline" onclick="showToolDetail('painx-gainx-analyzer')">Learn More</a>
                     </div>
                 </div>
                 <div class="tool-card">
                     <div class="tool-content">
-                        <h3>Profit Calculator</h3>
-                        <p>Calculate potential profits and risk before entering any trade.</p>
-                        <a class="btn btn-outline" onclick="showToolDetail('profit-calculator')">Learn More</a>
+                        <h3>Volatility Calculator</h3>
+                        <p>Calculate potential profits and risks specific to volatility indices before entering any trade.</p>
+                        <span class="signal-badge boom">Risk Management</span>
+                        <span class="signal-badge crash">Profit Calculation</span>
+                        <a class="btn btn-outline" onclick="showToolDetail('volatility-calculator')">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -652,9 +841,10 @@
     <section class="testimonials">
         <div class="container">
             <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Join thousands of satisfied traders who have improved their trading with VolatilityPlus</p>
             <div class="testimonial-cards">
                 <div class="testimonial-card">
-                    <p>"Since subscribing to ForexSignalPro, my trading profitability has increased by 65%. The signals are accurate and the analysis is incredibly detailed."</p>
+                    <p>"Since subscribing to VolatilityPlus, my Boom and Crash trading profitability has increased by 75%. The spike detectors are incredibly accurate."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">JD</div>
                         <div>
@@ -664,22 +854,22 @@
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p>"The affiliate program is fantastic! I'm earning a steady passive income just by sharing a service I truly believe in."</p>
+                    <p>"The PainX and GainX signals have completely transformed my trading approach. I'm now consistently profitable thanks to VolatilityPlus."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">SM</div>
                         <div>
                             <h4>Sarah Miller</h4>
-                            <p>Affiliate Marketer</p>
+                            <p>Volatility Trader</p>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p>"The tools alone are worth the subscription. The currency strength meter has completely transformed my trading approach."</p>
+                    <p>"The affiliate program is fantastic! I'm earning a steady passive income just by sharing a service I truly believe in."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">RJ</div>
                         <div>
                             <h4>Robert Johnson</h4>
-                            <p>Fund Manager</p>
+                            <p>Affiliate Marketer</p>
                         </div>
                     </div>
                 </div>
@@ -692,22 +882,22 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>ForexSignalPro</h3>
-                    <p>Providing premium forex trading signals and tools since 2015. Join thousands of satisfied traders worldwide.</p>
+                    <h3>VolatilityPlus</h3>
+                    <p>Providing premium Boom & Crash trading signals and tools since 2020. Join thousands of satisfied traders worldwide.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
                     <h3>Services</h3>
                     <ul class="footer-links">
-                        <li><a onclick="scrollToSection('signals')">Forex Signals</a></li>
-                        <li><a onclick="scrollToSection('tools')">Trading Tools</a></li>
-                        <li><a onclick="scrollToSection('affiliate')">Market Analysis</a></li>
-                        <li><a onclick="showSignup()">Educational Resources</a></li>
+                        <li><a onclick="scrollToSection('signals')">Boom & Crash Signals</a></li>
+                        <li><a onclick="scrollToSection('tools')">Spike Detectors</a></li>
+                        <li><a onclick="scrollToSection('tools')">PainX/GainX Signals</a></li>
+                        <li><a onclick="showSignup()">Trading Tools</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -730,7 +920,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 ForexSignalPro. All rights reserved.</p>
+                <p>&copy; 2023 VolatilityPlus. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -883,48 +1073,49 @@
             const toolDescription = document.getElementById('toolDescription');
             
             switch(toolId) {
-                case 'currency-strength':
-                    toolTitle.textContent = 'Currency Strength Meter';
+                case 'boom-crash-detector':
+                    toolTitle.textContent = 'Boom & Crash Spike Detector';
                     toolDescription.innerHTML = `
-                        <p>Our Currency Strength Meter is a proprietary tool that analyzes the relative strength of all major currencies in real-time.</p>
+                        <p>Our Boom & Crash Spike Detector is a proprietary tool that analyzes volatility patterns in real-time to predict potential spikes before they happen.</p>
                         <p><strong>Key Features:</strong></p>
                         <ul>
-                            <li>Real-time strength calculation for 8 major currencies</li>
-                            <li>Visual representation of currency strength</li>
-                            <li>Historical strength data and trends</li>
-                            <li>Customizable alerts for strength changes</li>
+                            <li>Real-time analysis of Boom 1000 and Crash 1000 indices</li>
+                            <li>Advanced algorithms to detect potential spikes</li>
+                            <li>Visual and audio alerts for upcoming volatility</li>
+                            <li>Historical spike data and patterns</li>
+                            <li>Customizable sensitivity settings</li>
                         </ul>
-                        <p>This tool helps identify the strongest and weakest currencies, allowing you to make better trading decisions.</p>
+                        <p>This tool helps identify the best entry and exit points for Boom and Crash indices, maximizing profit potential while minimizing risk.</p>
                     `;
                     break;
-                case 'signal-scanner':
-                    toolTitle.textContent = 'Signal Scanner';
+                case 'painx-gainx-analyzer':
+                    toolTitle.textContent = 'PainX/GainX Analyzer';
                     toolDescription.innerHTML = `
-                        <p>Our Signal Scanner automatically scans the market for high-probability trading opportunities across all major currency pairs.</p>
+                        <p>Our PainX/GainX Analyzer is specifically designed for these unique indices, providing specialized indicators and signals.</p>
                         <p><strong>Key Features:</strong></p>
                         <ul>
-                            <li>Scans 28 currency pairs simultaneously</li>
-                            <li>Multiple timeframe analysis (M1 to D1)</li>
-                            <li>Customizable filtering criteria</li>
-                            <li>Real-time alert system</li>
-                            <li>Historical performance tracking</li>
-                        </ul>
-                        <p>Save time and never miss a trading opportunity with our advanced Signal Scanner.</p>
-                    `;
-                    break;
-                case 'profit-calculator':
-                    toolTitle.textContent = 'Profit Calculator';
-                    toolDescription.innerHTML = `
-                        <p>Our Profit Calculator helps you determine potential profits and risks before entering any trade.</p>
-                        <p><strong>Key Features:</strong></p>
-                        <ul>
-                            <li>Calculate potential profit/loss for any trade</li>
+                            <li>Dedicated analysis for PainX and GainX indices</li>
+                            <li>Custom volatility indicators</li>
+                            <li>Pattern recognition for these specific markets</li>
+                            <li>Real-time trend analysis</li>
                             <li>Risk management guidance</li>
+                        </ul>
+                        <p>Navigate the unique challenges of PainX and GainX trading with our specialized analyzer tool.</p>
+                    `;
+                    break;
+                case 'volatility-calculator':
+                    toolTitle.textContent = 'Volatility Calculator';
+                    toolDescription.innerHTML = `
+                        <p>Our Volatility Calculator helps you determine potential profits and risks specific to volatility indices before entering any trade.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Calculate potential profit/loss for volatility indices</li>
+                            <li>Risk management guidance specific to Boom/Crash</li>
                             <li>Position sizing recommendations</li>
                             <li>Multiple account currency support</li>
                             <li>Save and compare different scenarios</li>
                         </ul>
-                        <p>Manage your risk effectively and optimize your trading strategy with our Profit Calculator.</p>
+                        <p>Manage your risk effectively and optimize your trading strategy with our Volatility Calculator.</p>
                     `;
                     break;
             }
@@ -975,7 +1166,7 @@
                 return;
             }
             
-            showMessage('Success', 'Account created successfully! Welcome to ForexSignalPro.');
+            showMessage('Success', 'Account created successfully! Welcome to VolatilityPlus.');
             closeModal('signupModal');
         }
         
@@ -1004,15 +1195,15 @@
         
         // Other page functions
         function showAbout() {
-            showMessage('About Us', 'ForexSignalPro was founded in 2015 by a team of professional traders and software developers. Our mission is to provide accurate trading signals and powerful tools to help traders of all levels succeed in the forex market.');
+            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals and powerful tools to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
         }
         
         function showContact() {
-            showMessage('Contact Us', 'You can reach us at support@forexsignalpro.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
+            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
         }
         
         function showCareers() {
-            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@forexsignalpro.com along with a cover letter explaining why you would be a good fit.');
+            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@volatilityplus.com along with a cover letter explaining why you would be a good fit.');
         }
         
         function showTerms() {
@@ -1024,7 +1215,7 @@
         }
         
         function showDisclaimer() {
-            showMessage('Disclaimer', 'Trading forex carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
+            showMessage('Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
         }
         
         function showRefund() {
