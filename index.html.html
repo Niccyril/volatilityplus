@@ -26,6 +26,7 @@
             background-color: #f1f5f9;
             color: #334155;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
         
         .container {
@@ -58,6 +59,7 @@
             gap: 10px;
             font-weight: 700;
             font-size: 1.5rem;
+            cursor: pointer;
         }
         
         .logo i {
@@ -75,6 +77,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            cursor: pointer;
         }
         
         nav a:hover {
@@ -93,12 +96,20 @@
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            border: none;
         }
         
         .btn-outline {
             border: 2px solid var(--accent);
             color: var(--accent);
             background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
         }
         
         .btn-primary {
@@ -335,6 +346,7 @@
             color: #cbd5e1;
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
         }
         
         .footer-links a:hover {
@@ -361,6 +373,61 @@
             font-size: 0.9rem;
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+        
+        .modal-title {
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -381,6 +448,15 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .auth-buttons {
+                margin-top: 15px;
+            }
+        }
+        
+        /* Active nav link */
+        .active {
+            color: var(--accent) !important;
         }
     </style>
 </head>
@@ -389,35 +465,35 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
+                <div class="logo" onclick="scrollToSection('hero')">
                     <i class="fas fa-chart-line"></i>
                     <span>ForexSignalPro</span>
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Signals</a></li>
-                        <li><a href="#">Tools</a></li>
-                        <li><a href="#">Affiliate</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">About</a></li>
+                        <li><a onclick="scrollToSection('hero')" class="active">Home</a></li>
+                        <li><a onclick="scrollToSection('signals')">Signals</a></li>
+                        <li><a onclick="scrollToSection('tools')">Tools</a></li>
+                        <li><a onclick="scrollToSection('affiliate')">Affiliate</a></li>
+                        <li><a onclick="showSignup()">Pricing</a></li>
+                        <li><a onclick="showLogin()">Login</a></li>
                     </ul>
                 </nav>
                 <div class="auth-buttons">
-                    <a href="#" class="btn btn-outline">Login</a>
-                    <a href="#" class="btn btn-primary">Sign Up</a>
+                    <a class="btn btn-outline" onclick="showLogin()">Login</a>
+                    <a class="btn btn-primary" onclick="showSignup()">Sign Up</a>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>Premium Forex Trading Signals & Tools</h1>
                 <p>Get accurate forex trading signals, powerful analytical tools, and earn through our affiliate program. Join thousands of successful traders today.</p>
-                <a href="#" class="btn btn-primary">Get Started</a>
+                <a class="btn btn-primary" onclick="showSignup()">Get Started</a>
             </div>
         </div>
     </section>
@@ -451,7 +527,7 @@
     </section>
 
     <!-- Signals Section -->
-    <section class="signals">
+    <section class="signals" id="signals">
         <div class="container">
             <h2 class="section-title">Our Signal Packages</h2>
             <div class="signal-cards">
@@ -468,7 +544,7 @@
                             <li><i class="fas fa-check"></i> 7-day trial</li>
                         </ul>
                         <div class="price">$49/month</div>
-                        <a href="#" class="btn btn-primary" style="width: 100%;">Subscribe Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -485,7 +561,7 @@
                             <li><i class="fas fa-check"></i> 14-day trial</li>
                         </ul>
                         <div class="price">$99/month</div>
-                        <a href="#" class="btn btn-primary" style="width: 100%;">Subscribe Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -503,7 +579,7 @@
                             <li><i class="fas fa-check"></i> 30-day trial</li>
                         </ul>
                         <div class="price">$199/month</div>
-                        <a href="#" class="btn btn-primary" style="width: 100%;">Subscribe Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="showSignup()">Subscribe Now</a>
                     </div>
                 </div>
             </div>
@@ -511,7 +587,7 @@
     </section>
 
     <!-- Affiliate Section -->
-    <section class="affiliate">
+    <section class="affiliate" id="affiliate">
         <div class="container">
             <h2 class="section-title" style="color: white;">Affiliate Program</h2>
             <p style="max-width: 800px; margin: 0 auto 30px; font-size: 1.2rem;">Earn generous commissions by referring traders to our platform. Our affiliate program offers one of the highest payout rates in the industry.</p>
@@ -538,12 +614,12 @@
                     <p>Monitor your performance with our advanced dashboard.</p>
                 </div>
             </div>
-            <a href="#" class="btn btn-outline" style="margin-top: 30px;">Join Affiliate Program</a>
+            <a class="btn btn-outline" style="margin-top: 30px;" onclick="showAffiliateSignup()">Join Affiliate Program</a>
         </div>
     </section>
 
     <!-- Tools Section -->
-    <section class="tools">
+    <section class="tools" id="tools">
         <div class="container">
             <h2 class="section-title">Trading Tools</h2>
             <div class="tool-cards">
@@ -551,21 +627,21 @@
                     <div class="tool-content">
                         <h3>Currency Strength Meter</h3>
                         <p>Our proprietary algorithm measures the strength of all major currencies in real-time.</p>
-                        <a href="#" class="btn btn-outline">Learn More</a>
+                        <a class="btn btn-outline" onclick="showToolDetail('currency-strength')">Learn More</a>
                     </div>
                 </div>
                 <div class="tool-card">
                     <div class="tool-content">
                         <h3>Signal Scanner</h3>
                         <p>Automatically scans the market for the highest probability trading opportunities.</p>
-                        <a href="#" class="btn btn-outline">Learn More</a>
+                        <a class="btn btn-outline" onclick="showToolDetail('signal-scanner')">Learn More</a>
                     </div>
                 </div>
                 <div class="tool-card">
                     <div class="tool-content">
                         <h3>Profit Calculator</h3>
                         <p>Calculate potential profits and risk before entering any trade.</p>
-                        <a href="#" class="btn btn-outline">Learn More</a>
+                        <a class="btn btn-outline" onclick="showToolDetail('profit-calculator')">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -628,28 +704,28 @@
                 <div class="footer-column">
                     <h3>Services</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Forex Signals</a></li>
-                        <li><a href="#">Trading Tools</a></li>
-                        <li><a href="#">Market Analysis</a></li>
-                        <li><a href="#">Educational Resources</a></li>
+                        <li><a onclick="scrollToSection('signals')">Forex Signals</a></li>
+                        <li><a onclick="scrollToSection('tools')">Trading Tools</a></li>
+                        <li><a onclick="scrollToSection('affiliate')">Market Analysis</a></li>
+                        <li><a onclick="showSignup()">Educational Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Company</h3>
                     <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Affiliate Program</a></li>
-                        <li><a href="#">Careers</a></li>
+                        <li><a onclick="showAbout()">About Us</a></li>
+                        <li><a onclick="showContact()">Contact</a></li>
+                        <li><a onclick="scrollToSection('affiliate')">Affiliate Program</a></li>
+                        <li><a onclick="showCareers()">Careers</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Legal</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
-                        <li><a href="#">Refund Policy</a></li>
+                        <li><a onclick="showTerms()">Terms of Service</a></li>
+                        <li><a onclick="showPrivacy()">Privacy Policy</a></li>
+                        <li><a onclick="showDisclaimer()">Disclaimer</a></li>
+                        <li><a onclick="showRefund()">Refund Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -659,10 +735,314 @@
         </div>
     </footer>
 
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
+            <h2 class="modal-title">Login to Your Account</h2>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="login()">Login</button>
+            <p style="text-align: center; margin-top: 20px;">
+                Don't have an account? <a onclick="switchToSignup()" style="color: var(--primary); cursor: pointer;">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('signupModal')">&times;</span>
+            <h2 class="modal-title">Create an Account</h2>
+            <div class="form-group">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" id="signupEmail" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="signup()">Create Account</button>
+            <p style="text-align: center; margin-top: 20px;">
+                Already have an account? <a onclick="switchToLogin()" style="color: var(--primary); cursor: pointer;">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Affiliate Signup Modal -->
+    <div class="modal" id="affiliateModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('affiliateModal')">&times;</span>
+            <h2 class="modal-title">Join Our Affiliate Program</h2>
+            <div class="form-group">
+                <label for="affiliateName">Full Name</label>
+                <input type="text" id="affiliateName" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="affiliateEmail">Email</label>
+                <input type="email" id="affiliateEmail" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="website">Website or Social Media</label>
+                <input type="text" id="website" placeholder="Your website or social media profile">
+            </div>
+            <div class="form-group">
+                <label for="promotionMethods">How will you promote us?</label>
+                <input type="text" id="promotionMethods" placeholder="Describe your promotion methods">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="joinAffiliate()">Apply Now</button>
+        </div>
+    </div>
+
+    <!-- Tool Detail Modal -->
+    <div class="modal" id="toolModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('toolModal')">&times;</span>
+            <h2 class="modal-title" id="toolTitle">Tool Details</h2>
+            <div id="toolDescription">
+                <!-- Content will be loaded dynamically -->
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="showSignup()">Get Access Now</button>
+        </div>
+    </div>
+
+    <!-- Simple Message Modal -->
+    <div class="modal" id="messageModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('messageModal')">&times;</span>
+            <h2 class="modal-title" id="messageTitle">Message</h2>
+            <p id="messageContent"></p>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="closeModal('messageModal')">OK</button>
+        </div>
+    </div>
+
     <script>
-        // Simple JavaScript for interactive elements
+        // Navigation and scrolling functions
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Update active nav link
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to the clicked link
+                event.target.classList.add('active');
+                
+                // Scroll to the section
+                window.scrollTo({
+                    top: section.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Modal functions
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        function showLogin() {
+            closeAllModals();
+            showModal('loginModal');
+        }
+        
+        function showSignup() {
+            closeAllModals();
+            showModal('signupModal');
+        }
+        
+        function showAffiliateSignup() {
+            closeAllModals();
+            showModal('affiliateModal');
+        }
+        
+        function showToolDetail(toolId) {
+            closeAllModals();
+            
+            // Set tool title and description based on toolId
+            const toolTitle = document.getElementById('toolTitle');
+            const toolDescription = document.getElementById('toolDescription');
+            
+            switch(toolId) {
+                case 'currency-strength':
+                    toolTitle.textContent = 'Currency Strength Meter';
+                    toolDescription.innerHTML = `
+                        <p>Our Currency Strength Meter is a proprietary tool that analyzes the relative strength of all major currencies in real-time.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Real-time strength calculation for 8 major currencies</li>
+                            <li>Visual representation of currency strength</li>
+                            <li>Historical strength data and trends</li>
+                            <li>Customizable alerts for strength changes</li>
+                        </ul>
+                        <p>This tool helps identify the strongest and weakest currencies, allowing you to make better trading decisions.</p>
+                    `;
+                    break;
+                case 'signal-scanner':
+                    toolTitle.textContent = 'Signal Scanner';
+                    toolDescription.innerHTML = `
+                        <p>Our Signal Scanner automatically scans the market for high-probability trading opportunities across all major currency pairs.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Scans 28 currency pairs simultaneously</li>
+                            <li>Multiple timeframe analysis (M1 to D1)</li>
+                            <li>Customizable filtering criteria</li>
+                            <li>Real-time alert system</li>
+                            <li>Historical performance tracking</li>
+                        </ul>
+                        <p>Save time and never miss a trading opportunity with our advanced Signal Scanner.</p>
+                    `;
+                    break;
+                case 'profit-calculator':
+                    toolTitle.textContent = 'Profit Calculator';
+                    toolDescription.innerHTML = `
+                        <p>Our Profit Calculator helps you determine potential profits and risks before entering any trade.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Calculate potential profit/loss for any trade</li>
+                            <li>Risk management guidance</li>
+                            <li>Position sizing recommendations</li>
+                            <li>Multiple account currency support</li>
+                            <li>Save and compare different scenarios</li>
+                        </ul>
+                        <p>Manage your risk effectively and optimize your trading strategy with our Profit Calculator.</p>
+                    `;
+                    break;
+            }
+            
+            showModal('toolModal');
+        }
+        
+        function showMessage(title, content) {
+            document.getElementById('messageTitle').textContent = title;
+            document.getElementById('messageContent').textContent = content;
+            showModal('messageModal');
+        }
+        
+        function closeAllModals() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+        
+        // Form submission functions
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showMessage('Error', 'Please fill in all fields');
+                return;
+            }
+            
+            showMessage('Success', 'Login successful! Redirecting to your dashboard...');
+            closeModal('loginModal');
+        }
+        
+        function signup() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!name || !email || !password || !confirmPassword) {
+                showMessage('Error', 'Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage('Error', 'Passwords do not match');
+                return;
+            }
+            
+            showMessage('Success', 'Account created successfully! Welcome to ForexSignalPro.');
+            closeModal('signupModal');
+        }
+        
+        function joinAffiliate() {
+            const name = document.getElementById('affiliateName').value;
+            const email = document.getElementById('affiliateEmail').value;
+            
+            if (!name || !email) {
+                showMessage('Error', 'Please fill in all required fields');
+                return;
+            }
+            
+            showMessage('Application Received', 'Thank you for applying to our affiliate program! We will review your application and contact you within 2 business days.');
+            closeModal('affiliateModal');
+        }
+        
+        function switchToSignup() {
+            closeModal('loginModal');
+            showSignup();
+        }
+        
+        function switchToLogin() {
+            closeModal('signupModal');
+            showLogin();
+        }
+        
+        // Other page functions
+        function showAbout() {
+            showMessage('About Us', 'ForexSignalPro was founded in 2015 by a team of professional traders and software developers. Our mission is to provide accurate trading signals and powerful tools to help traders of all levels succeed in the forex market.');
+        }
+        
+        function showContact() {
+            showMessage('Contact Us', 'You can reach us at support@forexsignalpro.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
+        }
+        
+        function showCareers() {
+            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@forexsignalpro.com along with a cover letter explaining why you would be a good fit.');
+        }
+        
+        function showTerms() {
+            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. Please read the full document on our website.');
+        }
+        
+        function showPrivacy() {
+            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent.');
+        }
+        
+        function showDisclaimer() {
+            showMessage('Disclaimer', 'Trading forex carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
+        }
+        
+        function showRefund() {
+            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // Animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
-            // Add animation to feature cards on scroll
             const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
             
             function checkScroll() {
