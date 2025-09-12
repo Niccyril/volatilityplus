@@ -475,17 +475,6 @@
             background: var(--primary-dark);
         }
         
-        .tool-btn-outline {
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            background: transparent;
-        }
-        
-        .tool-btn-outline:hover {
-            background: var(--primary);
-            color: var(--text-dark);
-        }
-        
         /* Testimonials */
         .testimonials {
             background: #0f0f0f;
@@ -699,7 +688,6 @@
             
             .tool-actions {
                 width: 100%;
-                justify-content: space-between;
             }
         }
         
@@ -716,62 +704,6 @@
         
         .animated {
             animation: fadeIn 1s ease-out;
-        }
-        
-        /* Trading Chart Mockup */
-        .chart-mockup {
-            background: #0f172a;
-            border-radius: 10px;
-            height: 200px;
-            margin: 30px 0;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #333;
-        }
-        
-        .chart-line {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 80%;
-            background: linear-gradient(to top, rgba(255, 215, 0, 0.2), transparent);
-        }
-        
-        .chart-line::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        /* Signal Badge */
-        .signal-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin: 5px;
-        }
-        
-        .signal-badge.boom {
-            background: var(--success);
-            color: white;
-        }
-        
-        .signal-badge.crash {
-            background: var(--danger);
-            color: white;
-        }
-        
-        .signal-badge.spike {
-            background: var(--warning);
-            color: white;
         }
         
         /* New modern elements */
@@ -1034,8 +966,7 @@
                                 $80 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-outline" onclick="showToolDetail('mega-spikes-max')">Details</a>
-                                <a class="tool-btn tool-btn-primary" onclick="showContact()">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showContact()" style="width: 100%;">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1061,8 +992,7 @@
                                 $55 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-outline" onclick="showToolDetail('spike-phantom')">Details</a>
-                                <a class="tool-btn tool-btn-primary" onclick="showContact()">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showContact()" style="width: 100%;">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1089,8 +1019,7 @@
                                 $120 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-outline" onclick="showToolDetail('bundle-offer')">Details</a>
-                                <a class="tool-btn tool-btn-primary" onclick="showContact()">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="showContact()" style="width: 100%;">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -1209,18 +1138,6 @@
                 <input type="text" id="promotionMethods" placeholder="Describe your promotion methods">
             </div>
             <button class="btn btn-primary" style="width: 100%;" onclick="joinAffiliate()">Apply Now</button>
-        </div>
-    </div>
-
-    <!-- Tool Detail Modal -->
-    <div class="modal" id="toolModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('toolModal')">&times;</span>
-            <h2 class="modal-title" id="toolTitle">Tool Details</h2>
-            <div id="toolDescription">
-                <!-- Content will be loaded dynamically -->
-            </div>
-            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="showContact()">Contact for Purchase</button>
         </div>
     </div>
 
