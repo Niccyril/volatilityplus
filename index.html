@@ -833,6 +833,7 @@
         
         .payment-instructions ol {
             padding-left: 20px;
+            margin-bottom: 15px;
         }
         
         .payment-instructions li {
@@ -860,6 +861,79 @@
             margin: 15px 0;
             color: #e2e8f0;
             line-height: 1.6;
+        }
+        
+        /* Credit Card Payment Styles */
+        .credit-card-form {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            margin-top: 20px;
+        }
+        
+        .card-input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card-input {
+            flex: 1;
+        }
+        
+        .card-input input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #2a2a2a;
+            color: white;
+        }
+        
+        .card-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-method {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: var(--primary);
+            background: #222;
+        }
+        
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: rgba(255, 215, 0, 0.1);
+        }
+        
+        .payment-method i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--primary);
         }
         
         /* Responsive Design */
@@ -907,6 +981,20 @@
             
             .crypto-options {
                 grid-template-columns: 1fr;
+            }
+            
+            .card-input-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .card-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
             }
         }
         
@@ -972,6 +1060,14 @@
             color: #94a3b8;
             font-size: 1rem;
         }
+        
+        .payment-notice {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -1006,7 +1102,7 @@
             <div class="hero-content animated">
                 <h1>Advanced Boom & Crash Trading Signals</h1>
                 <p>Get precise Boom and Crash indices signals, Spike Detectors, and PainX/GainX trading alerts. Maximize your profits with our expert analysis and real-time notifications.</p>
-                <a class="btn btn-accent" onclick="showContact()">Get Started Today</a>
+                <a class="btn btn-accent" onclick="scrollToSection('signals')">Get Started Today</a>
             </div>
         </div>
     </section>
@@ -1081,7 +1177,7 @@
                             <li><i class="fas fa-check"></i> 7-day free trial</li>
                         </ul>
                         <div class="price">$49/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="showContact()">Contact Us</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('basic-plan', 49, 'Basic Plan - 1 Month Subscription')">Buy Now</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -1098,7 +1194,7 @@
                             <li><i class="fas fa-check"></i> 14-day free trial</li>
                         </ul>
                         <div class="price">$99/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="showContact()">Contact Us</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('professional-plan', 99, 'Professional Plan - 1 Month Subscription')">Buy Now</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -1116,7 +1212,7 @@
                             <li><i class="fas fa-check"></i> 30-day free trial</li>
                         </ul>
                         <div class="price">$199/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="showContact()">Contact Us</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('enterprise-plan', 199, 'Enterprise Plan - 1 Month Subscription')">Buy Now</a>
                     </div>
                 </div>
             </div>
@@ -1335,11 +1431,11 @@
         </div>
     </footer>
 
-    <!-- Crypto Payment Modal -->
+    <!-- Payment Modal -->
     <div class="modal" id="paymentModal">
         <div class="modal-content" style="max-width: 600px;">
             <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
-            <h2 class="modal-title" id="paymentTitle">Crypto Payment</h2>
+            <h2 class="modal-title" id="paymentTitle">Complete Your Purchase</h2>
             
             <div id="paymentStep1" class="payment-step">
                 <div class="product-summary">
@@ -1350,43 +1446,83 @@
                     </div>
                 </div>
                 
-                <div class="crypto-selection">
-                    <h4>Select Payment Method:</h4>
-                    <div class="crypto-options">
-                        <div class="crypto-option" onclick="selectCrypto('btc')">
-                            <i class="fab fa-bitcoin"></i>
-                            <span>Bitcoin (BTC)</span>
+                <div class="payment-methods">
+                    <div class="payment-method" onclick="selectPaymentMethod('credit-card')">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Credit Card</span>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('crypto')">
+                        <i class="fab fa-bitcoin"></i>
+                        <span>Cryptocurrency</span>
+                    </div>
+                </div>
+                
+                <div id="creditCardForm" class="credit-card-form" style="display: none;">
+                    <div class="card-input-group">
+                        <div class="card-input">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
                         </div>
-                        <div class="crypto-option" onclick="selectCrypto('eth')">
-                            <i class="fab fa-ethereum"></i>
-                            <span>Ethereum (ETH)</span>
+                    </div>
+                    
+                    <div class="card-row">
+                        <div class="form-group">
+                            <label for="cardExpiry">Expiry Date</label>
+                            <input type="text" id="cardExpiry" placeholder="MM/YY">
                         </div>
-                        <div class="crypto-option" onclick="selectCrypto('usdt')">
-                            <i class="fas fa-dollar-sign"></i>
-                            <span>Tether (USDT)</span>
+                        <div class="form-group">
+                            <label for="cardCvc">CVC</label>
+                            <input type="text" id="cardCvc" placeholder="123" maxlength="3">
                         </div>
-                        <div class="crypto-option" onclick="selectCrypto('ltc')">
-                            <i class="fab fa-litecoin"></i>
-                            <span>Litecoin (LTC)</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardName">Name on Card</label>
+                        <input type="text" id="cardName" placeholder="John Doe">
+                    </div>
+                    
+                    <div class="payment-notice">
+                        <p><i class="fas fa-lock"></i> Your payment details are secure and encrypted</p>
+                    </div>
+                </div>
+                
+                <div id="cryptoForm" style="display: none;">
+                    <div class="crypto-selection">
+                        <h4>Select Payment Method:</h4>
+                        <div class="crypto-options">
+                            <div class="crypto-option" onclick="selectCrypto('btc')">
+                                <i class="fab fa-bitcoin"></i>
+                                <span>Bitcoin (BTC)</span>
+                            </div>
+                            <div class="crypto-option" onclick="selectCrypto('eth')">
+                                <i class="fab fa-ethereum"></i>
+                                <span>Ethereum (ETH)</span>
+                            </div>
+                            <div class="crypto-option" onclick="selectCrypto('usdt')">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>Tether (USDT)</span>
+                            </div>
                         </div>
-                        <div class="crypto-option" onclick="selectCrypto('bch')">
-                            <i class="fab fa-bitcoin"></i>
-                            <span>Bitcoin Cash (BCH)</span>
-                        </div>
-                        <div class="crypto-option" onclick="selectCrypto('ada')">
-                            <i class="fas fa-coins"></i>
-                            <span>Cardano (ADA)</span>
-                        </div>
+                    </div>
+                    
+                    <div class="payment-instructions">
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li>Select your preferred cryptocurrency</li>
+                            <li>Send the exact amount to the provided address</li>
+                            <li>Wait for confirmation (usually 10-30 minutes)</li>
+                            <li>You'll receive your product via email</li>
+                        </ol>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="customerEmail">Email Address (for license delivery)</label>
+                    <label for="customerEmail">Email Address (for product delivery)</label>
                     <input type="email" id="customerEmail" placeholder="Enter your email" required>
                 </div>
                 
                 <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="proceedToPayment()">
-                    Continue to Payment
+                    Complete Payment
                 </button>
             </div>
             
@@ -1396,56 +1532,49 @@
                     <div class="payment-summary">
                         <p><strong>Product:</strong> <span id="finalProductName"></span></p>
                         <p><strong>Price:</strong> <span id="finalPrice"></span></p>
-                        <p><strong>Currency:</strong> <span id="selectedCrypto"></span></p>
+                        <p><strong>Payment Method:</strong> <span id="selectedMethod"></span></p>
                         <p><strong>Amount to Pay:</strong> <span id="cryptoAmount"></span></p>
                     </div>
                     
-                    <div class="payment-address">
-                        <h4>Send Payment To:</h4>
-                        <div class="address-container">
-                            <input type="text" id="paymentAddress" readonly>
-                            <button onclick="copyAddress()" class="copy-btn">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                    <div id="creditCardSuccess" style="display: none;">
+                        <div class="payment-success">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Payment Confirmed!</h3>
+                            <p>Thank you for your purchase. Your product has been sent to <span id="confirmEmail"></span></p>
+                            <p>Please check your email (including spam folder) for your product details.</p>
                         </div>
-                        
-                        <div class="qr-code" id="qrCode">
-                            <!-- QR code will be generated here -->
-                        </div>
-                        
-                        <div class="payment-timer">
-                            <p>Time remaining: <span id="timer">15:00</span></p>
-                            <div class="timer-bar">
-                                <div class="timer-progress" id="timerProgress"></div>
+                    </div>
+                    
+                    <div id="cryptoPaymentDetails" style="display: none;">
+                        <div class="payment-address">
+                            <h4>Send Payment To:</h4>
+                            <div class="address-container">
+                                <input type="text" id="paymentAddress" readonly>
+                                <button onclick="copyAddress()" class="copy-btn">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="qr-code" id="qrCode">
+                                <!-- QR code will be generated here -->
+                            </div>
+                            
+                            <div class="payment-timer">
+                                <p>Time remaining: <span id="timer">15:00</span></p>
+                                <div class="timer-bar">
+                                    <div class="timer-progress" id="timerProgress"></div>
+                                </div>
                             </div>
                         </div>
+                        
+                        <div class="payment-status" id="paymentStatus">
+                            <p><i class="fas fa-clock"></i> Waiting for payment...</p>
+                        </div>
                     </div>
                     
-                    <div class="payment-status" id="paymentStatus">
-                        <p><i class="fas fa-clock"></i> Waiting for payment...</p>
-                    </div>
-                    
-                    <div class="payment-instructions">
-                        <h4>Instructions:</h4>
-                        <ol>
-                            <li>Copy the wallet address above</li>
-                            <li>Send the exact amount shown to this address</li>
-                            <li>Wait for confirmation (usually 10-30 minutes)</li>
-                            <li>You'll receive your license via email</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="paymentStep3" class="payment-step" style="display: none;">
-                <div class="payment-success">
-                    <div class="success-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h3>Payment Confirmed!</h3>
-                    <p>Thank you for your purchase. Your license has been sent to <span id="confirmEmail"></span></p>
-                    <p>Please check your email (including spam folder) for your download links and installation instructions.</p>
-                    <button class="btn btn-primary" onclick="closeModal('paymentModal')" style="margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="closeModal('paymentModal')" style="width: 100%; margin-top: 20px;">
                         Close
                     </button>
                 </div>
@@ -1494,6 +1623,7 @@
             productId: '',
             productName: '',
             priceUSD: 0,
+            selectedMethod: '',
             selectedCrypto: '',
             customerEmail: '',
             paymentAddress: '',
@@ -1533,6 +1663,7 @@
                     productId: '',
                     productName: '',
                     priceUSD: 0,
+                    selectedMethod: '',
                     selectedCrypto: '',
                     customerEmail: '',
                     paymentAddress: '',
@@ -1561,7 +1692,7 @@
             });
         }
 
-        // Crypto Payment Functions
+        // Payment Functions
         function initiatePayment(productId, price, productName) {
             currentPayment.productId = productId;
             currentPayment.priceUSD = price;
@@ -1572,14 +1703,39 @@
             
             document.getElementById('paymentStep1').style.display = 'block';
             document.getElementById('paymentStep2').style.display = 'none';
-            document.getElementById('paymentStep3').style.display = 'none';
             
-            document.querySelectorAll('.crypto-option').forEach(option => {
-                option.classList.remove('selected');
+            // Reset form state
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
             });
+            document.getElementById('creditCardForm').style.display = 'none';
+            document.getElementById('cryptoForm').style.display = 'none';
             document.getElementById('customerEmail').value = '';
             
             showModal('paymentModal');
+        }
+
+        function selectPaymentMethod(method) {
+            currentPayment.selectedMethod = method;
+            
+            document.querySelectorAll('.payment-method').forEach(m => {
+                m.classList.remove('selected');
+            });
+            event.target.closest('.payment-method').classList.add('selected');
+            
+            if (method === 'credit-card') {
+                document.getElementById('creditCardForm').style.display = 'block';
+                document.getElementById('cryptoForm').style.display = 'none';
+            } else if (method === 'crypto') {
+                document.getElementById('creditCardForm').style.display = 'none';
+                document.getElementById('cryptoForm').style.display = 'block';
+                
+                // Reset crypto selection
+                document.querySelectorAll('.crypto-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                currentPayment.selectedCrypto = '';
+            }
         }
 
         function selectCrypto(crypto) {
@@ -1588,14 +1744,24 @@
             document.querySelectorAll('.crypto-option').forEach(option => {
                 option.classList.remove('selected');
             });
-            event.target.classList.add('selected');
+            event.target.closest('.crypto-option').classList.add('selected');
         }
 
         function proceedToPayment() {
             const email = document.getElementById('customerEmail').value;
             
-            if (!email || !currentPayment.selectedCrypto) {
-                showMessage('Error', 'Please enter your email and select a cryptocurrency.');
+            if (!email) {
+                showMessage('Error', 'Please enter your email address.');
+                return;
+            }
+            
+            if (!currentPayment.selectedMethod) {
+                showMessage('Error', 'Please select a payment method.');
+                return;
+            }
+            
+            if (currentPayment.selectedMethod === 'crypto' && !currentPayment.selectedCrypto) {
+                showMessage('Error', 'Please select a cryptocurrency.');
                 return;
             }
             
@@ -1612,35 +1778,65 @@
             
             document.getElementById('finalProductName').textContent = currentPayment.productName;
             document.getElementById('finalPrice').textContent = '$' + currentPayment.priceUSD;
-            document.getElementById('selectedCrypto').textContent = currentPayment.selectedCrypto.toUpperCase();
+            document.getElementById('selectedMethod').textContent = currentPayment.selectedMethod === 'credit-card' ? 'Credit Card' : currentPayment.selectedCrypto.toUpperCase();
+            document.getElementById('confirmEmail').textContent = currentPayment.customerEmail;
             
-            // Generate mock payment details for demo
-            generateMockPayment();
-            
-            startPaymentTimer();
-            startPaymentStatusCheck();
+            if (currentPayment.selectedMethod === 'credit-card') {
+                // Simulate credit card payment processing
+                document.getElementById('creditCardSuccess').style.display = 'block';
+                document.getElementById('cryptoPaymentDetails').style.display = 'none';
+                
+                // In a real implementation, you would process the card details here
+                // For demo purposes, we'll just show success
+                processCreditCardPayment();
+            } else {
+                // Show crypto payment details
+                document.getElementById('creditCardSuccess').style.display = 'none';
+                document.getElementById('cryptoPaymentDetails').style.display = 'block';
+                
+                generateMockCryptoPayment();
+                startPaymentTimer();
+                startPaymentStatusCheck();
+            }
         }
 
-        function generateMockPayment() {
+        function processCreditCardPayment() {
+            // In a real implementation, you would:
+            // 1. Validate card details
+            // 2. Send to payment processor
+            // 3. Handle response
+            
+            // For demo, we'll just simulate success
+            console.log('Processing credit card payment...');
+            
+            // Store order in localStorage for demo purposes
+            const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
+            orders.push({
+                productId: currentPayment.productId,
+                productName: currentPayment.productName,
+                price: currentPayment.priceUSD,
+                paymentMethod: 'credit-card',
+                email: currentPayment.customerEmail,
+                date: new Date().toISOString(),
+                status: 'completed'
+            });
+            localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
+        }
+
+        function generateMockCryptoPayment() {
             // Mock payment data for demo
             currentPayment.paymentId = 'VP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
             
             const mockAddresses = {
                 'btc': '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
                 'eth': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
-                'usdt': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
-                'ltc': 'LTC1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
-                'bch': 'bitcoincash:qr4aadjrpu73d2wxwkxkcrt6gqxgu6a7usxfm96fst',
-                'ada': 'addr1q8s2xuqq3lhul4s1m7ch6v5qz7w8rz9l2k8h3j9p4n5b3c2d1f'
+                'usdt': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16'
             };
             
             const mockRates = {
                 'btc': 43000,
                 'eth': 2200,
-                'usdt': 1.00,
-                'ltc': 70,
-                'bch': 230,
-                'ada': 0.45
+                'usdt': 1.00
             };
             
             const rate = mockRates[currentPayment.selectedCrypto];
@@ -1711,8 +1907,11 @@
                     clearInterval(paymentTimer);
                     stopPaymentStatusCheck();
                     
+                    document.getElementById('paymentStatus').innerHTML = '<p><i class="fas fa-check-circle" style="color: var(--success);"></i> Payment confirmed! Processing...</p>';
+                    document.getElementById('paymentStatus').classList.add('confirmed');
+                    
                     setTimeout(() => {
-                        showPaymentSuccess();
+                        sendConfirmationEmail();
                     }, 2000);
                 }
             }, 5000);
@@ -1725,17 +1924,9 @@
             }
         }
 
-        function showPaymentSuccess() {
-            document.getElementById('paymentStep2').style.display = 'none';
-            document.getElementById('paymentStep3').style.display = 'block';
-            document.getElementById('confirmEmail').textContent = currentPayment.customerEmail;
-            
-            sendConfirmationEmail();
-        }
-
         function sendConfirmationEmail() {
             // In a real implementation, this would call your backend
-            console.log('Demo: License would be delivered to:', currentPayment.customerEmail);
+            console.log('Demo: Product would be delivered to:', currentPayment.customerEmail);
             
             // Store order in localStorage for demo purposes
             const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
@@ -1746,7 +1937,8 @@
                 crypto: currentPayment.selectedCrypto,
                 cryptoAmount: currentPayment.cryptoAmount,
                 email: currentPayment.customerEmail,
-                date: new Date().toISOString()
+                date: new Date().toISOString(),
+                status: 'completed'
             });
             localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
         }
