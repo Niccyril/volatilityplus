@@ -3,2124 +3,690 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VolatilityPlus - Advanced Trading Solutions</title>
+    <title>ForexSignalPro - Premium Trading Signals & Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        :root {
+            --primary: #2563eb;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+        }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        // Simulate real-time signal updates
-        function updateSignals() {
-            const signalCards = document.querySelectorAll('.signal-card:not(.premium-blur)');
-            
-            signalCards.forEach(card => {
-                const entryValue = card.querySelector('.signal-details .signal-value');
-                if (entryValue && !isNaN(parseFloat(entryValue.textContent))) {
-                    const currentValue = parseFloat(entryValue.textContent);
-                    const variation = (Math.random() - 0.5) * 0.0002; // Small random variation
-                    const newValue = currentValue + variation;
-                    
-                    // Update entry price with subtle changes
-                    if (entryValue.textContent.includes('.')) {
-                        entryValue.textContent = newValue.toFixed(4);
-                    }
-                }
-            });
-        }
-
-        :root {
-            --primary: #fbbf24;
-            --secondary: #f59e0b;
-            --accent: #facc15;
-            --dark: #1a1810;
-            --dark-light: #2d2415;
-            --text: #fef3c7;
-            --text-muted: #d4b877;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --card-bg: rgba(45, 36, 21, 0.8);
-            --glass: rgba(255, 248, 180, 0.05);
-        }
-
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1a1810 0%, #2d2415 50%, #3f3320 100%);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: #f1f5f9;
+            color: #334155;
+            line-height: 1.6;
         }
-
-        /* Animated Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 60%, rgba(250, 204, 21, 0.05) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
+        
         .container {
-            max-width: 1400px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 20px;
         }
-
-        /* Header */
+        
+        /* Header Styles */
         header {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 0;
+            background: var(--secondary);
+            color: white;
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-
+        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
         }
-
-        .nav-links a {
-            color: var(--text-muted);
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
+            transition: color 0.3s;
         }
-
-        .nav-links a:hover {
-            color: var(--primary);
+        
+        nav a:hover {
+            color: var(--accent);
         }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+        }
+        
+        .btn-primary {
             background: var(--primary);
-            transition: width 0.3s ease;
+            color: white;
+            border: 2px solid var(--primary);
         }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
         }
-
-        .auth-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
-            color: white !important;
-            padding: 0.5rem 1rem !important;
-            border-radius: 20px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .auth-btn:hover {
-            transform: scale(1.05) !important;
-            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3) !important;
-        }
-
+        
         /* Hero Section */
         .hero {
-            padding: 4rem 0 3rem 0;
+            background: linear-gradient(to right, #1e3a8a, #2563eb);
+            color: white;
+            padding: 80px 0;
             text-align: center;
         }
-
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
         .hero h1 {
             font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: slideUp 1s ease-out;
+            margin-bottom: 20px;
         }
-
+        
         .hero p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            animation: slideUp 1s ease-out 0.2s both;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Broker Registration Buttons */
-        .broker-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            max-width: 650px;
-            margin: 0 auto;
-            animation: slideUp 1s ease-out 0.4s both;
-        }
-
-        .special-offer {
-            text-align: center;
-            margin-bottom: 0.75rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .offer-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
-            color: white;
-            padding: 0.4rem 1.25rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-bottom: 0.75rem;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        .special-offer h3 {
-            color: var(--text);
             font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
-
-        .broker-btn {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem 2rem;
-            background: linear-gradient(135deg, var(--card-bg), rgba(251, 191, 36, 0.1));
-            backdrop-filter: blur(20px);
-            border: 3px solid transparent;
-            border-radius: 20px;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            color: var(--secondary);
+            font-size: 2.2rem;
         }
-
-        .broker-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.2), transparent);
-            transition: left 0.6s ease;
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
-
-        .broker-btn:hover::before {
-            left: 100%;
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
         }
-
-        .btn-glow {
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary));
-            border-radius: 20px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
-
-        .broker-btn:hover .btn-glow {
-            opacity: 0.7;
-            animation: rotate 2s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .broker-btn:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 25px 50px rgba(251, 191, 36, 0.3);
-        }
-
-        .deriv-btn {
-            background: linear-gradient(135deg, var(--card-bg), rgba(255, 69, 0, 0.15));
-            border-image: linear-gradient(135deg, #ff4500, #ff6b35) 1;
-        }
-
-        .deriv-btn:hover {
-            box-shadow: 0 25px 50px rgba(255, 69, 0, 0.3);
-        }
-
-        .weltrade-btn {
-            background: linear-gradient(135deg, var(--card-bg), rgba(0, 123, 191, 0.15));
-            border-image: linear-gradient(135deg, #007bbf, #00a8ff) 1;
-        }
-
-        .weltrade-btn:hover {
-            box-shadow: 0 25px 50px rgba(0, 123, 191, 0.3);
-        }
-
-        .btn-icon {
-            font-size: 2.5rem;
-            flex-shrink: 0;
+        
+        .feature-icon {
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: rgba(251, 191, 36, 0.2);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            animation: bounce 2s ease-in-out infinite;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+        
+        /* Signals Section */
+        .signals {
+            background: white;
+            padding: 60px 0;
         }
-
-        .btn-content {
-            flex: 1;
-            text-align: left;
-        }
-
-        .btn-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 0.4rem;
-            line-height: 1.2;
-        }
-
-        .btn-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-        }
-
-        .btn-bonus {
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: 600;
-            background: rgba(251, 191, 36, 0.1);
-            padding: 0.4rem 0.8rem;
-            border-radius: 12px;
-            display: inline-block;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .btn-arrow {
-            font-size: 2rem;
-            color: var(--primary);
-            font-weight: bold;
-            transition: transform 0.3s ease;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        .broker-btn:hover .btn-arrow {
-            transform: translateX(10px) scale(1.2);
-        }
-
-        .urgency-text {
-            text-align: center;
-            margin-top: 1rem;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        .countdown {
-            color: #ff6b6b;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 50%, 100% { opacity: 1; }
-            25%, 75% { opacity: 0.7; }
-        }
-
-        .social-proof {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 5px currentColor; }
-            to { box-shadow: 0 0 20px currentColor; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.02); }
-        }
-
-        /* Live Signals Section */
-        .live-signals {
-            margin: 3rem 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .signals-grid {
+        
+        .signal-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
-
+        
         .signal-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.25rem;
-            transition: all 0.3s ease;
-            position: relative;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
             overflow: hidden;
+            transition: transform 0.3s;
         }
-
-        .signal-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--success), var(--accent));
-            animation: pulse 2s ease-in-out infinite;
-        }
-
+        
         .signal-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-
-        .signal-card.premium-blur {
-            position: relative;
-        }
-
-        .signal-card.premium-blur .signal-details {
-            filter: blur(3px);
-            opacity: 0.3;
-        }
-
-        .signal-card.premium-blur:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
-        }
-
-        .premium-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .premium-overlay:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-
-        .premium-content {
-            text-align: center;
-            color: white;
-            z-index: 10;
-        }
-
-        .premium-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        .premium-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            color: var(--accent);
-        }
-
-        .premium-subtitle {
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .unlock-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 0.6rem 1.25rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .unlock-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
-        }
-
+        
         .signal-header {
+            background: var(--secondary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .signal-body {
+            padding: 25px;
+        }
+        
+        .signal-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .signal-features li {
+            margin-bottom: 10px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.75rem;
+            gap: 10px;
         }
-
-        .signal-pair {
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text);
-        }
-
-        .signal-status {
-            padding: 0.2rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        .signal-status.active {
-            background: rgba(16, 185, 129, 0.2);
+        
+        .signal-features i {
             color: var(--success);
         }
-
-        .signal-status.pending {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--warning);
-        }
-
-        .signal-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
-
-        .signal-item {
-            text-align: center;
-        }
-
-        .signal-label {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .signal-value {
-            font-weight: 600;
-            color: var(--text);
-            font-size: 0.9rem;
-        }
-
-        .signal-value.profit {
-            color: var(--success);
-        }
-
-        .signal-value.loss {
-            color: var(--danger);
-        }
-
-        .loading-signals {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
-        }
-
-        .loading-text {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .loading-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 2rem;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-number {
+        
+        .price {
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-top: 0.4rem;
-        }
-
-        /* Community Section */
-        .community-section {
-            margin: 3rem 0;
-            padding: 1.5rem 0;
-        }
-
-        .telegram-channels {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .telegram-channel {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            padding: 1.5rem;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 2px solid transparent;
-            border-radius: 15px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .telegram-channel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .telegram-channel:hover::before {
-            left: 100%;
-        }
-
-        .telegram-channel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .deriv-channel {
-            border-image: linear-gradient(135deg, #ff4500, #ff6b35) 1;
-        }
-
-        .deriv-channel:hover {
-            border-color: #ff4500;
-            box-shadow: 0 20px 40px rgba(255, 69, 0, 0.2);
-        }
-
-        .weltrade-channel {
-            border-image: linear-gradient(135deg, #007bbf, #00a8ff) 1;
-        }
-
-        .weltrade-channel:hover {
-            border-color: #007bbf;
-            box-shadow: 0 20px 40px rgba(0, 123, 191, 0.2);
-        }
-
-        .channel-icon {
-            flex-shrink: 0;
-            width: 60px;
-            height: 60px;
-            background: rgba(251, 191, 36, 0.1);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0088cc;
-        }
-
-        .deriv-channel .channel-icon {
-            background: rgba(255, 69, 0, 0.1);
-            color: #ff4500;
-        }
-
-        .weltrade-channel .channel-icon {
-            background: rgba(0, 123, 191, 0.1);
-            color: #007bbf;
-        }
-
-        .channel-content {
-            flex: 1;
-        }
-
-        .channel-content h3 {
-            color: var(--text);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .channel-content p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 0.4rem;
-            line-height: 1.4;
-        }
-
-        .channel-stats {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 0.75rem;
-        }
-
-        .member-count,
-        .success-rate {
-            background: rgba(251, 191, 36, 0.1);
-            color: var(--accent);
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-
-        .join-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 0.6rem 1rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .telegram-channel:hover .join-btn {
-            transform: scale(1.05);
-        }
-
-        .community-benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .benefit-icon {
-            font-size: 2rem;
-            flex-shrink: 0;
-        }
-
-        .benefit-text h4 {
-            color: var(--text);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .benefit-text p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        /* Main Content Grid */
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .section-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), transparent);
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .section-card:hover::before {
-            opacity: 1;
-        }
-
-        .section-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 25px 50px rgba(251, 191, 36, 0.1);
-        }
-
-        .section-card h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .icon {
-            width: 20px;
-            height: 20px;
-            fill: var(--primary);
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 0.75rem;
-        }
-
-        .feature-list li {
-            padding: 0.5rem 0;
-            position: relative;
-            padding-left: 1.5rem;
-            color: var(--text-muted);
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .feature-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .feature-list li:hover {
-            color: var(--text);
-        }
-
-        .coming-soon {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.6rem 1.25rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            display: inline-block;
-            margin-top: 1rem;
-            animation: shimmer 2s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; transform: scale(1.02); }
-        }
-
-        /* Floating Chat Button */
-        .floating-chat-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
-            transition: all 0.3s ease;
-            animation: pulse 2s ease-in-out infinite, float 3s ease-in-out infinite;
-        }
-
-        .floating-chat-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.4);
-        }
-
-        .floating-chat-btn svg {
-            flex-shrink: 0;
-        }
-
-        /* Footer */
-        footer {
+            color: var(--secondary);
             text-align: center;
-            padding: 2rem 0;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 3rem;
+            margin: 20px 0;
         }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .signals-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-card {
-                padding: 1.5rem;
-            }
-
-            .broker-buttons {
-                gap: 1rem;
-            }
-
-            .broker-btn {
-                padding: 1.5rem 1.25rem;
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-
-            .btn-content {
-                text-align: center;
-            }
-
-            .btn-icon {
-                font-size: 2.5rem;
-                width: 60px;
-                height: 60px;
-            }
-
-            .btn-title {
-                font-size: 1.2rem;
-            }
-
-            .btn-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .btn-bonus {
-                font-size: 0.85rem;
-                padding: 0.4rem 0.8rem;
-            }
-
-            .special-offer h3 {
-                font-size: 1.2rem;
-            }
-
-            .countdown {
-                font-size: 1rem;
-            }
-
-            .telegram-channels {
-                grid-template-columns: 1fr;
-            }
-
-            .telegram-channel {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-            }
-
-            .channel-content {
-                text-align: center;
-            }
-
-            .channel-stats {
-                justify-content: center;
-            }
-
-            .community-benefits {
-                grid-template-columns: 1fr;
-            }
-
-            .benefit-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .floating-chat-btn {
-                bottom: 15px;
-                right: 15px;
-                padding: 0.75rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .floating-chat-btn span {
-                display: none;
-            }
-        }
-
-        /* Loading Animation */
-        .loading-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--primary);
-            margin: 0 2px;
-            animation: loading 1.4s ease-in-out infinite both;
-        }
-
-        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-
-        @keyframes loading {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-
-        /* User Authentication Modal */
-        .auth-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .auth-modal.active {
-            display: flex !important;
-        }
-
-        .auth-container {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            width: 90%;
-            max-width: 400px;
-            position: relative;
-            animation: slideUp 0.3s ease;
-        }
-
-        .auth-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .auth-close:hover {
-            color: var(--primary);
-        }
-
-        .auth-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .auth-tab {
-            flex: 1;
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            padding: 0.75rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .auth-tab.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        
+        /* Affiliate Section */
+        .affiliate {
+            background: linear-gradient(to right, #0f172a, #1e40af);
             color: white;
-            border-color: var(--primary);
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            color: var(--text);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            color: var(--text);
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .auth-submit {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            color: white;
-            padding: 1rem;
-            border-radius: 15px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-        }
-
-        .auth-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
-        }
-
-        .premium-upgrade {
+            padding: 80px 0;
             text-align: center;
-            padding: 1rem;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1));
-            border-radius: 15px;
-            margin-top: 1rem;
         }
-
-        .upgrade-text {
-            color: var(--text);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+        
+        /* Tools Section */
+        .tools {
+            padding: 60px 0;
         }
-
-        .upgrade-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        
+        .tool-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
-
-        .upgrade-btn:hover {
-            transform: scale(1.05);
+        
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-
-        /* User Dashboard */
-        .user-dashboard {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            overflow-y: auto;
+        
+        .tool-content {
+            padding: 25px;
         }
-
-        .user-dashboard.active {
-            display: block;
+        
+        /* Testimonials */
+        .testimonials {
+            background: #f8fafc;
+            padding: 60px 0;
         }
-
-        .dashboard-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            position: relative;
+        
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-
-        .user-info {
+        
+        .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 15px;
+            margin-top: 20px;
         }
-
-        .user-avatar {
+        
+        .author-avatar {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
+            background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            text-decoration: none;
             font-size: 1.2rem;
         }
-
-        .user-details h3 {
-            color: var(--text);
-            margin-bottom: 0.25rem;
-        }
-
-        .user-status {
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
             font-size: 0.9rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-weight: 500;
         }
-
-        .user-status.premium {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-
-        .user-status.free {
-            background: rgba(156, 163, 175, 0.2);
-            color: var(--text-muted);
-        }
-
-        .dashboard-close {
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .dashboard-close:hover {
-            color: var(--primary);
-        }
-
-        .account-actions {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .action-btn {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
-        }
-
-        .action-btn.logout {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-
-        .action-btn.logout:hover {
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">VolatilityPlus</div>
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>ForexSignalPro</span>
+                </div>
                 <nav>
-                    <ul class="nav-links">
-                        <li><a href="#signals">Live Signals</a></li>
-                        <li><a href="#tools">Tools</a></li>
-                        <li><a href="#community">Community</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#" onclick="openAuthModal()" class="auth-btn">Login / Sign Up</a></li>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Signals</a></li>
+                        <li><a href="#">Tools</a></li>
+                        <li><a href="#">Affiliate</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">About</a></li>
                     </ul>
                 </nav>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline">Login</a>
+                    <a href="#" class="btn btn-primary">Sign Up</a>
+                </div>
             </div>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Advanced Trading Signals</h1>
-            <p>Real-time market analysis with professional-grade trading tools and MQL5 solutions</p>
-            
-            <!-- Broker Registration Buttons -->
-            <div class="broker-buttons">
-                <div class="special-offer">
-                    <div class="offer-badge">🔥 LIMITED TIME OFFER</div>
-                    <h3>Register Through Our Links & Get FREE VIP Access!</h3>
-                </div>
-                
-                <a href="https://track.deriv.com/_BG8T7jc7Vs0KqFKZ7JdnQ2Nd7ZgqdRLk/1/" class="broker-btn deriv-btn" target="_blank">
-                    <div class="btn-icon">🚀</div>
-                    <div class="btn-content">
-                        <div class="btn-title">Join Deriv Now - Get FREE VIP Signals!</div>
-                        <div class="btn-subtitle">✅ $10,000 Demo + Welcome Bonus + FREE Premium Tools</div>
-                        <div class="btn-bonus">🎁 EXCLUSIVE: Free VIP Trading Signals Worth $297/Month!</div>
-                    </div>
-                    <div class="btn-arrow">→</div>
-                    <div class="btn-glow"></div>
-                </a>
-                
-                <a href="https://gowt.net/ib61460" class="broker-btn weltrade-btn" target="_blank">
-                    <div class="btn-icon">💎</div>
-                    <div class="btn-content">
-                        <div class="btn-title">Start with Weltrade - VIP Signals Included!</div>
-                        <div class="btn-subtitle">✅ Up to $1000 Bonus + Professional Trading Tools</div>
-                        <div class="btn-bonus">🎁 BONUS: Free VIP Signal Access + MQL5 Expert Advisors!</div>
-                    </div>
-                    <div class="btn-arrow">→</div>
-                    <div class="btn-glow"></div>
-                </a>
-
-                <div class="urgency-text">
-                    <div class="countdown">⏰ Only 24 spots left for FREE VIP access this month!</div>
-                    <div class="social-proof">📊 Join 2,847+ traders already profiting with our signals</div>
-                </div>
+            <div class="hero-content">
+                <h1>Premium Forex Trading Signals & Tools</h1>
+                <p>Get accurate forex trading signals, powerful analytical tools, and earn through our affiliate program. Join thousands of successful traders today.</p>
+                <a href="#" class="btn btn-primary">Get Started</a>
             </div>
         </div>
     </section>
 
-    <!-- Live Trading Signals Section -->
-    <section class="live-signals" id="signals">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">🔴 Live Trading Signals</h2>
-                <p class="section-subtitle">Real-time signals with professional analysis</p>
+    <!-- Features Section -->
+    <section class="container">
+        <h2 class="section-title">Why Choose ForexSignalPro?</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>High Accuracy Signals</h3>
+                <p>Our signals are generated by professional traders with over 10 years of market experience.</p>
             </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Real-time Alerts</h3>
+                <p>Receive instant notifications via SMS, email, or directly to our mobile app.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3>Advanced Tools</h3>
+                <p>Access our suite of proprietary trading tools and indicators.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="signals-grid" id="signalsGrid">
+    <!-- Signals Section -->
+    <section class="signals">
+        <div class="container">
+            <h2 class="section-title">Our Signal Packages</h2>
+            <div class="signal-cards">
                 <div class="signal-card">
                     <div class="signal-header">
-                        <div class="signal-pair">EUR/USD</div>
-                        <div class="signal-status active">ACTIVE</div>
+                        <h3>Basic</h3>
                     </div>
-                    <div class="signal-details">
-                        <div class="signal-item">
-                            <div class="signal-label">Direction</div>
-                            <div class="signal-value">BUY</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Entry</div>
-                            <div class="signal-value">1.0845</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Target</div>
-                            <div class="signal-value profit">1.0895</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Stop Loss</div>
-                            <div class="signal-value loss">1.0820</div>
-                        </div>
+                    <div class="signal-body">
+                        <p>Perfect for beginners starting their trading journey</p>
+                        <ul class="signal-features">
+                            <li><i class="fas fa-check"></i> 3-5 signals per week</li>
+                            <li><i class="fas fa-check"></i> Basic analysis</li>
+                            <li><i class="fas fa-check"></i> Email alerts</li>
+                            <li><i class="fas fa-check"></i> 7-day trial</li>
+                        </ul>
+                        <div class="price">$49/month</div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">Subscribe Now</a>
                     </div>
                 </div>
-
-                <div class="signal-card premium-blur">
+                <div class="signal-card">
+                    <div class="signal-header" style="background: var(--primary);">
+                        <h3>Professional</h3>
+                    </div>
+                    <div class="signal-body">
+                        <p>Our most popular package for serious traders</p>
+                        <ul class="signal-features">
+                            <li><i class="fas fa-check"></i> 5-7 signals per week</li>
+                            <li><i class="fas fa-check"></i> Detailed analysis</li>
+                            <li><i class="fas fa-check"></i> SMS & Email alerts</li>
+                            <li><i class="fas fa-check"></i> Risk management tips</li>
+                            <li><i class="fas fa-check"></i> 14-day trial</li>
+                        </ul>
+                        <div class="price">$99/month</div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">Subscribe Now</a>
+                    </div>
+                </div>
+                <div class="signal-card">
                     <div class="signal-header">
-                        <div class="signal-pair">GBP/JPY</div>
-                        <div class="signal-status active">ACTIVE</div>
+                        <h3>Enterprise</h3>
                     </div>
-                    <div class="signal-details">
-                        <div class="signal-item">
-                            <div class="signal-label">Direction</div>
-                            <div class="signal-value">SELL</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Entry</div>
-                            <div class="signal-value">185.42</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Target</div>
-                            <div class="signal-value profit">184.85</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Stop Loss</div>
-                            <div class="signal-value loss">185.78</div>
-                        </div>
+                    <div class="signal-body">
+                        <p>For professional traders and institutions</p>
+                        <ul class="signal-features">
+                            <li><i class="fas fa-check"></i> 10-15 signals per week</li>
+                            <li><i class="fas fa-check"></i> Comprehensive analysis</li>
+                            <li><i class="fas fa-check"></i> All alert methods</li>
+                            <li><i class="fas fa-check"></i> Personal analyst support</li>
+                            <li><i class="fas fa-check"></i> Custom tools access</li>
+                            <li><i class="fas fa-check"></i> 30-day trial</li>
+                        </ul>
+                        <div class="price">$199/month</div>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">Subscribe Now</a>
                     </div>
-                    <div class="premium-overlay">
-                        <div class="premium-content">
-                            <div class="premium-icon">🔒</div>
-                            <div class="premium-title">Premium Signal</div>
-                            <div class="premium-subtitle">Login with premium account to view</div>
-                            <div class="unlock-btn" onclick="openAuthModal()">Login / Sign Up</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="signal-card premium-blur">
-                    <div class="signal-header">
-                        <div class="signal-pair">XAU/USD</div>
-                        <div class="signal-status pending">PENDING</div>
-                    </div>
-                    <div class="signal-details">
-                        <div class="signal-item">
-                            <div class="signal-label">Direction</div>
-                            <div class="signal-value">BUY</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Entry</div>
-                            <div class="signal-value">2045.50</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Target</div>
-                            <div class="signal-value profit">2065.00</div>
-                        </div>
-                        <div class="signal-item">
-                            <div class="signal-label">Stop Loss</div>
-                            <div class="signal-value loss">2035.00</div>
-                        </div>
-                    </div>
-                    <div class="premium-overlay">
-                        <div class="premium-content">
-                            <div class="premium-icon">💎</div>
-                            <div class="premium-title">VIP Signal</div>
-                            <div class="premium-subtitle">Login with premium account to view</div>
-                            <div class="unlock-btn" onclick="openAuthModal()">Login / Sign Up</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stats">
-                <div class="stat-card">
-                    <span class="stat-number">87%</span>
-                    <div class="stat-label">Win Rate</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">156</span>
-                    <div class="stat-label">Signals This Week</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">+2.4%</span>
-                    <div class="stat-label">Weekly Return</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">24/7</span>
-                    <div class="stat-label">Market Coverage</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Community Section -->
-    <section class="community-section" id="community">
+    <!-- Affiliate Section -->
+    <section class="affiliate">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">🔗 Join Our Trading Community</h2>
-                <p class="section-subtitle">Connect with fellow traders and get exclusive signals</p>
+            <h2 class="section-title" style="color: white;">Affiliate Program</h2>
+            <p style="max-width: 800px; margin: 0 auto 30px; font-size: 1.2rem;">Earn generous commissions by referring traders to our platform. Our affiliate program offers one of the highest payout rates in the industry.</p>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-percent"></i>
+                    </div>
+                    <h3>High Commissions</h3>
+                    <p>Earn up to 30% recurring commission on every referral.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Marketing Materials</h3>
+                    <p>Access banners, landing pages, and other promotional materials.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Tracking</h3>
+                    <p>Monitor your performance with our advanced dashboard.</p>
+                </div>
             </div>
-            
-            <div class="telegram-channels">
-                <a href="https://t.me/beststrateg" class="telegram-channel deriv-channel" target="_blank">
-                    <div class="channel-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                        </svg>
-                    </div>
-                    <div class="channel-content">
-                        <h3>Deriv Signals Channel</h3>
-                        <p>📊 Premium Deriv trading signals</p>
-                        <p>⚡ Real-time market alerts</p>
-                        <p>💰 High-profit opportunities</p>
-                        <div class="channel-stats">
-                            <span class="member-count">🔥 1,250+ Members</span>
-                            <span class="success-rate">📈 89% Success Rate</span>
-                        </div>
-                    </div>
-                    <div class="join-btn">Join Now →</div>
-                </a>
+            <a href="#" class="btn btn-outline" style="margin-top: 30px;">Join Affiliate Program</a>
+        </div>
+    </section>
 
-                <a href="https://t.me/weltradeauto" class="telegram-channel weltrade-channel" target="_blank">
-                    <div class="channel-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                        </svg>
-                    </div>
-                    <div class="channel-content">
-                        <h3>Weltrade Signals Channel</h3>
-                        <p>📈 Professional Forex signals</p>
-                        <p>🎯 Technical analysis insights</p>
-                        <p>💎 Expert trading strategies</p>
-                        <div class="channel-stats">
-                            <span class="member-count">🔥 980+ Members</span>
-                            <span class="success-rate">📊 92% Success Rate</span>
-                        </div>
-                    </div>
-                    <div class="join-btn">Join Now →</div>
-                </a>
-            </div>
-
-            <div class="community-benefits">
-                <div class="benefit-item">
-                    <div class="benefit-icon">🎯</div>
-                    <div class="benefit-text">
-                        <h4>Exclusive Signals</h4>
-                        <p>Get premium trading signals before anyone else</p>
+    <!-- Tools Section -->
+    <section class="tools">
+        <div class="container">
+            <h2 class="section-title">Trading Tools</h2>
+            <div class="tool-cards">
+                <div class="tool-card">
+                    <div class="tool-content">
+                        <h3>Currency Strength Meter</h3>
+                        <p>Our proprietary algorithm measures the strength of all major currencies in real-time.</p>
+                        <a href="#" class="btn btn-outline">Learn More</a>
                     </div>
                 </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">👥</div>
-                    <div class="benefit-text">
-                        <h4>Active Community</h4>
-                        <p>Discuss strategies with experienced traders</p>
+                <div class="tool-card">
+                    <div class="tool-content">
+                        <h3>Signal Scanner</h3>
+                        <p>Automatically scans the market for the highest probability trading opportunities.</p>
+                        <a href="#" class="btn btn-outline">Learn More</a>
                     </div>
                 </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">📚</div>
-                    <div class="benefit-text">
-                        <h4>Free Education</h4>
-                        <p>Learn from market analysis and trading tips</p>
+                <div class="tool-card">
+                    <div class="tool-content">
+                        <h3>Profit Calculator</h3>
+                        <p>Calculate potential profits and risk before entering any trade.</p>
+                        <a href="#" class="btn btn-outline">Learn More</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="container">
-        <div class="main-content">
-            <!-- Trading Tools Section -->
-            <div class="section-card" id="tools">
-                <h2>
-                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4zM6.5 10.5L10.5 6.5 8.5 4.5 4.5 8.5l2 2z"/>
-                    </svg>
-                    Professional Tools
-                </h2>
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">Advanced MQL5 solutions for automated trading</p>
-                <ul class="feature-list">
-                    <li>Custom Expert Advisors</li>
-                    <li>High-Performance Indicators</li>
-                    <li>Risk Management Tools</li>
-                    <li>Strategy Optimization</li>
-                    <li>Real-time Market Scanner</li>
-                </ul>
-                <div class="coming-soon">Premium Tools Available</div>
-            </div>
-
-            <!-- Signal Analytics -->
-            <div class="section-card">
-                <h2>
-                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/>
-                    </svg>
-                    Signal Analytics
-                </h2>
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">Advanced market analysis with AI-powered insights</p>
-                <ul class="feature-list">
-                    <li>Real-time Performance Tracking</li>
-                    <li>Risk-Reward Analysis</li>
-                    <li>Market Sentiment Indicators</li>
-                    <li>Automated Signal Filtering</li>
-                    <li>Historical Backtesting</li>
-                </ul>
-                <div class="coming-soon">Analytics Dashboard</div>
-            </div>
-
-            <!-- About Section -->
-            <div class="section-card" id="about">
-                <h2>
-                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                    VolatilityPlus Pro
-                </h2>
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">Your premium trading solutions partner</p>
-                <ul class="feature-list">
-                    <li>Expert MQL5 Development Team</li>
-                    <li>24/7 Signal Monitoring</li>
-                    <li>Professional Trading Community</li>
-                    <li>Continuous Algorithm Updates</li>
-                    <li>Dedicated Customer Support</li>
-                </ul>
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p>"Since subscribing to ForexSignalPro, my trading profitability has increased by 65%. The signals are accurate and the analysis is incredibly detailed."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div>
+                            <h4>John Doe</h4>
+                            <p>Professional Trader</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The affiliate program is fantastic! I'm earning a steady passive income just by sharing a service I truly believe in."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div>
+                            <h4>Sarah Miller</h4>
+                            <p>Affiliate Marketer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The tools alone are worth the subscription. The currency strength meter has completely transformed my trading approach."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RJ</div>
+                        <div>
+                            <h4>Robert Johnson</h4>
+                            <p>Fund Manager</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 VolatilityPlus. Professional Trading Solutions. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ForexSignalPro</h3>
+                    <p>Providing premium forex trading signals and tools since 2015. Join thousands of satisfied traders worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Forex Signals</a></li>
+                        <li><a href="#">Trading Tools</a></li>
+                        <li><a href="#">Market Analysis</a></li>
+                        <li><a href="#">Educational Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Affiliate Program</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ForexSignalPro. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Authentication Modal -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-container">
-            <button class="auth-close" onclick="closeAuthModal()">×</button>
-            
-            <div class="auth-tabs">
-                <button class="auth-tab active" onclick="switchTab('login')">Login</button>
-                <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
-            </div>
-
-            <!-- Login Form -->
-            <form class="auth-form active" id="loginForm">
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="auth-submit">Login</button>
-                
-                <div class="premium-upgrade">
-                    <div class="upgrade-text">Want to see all signals?</div>
-                    <button type="button" class="upgrade-btn" onclick="showPremiumDemo()">Try Premium Demo</button>
-                </div>
-            </form>
-
-            <!-- Signup Form -->
-            <form class="auth-form" id="signupForm">
-                <div class="form-group">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-input" placeholder="Enter your name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-input" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-input" placeholder="Create password" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Account Type</label>
-                    <select class="form-input" id="accountType">
-                        <option value="free">Free Account</option>
-                        <option value="premium">Premium Account ($29/month)</option>
-                    </select>
-                </div>
-                <button type="submit" class="auth-submit">Create Account</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- User Dashboard Modal -->
-    <div class="user-dashboard" id="userDashboard">
-        <div class="dashboard-container">
-            <div class="dashboard-header">
-                <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">J</div>
-                    <div class="user-details">
-                        <h3 id="userName">John Doe</h3>
-                        <span class="user-status" id="userStatus">Free Account</span>
-                    </div>
-                </div>
-                <button class="dashboard-close" onclick="closeDashboard()">×</button>
-            </div>
-            
-            <div class="account-actions">
-                <button class="action-btn" onclick="upgradeToPremium()" id="upgradeBtn">Upgrade to Premium</button>
-                <button class="action-btn logout" onclick="logout()">Logout</button>
-            </div>
-
-            <div class="premium-upgrade" id="dashboardUpgrade">
-                <div class="upgrade-text">Upgrade to Premium to unlock all signals!</div>
-                <button type="button" class="upgrade-btn" onclick="upgradeToPremium()">Upgrade Now - $29/month</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-    <script>
-        // User Authentication System
-        let currentUser = null;
-        
-        // Demo users database (in real app, this would be server-side)
-        const users = {
-            'demo@free.com': { 
-                password: 'demo123', 
-                name: 'Demo User', 
-                type: 'free',
-                avatar: 'D'
-            },
-            'premium@demo.com': { 
-                password: 'premium123', 
-                name: 'Premium User', 
-                type: 'premium',
-                avatar: 'P'
-            }
-        };
-
-        // Authentication Modal Functions
-        function openAuthModal() {
-            document.getElementById('authModal').classList.add('active');
-        }
-
-        function closeAuthModal() {
-            document.getElementById('authModal').classList.remove('active');
-        }
-
-        function switchTab(tab) {
-            // Update tab buttons
-            document.querySelectorAll('.auth-tab').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to feature cards on scroll
+            const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
             
-            // Update forms
-            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-            document.getElementById(tab + 'Form').classList.add('active');
-        }
-
-        // Login Function
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            const password = this.querySelector('input[type="password"]').value;
-            
-            if (users[email] && users[email].password === password) {
-                currentUser = users[email];
-                currentUser.email = email;
-                updateUI();
-                closeAuthModal();
-                showDashboard();
-                
-                // Show success message
-                alert(`Welcome back, ${currentUser.name}! ${currentUser.type === 'premium' ? 'You can now view all signals!' : 'Upgrade to Premium to see all signals.'}`);
-            } else {
-                alert('Invalid credentials! Try:\n• demo@free.com / demo123 (Free Account)\n• premium@demo.com / premium123 (Premium Account)');
-            }
-        });
-
-        // Signup Function
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const password = this.querySelector('input[type="password"]').value;
-            const type = this.querySelector('#accountType').value;
-            
-            if (users[email]) {
-                alert('Email already exists! Try logging in instead.');
-                return;
-            }
-            
-            // Create new user
-            users[email] = {
-                name: name,
-                password: password,
-                type: type,
-                avatar: name.charAt(0).toUpperCase()
-            };
-            
-            currentUser = users[email];
-            currentUser.email = email;
-            updateUI();
-            closeAuthModal();
-            showDashboard();
-            
-            alert(`Account created successfully! Welcome, ${name}!${type === 'premium' ? ' You can now view all signals!' : ' Upgrade to Premium to unlock all signals.'}`);
-        });
-
-        // Dashboard Functions
-        function showDashboard() {
-            if (!currentUser) {
-                openAuthModal();
-                return;
-            }
-            
-            document.getElementById('userAvatar').textContent = currentUser.avatar;
-            document.getElementById('userName').textContent = currentUser.name;
-            
-            const statusElement = document.getElementById('userStatus');
-            statusElement.textContent = currentUser.type === 'premium' ? 'Premium Account' : 'Free Account';
-            statusElement.className = `user-status ${currentUser.type}`;
-            
-            const upgradeBtn = document.getElementById('upgradeBtn');
-            const dashboardUpgrade = document.getElementById('dashboardUpgrade');
-            
-            if (currentUser.type === 'premium') {
-                upgradeBtn.style.display = 'none';
-                dashboardUpgrade.style.display = 'none';
-            } else {
-                upgradeBtn.style.display = 'block';
-                dashboardUpgrade.style.display = 'block';
-            }
-            
-            document.getElementById('userDashboard').classList.add('active');
-        }
-
-        function closeDashboard() {
-            document.getElementById('userDashboard').classList.remove('active');
-        }
-
-        function logout() {
-            currentUser = null;
-            updateUI();
-            closeDashboard();
-            alert('Logged out successfully!');
-        }
-
-        function upgradeToPremium() {
-            if (currentUser) {
-                currentUser.type = 'premium';
-                updateUI();
-                showDashboard();
-                alert('Upgraded to Premium! You can now view all signals!');
-            }
-        }
-
-        function showPremiumDemo() {
-            // Temporarily show premium access
-            currentUser = {
-                name: 'Premium Demo',
-                email: 'demo@premium.com',
-                type: 'premium',
-                avatar: 'P'
-            };
-            updateUI();
-            closeAuthModal();
-            alert('Welcome to Premium Demo! All signals are now visible for 5 minutes.');
-            
-            // Reset after 5 minutes
-            setTimeout(() => {
-                if (currentUser && currentUser.email === 'demo@premium.com') {
-                    currentUser = null;
-                    updateUI();
-                    alert('Premium demo expired. Please create an account to continue.');
-                }
-            }, 300000); // 5 minutes
-        }
-
-        // Update UI based on user status
-        function updateUI() {
-            const authBtn = document.querySelector('.auth-btn');
-            const signalCards = document.querySelectorAll('.signal-card.premium-blur');
-            
-            if (currentUser) {
-                authBtn.textContent = currentUser.name;
-                authBtn.onclick = showDashboard;
-                
-                if (currentUser.type === 'premium') {
-                    // Remove blur from premium signals
-                    signalCards.forEach(card => {
-                        card.classList.remove('premium-blur');
-                        const overlay = card.querySelector('.premium-overlay');
-                        if (overlay) overlay.style.display = 'none';
-                    });
-                } else {
-                    // Keep blur for free users
-                    signalCards.forEach(card => {
-                        card.classList.add('premium-blur');
-                        const overlay = card.querySelector('.premium-overlay');
-                        if (overlay) overlay.style.display = 'flex';
-                    });
-                }
-            } else {
-                authBtn.textContent = 'Login / Sign Up';
-                authBtn.onclick = openAuthModal;
-                
-                // Show blur for all premium signals
-                signalCards.forEach(card => {
-                    card.classList.add('premium-blur');
-                    const overlay = card.querySelector('.premium-overlay');
-                    if (overlay) overlay.style.display = 'flex';
+            function checkScroll() {
+                featureCards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        card.style.opacity = 1;
+                        card.style.transform = 'translateY(0)';
+                    }
                 });
             }
-        }
-
-        // Update last refresh time
-        function updateLastRefreshTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString();
             
-            // Add refresh indicator
-            let refreshIndicator = document.querySelector('.refresh-indicator');
-            if (!refreshIndicator) {
-                refreshIndicator = document.createElement('div');
-                refreshIndicator.className = 'refresh-indicator';
-                refreshIndicator.style.cssText = 'text-align: center; margin-top: 1rem;';
-                document.querySelector('.section-header').appendChild(refreshIndicator);
-            }
-            refreshIndicator.innerHTML = `<span style="color: var(--accent); font-size: 0.8rem;">🔄 Last updated: ${timeString}</span>`;
-        }
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+            // Set initial state for animation
+            featureCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             });
-        });
-
-        // Animate numbers on scroll
-        function animateValue(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const currentValue = progress * (end - start) + start;
-                
-                if (element.textContent.includes('%')) {
-                    element.textContent = Math.floor(currentValue) + '%';
-                } else if (element.textContent.includes('+')) {
-                    element.textContent = '+' + currentValue.toFixed(1) + '%';
-                } else {
-                    element.textContent = Math.floor(currentValue);
-                }
-                
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Trigger animations when stats come into view
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const statNumber = entry.target.querySelector('.stat-number');
-                    const text = statNumber.textContent;
-                    
-                    if (text.includes('%')) {
-                        const value = parseInt(text);
-                        animateValue(statNumber, 0, value, 1000);
-                    } else if (text.includes('+')) {
-                        const value = parseFloat(text.replace('+', '').replace('%', ''));
-                        animateValue(statNumber, 0, value, 1000);
-                    } else if (!isNaN(parseInt(text))) {
-                        const value = parseInt(text);
-                        animateValue(statNumber, 0, value, 1000);
-                    }
-                    
-                    observer.unobserve(entry.target);
-                }
-            });
-        });
-
-        document.querySelectorAll('.stat-card').forEach(card => {
-            observer.observe(card);
-        });
-
-        // Floating chat button functionality
-        function createFloatingChatButton() {
-            const chatBtn = document.createElement('div');
-            chatBtn.innerHTML = `
-                <div class="floating-chat-btn" onclick="openChat()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
-                    </svg>
-                    <span>Chat with us!</span>
-                </div>
-            `;
-            document.body.appendChild(chatBtn);
-        }
-
-        // Function to handle chat button click
-        function openChat() {
-            // You can integrate with any chat service here
-            alert('Chat will be available soon! For immediate support, contact us at support@volatilityplus.com');
-        }
-
-        // Initialize everything when page loads
-        window.addEventListener('load', function() {
-            createFloatingChatButton();
-            updateLastRefreshTime();
-        });
-        
-        // Refresh signals and update time every 10 seconds
-        setInterval(function() {
-            updateSignals();
-            updateLastRefreshTime();
-        }, 10000);
-
-        // Add dynamic background particles effect
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.style.cssText = `
-                position: fixed;
-                width: 4px;
-                height: 4px;
-                background: rgba(251, 191, 36, 0.3);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: -1;
-                left: ${Math.random() * 100}vw;
-                top: 100vh;
-                animation: float-up ${3 + Math.random() * 4}s linear forwards;
-            `;
             
-            document.body.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 7000);
-        }
-
-        // Create floating particles periodically
-        setInterval(createParticle, 2000);
-
-        // Add CSS for particle animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float-up {
-                to {
-                    transform: translateY(-100vh) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+            window.addEventListener('scroll', checkScroll);
+            checkScroll(); // Check on initial load
+        });
     </script>
 </body>
 </html>
