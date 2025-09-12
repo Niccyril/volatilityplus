@@ -396,6 +396,7 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
+            z-index: 3;
         }
         
         .tool-content {
@@ -636,6 +637,7 @@
         
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
         
         .form-group label {
@@ -653,6 +655,38 @@
             font-size: 1rem;
             background: #1a1a1a;
             color: white;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 1rem;
         }
         
         /* Responsive Design */
@@ -697,6 +731,11 @@
             .tool-actions {
                 width: 100%;
                 justify-content: space-between;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 20px;
             }
         }
         
@@ -783,6 +822,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 2;
         }
         
         .tool-card.featured {
@@ -792,31 +832,6 @@
         
         .tool-card.featured:hover {
             transform: scale(1.02) translateY(-5px);
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .stat-item {
-            padding: 20px;
-            min-width: 200px;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            color: #94a3b8;
-            font-size: 1rem;
         }
     </style>
 </head>
@@ -1285,15 +1300,12 @@
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
-                // Update active nav link
                 document.querySelectorAll('nav a').forEach(link => {
                     link.classList.remove('active');
                 });
-                
-                // Add active class to the clicked link
-                event.target.classList.add('active');
-                
-                // Scroll to the section
+                if (event && event.target) {
+                    event.target.classList.add('active');
+                }
                 window.scrollTo({
                     top: section.offsetTop - 80,
                     behavior: 'smooth'
@@ -1325,100 +1337,6 @@
             showModal('affiliateModal');
         }
         
-        function showToolDetail(toolId) {
-            closeAllModals();
-            
-            // Set tool title and description based on toolId
-            const toolTitle = document.getElementById('toolTitle');
-            const toolDescription = document.getElementById('toolDescription');
-            
-            switch(toolId) {
-                case 'mega-spikes-max':
-                    toolTitle.textContent = 'Mega Spikes Max - Boom & Crash Spike Detector';
-                    toolDescription.innerHTML = `
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <div class="price" style="color: var(--primary); font-size: 2rem;">$80 USD</div>
-                            <p style="color: #94a3b8;">Lifetime License</p>
-                        </div>
-                        <p>Mega Spikes Max is our flagship spike detector for Boom 1000 and Crash 1000 indices, featuring advanced algorithms that predict spikes before they happen.</p>
-                        <p><strong>Key Features:</strong></p>
-                        <ul>
-                            <li>Real-time spike prediction for Boom 1000 and Crash 1000</li>
-                            <li>Advanced pattern recognition algorithms</li>
-                            <li>Visual and audio alerts with customizable settings</li>
-                            <li>Historical spike analysis and backtesting</li>
-                            <li>Multiple timeframe analysis</li>
-                            <li>Risk management indicators</li>
-                            <li>Works with MetaTrader 4/5</li>
-                            <li>Lifetime updates and support</li>
-                        </ul>
-                        <p><strong>What's Included:</strong></p>
-                        <ul>
-                            <li>Mega Spikes Max EA/Indicator</li>
-                            <li>Installation guide and user manual</li>
-                            <li>Video tutorials</li>
-                            <li>Email support</li>
-                        </ul>
-                    `;
-                    break;
-                case 'spike-phantom':
-                    toolTitle.textContent = 'Spike Phantom - PainX & GainX Spike Detector';
-                    toolDescription.innerHTML = `
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <div class="price" style="color: var(--primary); font-size: 2rem;">$55 USD</div>
-                            <p style="color: #94a3b8;">Lifetime License</p>
-                        </div>
-                        <p>Spike Phantom is specifically engineered for PainX and GainX indices, with unique algorithms designed to handle their distinct volatility patterns.</p>
-                        <p><strong>Key Features:</strong></p>
-                        <ul>
-                            <li>Specialized detection for PainX and GainX indices</li>
-                            <li>Unique volatility pattern recognition</li>
-                            <li>Customizable alert system</li>
-                            <li>Multi-timeframe analysis capabilities</li>
-                            <li>Advanced filtering to reduce false signals</li>
-                            <li>Compatible with MetaTrader 4/5</li>
-                            <li>Lifetime updates included</li>
-                        </ul>
-                        <p><strong>What's Included:</strong></p>
-                        <ul>
-                            <li>Spike Phantom EA/Indicator</li>
-                            <li>Setup and configuration guide</li>
-                            <li>Video tutorials</li>
-                            <li>Technical support</li>
-                        </ul>
-                    `;
-                    break;
-                case 'bundle-offer':
-                    toolTitle.textContent = 'Bundle Offer - Complete Spike Detection Suite';
-                    toolDescription.innerHTML = `
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <div class="price" style="color: var(--primary); font-size: 2rem;">$120 USD</div>
-                            <p style="color: #94a3b8;">Lifetime License - Save $15!</p>
-                        </div>
-                        <p>Get both Mega Spikes Max and Spike Phantom together in this exclusive bundle offer and cover all major volatility indices.</p>
-                        <p><strong>Bundle Includes:</strong></p>
-                        <ul>
-                            <li><strong>Mega Spikes Max</strong> - Boom & Crash spike detector ($80 value)</li>
-                            <li><strong>Spike Phantom</strong> - PainX & GainX spike detector ($55 value)</li>
-                            <li>Combined installation and setup guides</li>
-                            <li>Comprehensive video tutorial series</li>
-                            <li>Priority email support</li>
-                            <li>Lifetime updates for both tools</li>
-                        </ul>
-                        <p><strong>Perfect For:</strong></p>
-                        <ul>
-                            <li>Professional traders covering multiple volatility indices</li>
-                            <li>Traders looking for comprehensive spike detection</li>
-                            <li>Those wanting maximum market coverage</li>
-                        </ul>
-                        <p style="color: var(--primary); font-weight: 600;">Save $15 compared to buying separately!</p>
-                    `;
-                    break;
-            }
-            
-            showModal('toolModal');
-        }
-        
         function showMessage(title, content) {
             document.getElementById('messageTitle').textContent = title;
             document.getElementById('messageContent').textContent = content;
@@ -1432,7 +1350,7 @@
             });
         }
         
-        // UPDATED AUTHENTICATION FUNCTIONS
+        // WORKING AUTHENTICATION FUNCTIONS
         async function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -1442,7 +1360,6 @@
                 return;
             }
 
-            // Show loading state
             const loginBtn = event.target;
             const originalText = loginBtn.textContent;
             loginBtn.textContent = 'Logging in...';
@@ -1460,15 +1377,10 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Store user info in localStorage
                     localStorage.setItem('user', JSON.stringify(data.user));
-                    
                     showMessage('Success', 'Login successful! Welcome back.');
                     closeModal('loginModal');
-                    
-                    // Update UI to show user is logged in
                     updateAuthUI(true, data.user);
-                    
                 } else {
                     showMessage('Error', data.message || 'Login failed');
                 }
@@ -1476,7 +1388,6 @@
                 console.error('Login error:', error);
                 showMessage('Error', 'Network error. Please try again.');
             } finally {
-                // Restore button state
                 loginBtn.textContent = originalText;
                 loginBtn.disabled = false;
             }
@@ -1503,7 +1414,6 @@
                 return;
             }
 
-            // Show loading state
             const signupBtn = event.target;
             const originalText = signupBtn.textContent;
             signupBtn.textContent = 'Creating Account...';
@@ -1521,15 +1431,10 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Store user info in localStorage
                     localStorage.setItem('user', JSON.stringify(data.user));
-                    
                     showMessage('Success', 'Account created successfully! Welcome to VolatilityPlus.');
                     closeModal('signupModal');
-                    
-                    // Update UI to show user is logged in
                     updateAuthUI(true, data.user);
-                    
                 } else {
                     showMessage('Error', data.message || 'Registration failed');
                 }
@@ -1537,7 +1442,6 @@
                 console.error('Signup error:', error);
                 showMessage('Error', 'Network error. Please try again.');
             } finally {
-                // Restore button state
                 signupBtn.textContent = originalText;
                 signupBtn.disabled = false;
             }
@@ -1545,29 +1449,20 @@
 
         async function logout() {
             try {
-                const response = await fetch('/api/auth/logout', {
+                await fetch('/api/auth/logout', {
                     method: 'POST',
                     credentials: 'include'
                 });
-
-                // Clear local storage regardless of response
                 localStorage.removeItem('user');
-                
-                // Update UI to show user is logged out
                 updateAuthUI(false);
-                
                 showMessage('Success', 'You have been logged out successfully.');
-                
             } catch (error) {
-                console.error('Logout error:', error);
-                // Still clear local storage and update UI
                 localStorage.removeItem('user');
                 updateAuthUI(false);
                 showMessage('Success', 'You have been logged out.');
             }
         }
 
-        // Function to update UI based on authentication status
         function updateAuthUI(isLoggedIn, user = null) {
             const authButtons = document.querySelector('.auth-buttons');
             
@@ -1585,12 +1480,10 @@
             }
         }
 
-        // Function to show dashboard (placeholder)
         function showDashboard() {
-            showMessage('Dashboard', 'Dashboard functionality coming soon! You will have access to your subscription details, affiliate earnings, and more.');
+            showMessage('Dashboard', 'Dashboard functionality coming soon!');
         }
 
-        // Enhanced affiliate signup function
         async function joinAffiliate() {
             const name = document.getElementById('affiliateName').value;
             const email = document.getElementById('affiliateEmail').value;
@@ -1602,7 +1495,6 @@
                 return;
             }
 
-            // Show loading state
             const submitBtn = event.target;
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Submitting...';
@@ -1620,10 +1512,8 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    showMessage('Application Received', 'Thank you for applying to our affiliate program! We will review your application and contact you within 2 business days.');
+                    showMessage('Application Received', 'Thank you for applying to our affiliate program!');
                     closeModal('affiliateModal');
-                    
-                    // Clear form
                     document.getElementById('affiliateName').value = '';
                     document.getElementById('affiliateEmail').value = '';
                     document.getElementById('website').value = '';
@@ -1635,7 +1525,6 @@
                 console.error('Affiliate application error:', error);
                 showMessage('Error', 'Network error. Please try again.');
             } finally {
-                // Restore button state
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
@@ -1651,41 +1540,61 @@
             showLogin();
         }
         
-        // Other page functions
+        function showToolDetail(toolId) {
+            closeAllModals();
+            const toolTitle = document.getElementById('toolTitle');
+            const toolDescription = document.getElementById('toolDescription');
+            
+            switch(toolId) {
+                case 'mega-spikes-max':
+                    toolTitle.textContent = 'Mega Spikes Max - Boom & Crash Spike Detector';
+                    toolDescription.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="price" style="color: var(--primary); font-size: 2rem;">$80 USD</div>
+                        </div>
+                        <p>Professional Boom & Crash spike detector with advanced algorithms.</p>
+                    `;
+                    break;
+                default:
+                    toolTitle.textContent = 'Tool Details';
+                    toolDescription.innerHTML = '<p>Tool information will be displayed here.</p>';
+            }
+            showModal('toolModal');
+        }
+        
         function showAbout() {
-            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals and powerful tools to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
+            showMessage('About Us', 'VolatilityPlus provides premium trading signals and tools.');
         }
         
         function showContact() {
-            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
+            showMessage('Contact Us', 'Email: support@volatilityplus.com');
         }
         
         function showCareers() {
-            showMessage('Careers', 'We are always looking for talented individuals to join our team. Please send your resume to careers@volatilityplus.com along with a cover letter explaining why you would be a good fit.');
+            showMessage('Careers', 'Send your resume to careers@volatilityplus.com');
         }
         
         function showTerms() {
-            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. Please read the full document on our website.');
+            showMessage('Terms of Service', 'Please read our terms and conditions.');
         }
         
         function showPrivacy() {
-            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent.');
+            showMessage('Privacy Policy', 'We protect your personal information.');
         }
         
         function showDisclaimer() {
-            showMessage('Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
+            showMessage('Disclaimer', 'Trading involves risk. Past performance is not indicative of future results.');
         }
         
         function showRefund() {
-            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
+            showMessage('Refund Policy', '7-day money-back guarantee on all plans.');
         }
         
         function purchaseTool() {
-            showMessage('Purchase Information', 'To purchase this tool, please contact us at sales@volatilityplus.com or use our secure payment portal. We accept PayPal, bank transfers, and cryptocurrency payments. You will receive your license and download links within 24 hours of payment confirmation.');
+            showMessage('Purchase Information', 'Contact sales@volatilityplus.com to purchase.');
             closeModal('toolModal');
         }
         
-        // Close modal when clicking outside of it
         window.onclick = function(event) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
@@ -1695,9 +1604,7 @@
             });
         }
         
-        // Check if user is already logged in on page load and animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
-            // Check for saved user
             const savedUser = localStorage.getItem('user');
             if (savedUser) {
                 try {
@@ -1709,7 +1616,6 @@
                 }
             }
 
-            // Existing animation code
             const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
             
             function checkScroll() {
@@ -1724,7 +1630,6 @@
                 });
             }
             
-            // Set initial state for animation
             featureCards.forEach(card => {
                 card.style.opacity = 0;
                 card.style.transform = 'translateY(20px)';
@@ -1732,7 +1637,7 @@
             });
             
             window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Check on initial load
+            checkScroll();
         });
     </script>
 </body>
