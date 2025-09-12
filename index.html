@@ -1778,6 +1778,8 @@
             document.getElementById('paymentStep2').style.display = 'none';
             document.getElementById('paymentStep3').style.display = 'block';
             document.getElementById('confirmEmail').textContent = currentPayment.customerEmail;
+            document.getElementById('confirmProduct').textContent = currentPayment.productName;
+            document.getElementById('confirmMT5').textContent = currentPayment.mt5Account;
             
             sendConfirmationEmail();
         }
