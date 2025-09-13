@@ -256,6 +256,214 @@
             color: white;
         }
         
+        /* Broker Cards Styles */
+        .broker-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .broker-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .broker-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .featured-broker {
+            border: 2px solid var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .featured-broker:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .broker-ribbon {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            transform: rotate(45deg);
+            background: var(--primary);
+            color: var(--text-dark);
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .broker-header {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        
+        .broker-logo {
+            margin-bottom: 15px;
+        }
+        
+        .broker-logo i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .broker-logo h3 {
+            font-size: 2rem;
+            color: white;
+            margin: 0;
+        }
+        
+        .broker-rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .broker-rating i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        .broker-rating span {
+            margin-left: 10px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        
+        .broker-body {
+            padding: 30px;
+        }
+        
+        .exclusive-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--text-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        
+        .broker-body h4 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .broker-benefits {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .broker-benefits li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+        
+        .broker-benefits i {
+            color: var(--success);
+            margin-top: 2px;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        
+        .broker-speciality {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+        
+        .broker-footer {
+            padding: 25px 30px;
+            border-top: 1px solid #333;
+        }
+        
+        .broker-btn {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .broker-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .broker-guarantee {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .guarantee-content h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .guarantee-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .guarantee-stats .stat {
+            text-align: center;
+        }
+        
+        .guarantee-stats .stat strong {
+            display: block;
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .guarantee-stats .stat span {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
         /* Signals Section */
         .signals {
             background: #0f0f0f;
@@ -343,6 +551,11 @@
         .affiliate-content {
             position: relative;
             z-index: 1;
+        }
+        
+        .affiliate-program {
+            background: #0f0f0f;
+            padding: 80px 0;
         }
         
         /* Tools Section */
@@ -671,6 +884,10 @@
             color: var(--primary);
         }
         
+        .crypto-selection {
+            margin-bottom: 25px;
+        }
+        
         .crypto-selection h4 {
             color: white;
             margin-bottom: 15px;
@@ -679,7 +896,7 @@
         
         .crypto-options {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
             margin-bottom: 25px;
         }
@@ -863,77 +1080,18 @@
             line-height: 1.6;
         }
         
-        /* Credit Card Payment Styles */
-        .credit-card-form {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            margin-top: 20px;
-        }
-        
-        .card-input-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .card-input {
-            flex: 1;
-        }
-        
-        .card-input input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #333;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: #2a2a2a;
-            color: white;
-        }
-        
-        .card-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .card-row .form-group {
-            flex: 1;
-            margin-bottom: 0;
-        }
-        
-        .payment-methods {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .payment-method {
-            flex: 1;
-            text-align: center;
-            padding: 15px;
-            border: 2px solid #333;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .payment-method:hover {
-            border-color: var(--primary);
-            background: #222;
-        }
-        
-        .payment-method.selected {
-            border-color: var(--primary);
+        .crypto-info-notice {
             background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #e2e8f0;
         }
         
-        .payment-method i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: block;
+        .crypto-info-notice h4 {
             color: var(--primary);
+            margin-bottom: 10px;
         }
         
         /* Responsive Design */
@@ -980,21 +1138,21 @@
             }
             
             .crypto-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .broker-cards {
                 grid-template-columns: 1fr;
             }
             
-            .card-input-group {
-                flex-direction: column;
-                gap: 10px;
+            .guarantee-stats {
+                gap: 20px;
             }
-            
-            .card-row {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .payment-methods {
-                flex-direction: column;
+        }
+        
+        @media (max-width: 480px) {
+            .crypto-options {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -1060,14 +1218,6 @@
             color: #94a3b8;
             font-size: 1rem;
         }
-        
-        .payment-notice {
-            background: rgba(255, 215, 0, 0.1);
-            border-left: 4px solid var(--primary);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
     </style>
 </head>
 <body>
@@ -1082,9 +1232,10 @@
                 <nav>
                     <ul>
                         <li><a onclick="scrollToSection('hero')" class="active">Home</a></li>
+                        <li><a onclick="scrollToSection('brokers')">VIP Brokers</a></li>
                         <li><a onclick="scrollToSection('signals')">Signals</a></li>
                         <li><a onclick="scrollToSection('tools')">Tools</a></li>
-                        <li><a onclick="scrollToSection('affiliate')">Affiliate</a></li>
+                        <li><a onclick="scrollToSection('affiliate')">Partner</a></li>
                         <li><a onclick="showContact()">Contact</a></li>
                     </ul>
                 </nav>
@@ -1102,7 +1253,7 @@
             <div class="hero-content animated">
                 <h1>Advanced Boom & Crash Trading Signals</h1>
                 <p>Get precise Boom and Crash indices signals, Spike Detectors, and PainX/GainX trading alerts. Maximize your profits with our expert analysis and real-time notifications.</p>
-                <a class="btn btn-accent" onclick="scrollToSection('signals')">Get Started Today</a>
+                <a class="btn btn-accent" onclick="scrollToSection('brokers')">Get VIP Access Today</a>
             </div>
         </div>
     </section>
@@ -1120,11 +1271,11 @@
             </div>
             <div class="stat-item">
                 <div class="stat-number">10K+</div>
-                <div class="stat-label">Active Users</div>
+                <div class="stat-label">VIP Members</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number">0.5s</div>
-                <div class="stat-label">Avg. Signal Speed</div>
+                <div class="stat-label">Signal Speed</div>
             </div>
         </div>
     </section>
@@ -1158,6 +1309,122 @@
         </div>
     </section>
 
+    <!-- Exclusive Broker Partnerships -->
+    <section class="affiliate" id="brokers">
+        <div class="container">
+            <div class="affiliate-content">
+                <h2 class="section-title" style="color: white;">Exclusive Broker Benefits</h2>
+                <p class="section-subtitle" style="color: #e2e8f0;">Get VIP treatment and exclusive bonuses when you trade with our recommended brokers. Plus, unlock premium signals and priority support!</p>
+                
+                <div class="broker-cards">
+                    <div class="broker-card featured-broker">
+                        <div class="broker-ribbon">RECOMMENDED</div>
+                        <div class="broker-header">
+                            <div class="broker-logo">
+                                <i class="fas fa-chart-bar"></i>
+                                <h3>Deriv</h3>
+                            </div>
+                            <div class="broker-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.8/5</span>
+                            </div>
+                        </div>
+                        <div class="broker-body">
+                            <div class="exclusive-badge">
+                                <i class="fas fa-crown"></i>
+                                <span>VIP EXCLUSIVE</span>
+                            </div>
+                            <h4>What You Get:</h4>
+                            <ul class="broker-benefits">
+                                <li><i class="fas fa-gift"></i> <strong>$100 Welcome Bonus</strong> on first deposit</li>
+                                <li><i class="fas fa-chart-line"></i> <strong>Premium Signals</strong> - 10+ daily signals</li>
+                                <li><i class="fas fa-percentage"></i> <strong>Tighter Spreads</strong> on all volatility indices</li>
+                                <li><i class="fas fa-headset"></i> <strong>Priority Support</strong> - Direct WhatsApp line</li>
+                                <li><i class="fas fa-book"></i> <strong>Free Trading Course</strong> ($200 value)</li>
+                                <li><i class="fas fa-users"></i> <strong>VIP Telegram Group</strong> access</li>
+                            </ul>
+                            <div class="broker-speciality">
+                                <strong>Perfect for:</strong> Boom/Crash, Volatility Indices, Synthetic Markets
+                            </div>
+                        </div>
+                        <div class="broker-footer">
+                            <a href="#" class="btn btn-primary broker-btn" onclick="openBroker('deriv')">
+                                <i class="fas fa-external-link-alt"></i>
+                                Open VIP Account - Get $100 Bonus
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="broker-card">
+                        <div class="broker-header">
+                            <div class="broker-logo">
+                                <i class="fas fa-globe"></i>
+                                <h3>WelTrade</h3>
+                            </div>
+                            <div class="broker-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.7/5</span>
+                            </div>
+                        </div>
+                        <div class="broker-body">
+                            <div class="exclusive-badge">
+                                <i class="fas fa-star"></i>
+                                <span>EXCLUSIVE</span>
+                            </div>
+                            <h4>What You Get:</h4>
+                            <ul class="broker-benefits">
+                                <li><i class="fas fa-money-bill"></i> <strong>50% Deposit Bonus</strong> up to $2,500</li>
+                                <li><i class="fas fa-bell"></i> <strong>Real-time Alerts</strong> via SMS & Email</li>
+                                <li><i class="fas fa-chart-area"></i> <strong>Advanced Tools</strong> MT4/MT5 included</li>
+                                <li><i class="fas fa-phone"></i> <strong>Personal Account Manager</strong></li>
+                                <li><i class="fas fa-graduation-cap"></i> <strong>1-on-1 Training</strong> session</li>
+                                <li><i class="fas fa-shield-alt"></i> <strong>Zero Commission</strong> on first 100 trades</li>
+                            </ul>
+                            <div class="broker-speciality">
+                                <strong>Perfect for:</strong> Forex, Indices, Commodities, Crypto CFDs
+                            </div>
+                        </div>
+                        <div class="broker-footer">
+                            <a href="#" class="btn btn-accent broker-btn" onclick="openBroker('weltrade')">
+                                <i class="fas fa-external-link-alt"></i>
+                                Open Account - Get 50% Bonus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="broker-guarantee">
+                    <div class="guarantee-content">
+                        <h3><i class="fas fa-shield-check"></i> Our Guarantee</h3>
+                        <p>When you register through our exclusive links, you get immediate access to premium signals, priority support, and special bonuses not available to regular users. We've negotiated the best deals for our community!</p>
+                        <div class="guarantee-stats">
+                            <div class="stat">
+                                <strong>2,500+</strong>
+                                <span>VIP Members</span>
+                            </div>
+                            <div class="stat">
+                                <strong>$50K+</strong>
+                                <span>Bonuses Claimed</span>
+                            </div>
+                            <div class="stat">
+                                <strong>24/7</strong>
+                                <span>VIP Support</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Signals Section -->
     <section class="signals" id="signals">
         <div class="container">
@@ -1177,7 +1444,7 @@
                             <li><i class="fas fa-check"></i> 7-day free trial</li>
                         </ul>
                         <div class="price">$49/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('basic-plan', 49, 'Basic Plan - 1 Month Subscription')">Buy Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('basic-plan', 49, 'Basic Plan - 1 Month Subscription')">Buy with Crypto</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -1194,7 +1461,7 @@
                             <li><i class="fas fa-check"></i> 14-day free trial</li>
                         </ul>
                         <div class="price">$99/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('professional-plan', 99, 'Professional Plan - 1 Month Subscription')">Buy Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('professional-plan', 99, 'Professional Plan - 1 Month Subscription')">Buy with Crypto</a>
                     </div>
                 </div>
                 <div class="signal-card">
@@ -1212,43 +1479,9 @@
                             <li><i class="fas fa-check"></i> 30-day free trial</li>
                         </ul>
                         <div class="price">$199/month</div>
-                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('enterprise-plan', 199, 'Enterprise Plan - 1 Month Subscription')">Buy Now</a>
+                        <a class="btn btn-primary" style="width: 100%;" onclick="initiatePayment('enterprise-plan', 199, 'Enterprise Plan - 1 Month Subscription')">Buy with Crypto</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Affiliate Section -->
-    <section class="affiliate" id="affiliate">
-        <div class="container">
-            <div class="affiliate-content">
-                <h2 class="section-title" style="color: white;">Affiliate Program</h2>
-                <p class="section-subtitle" style="color: #e2e8f0;">Earn generous commissions by referring traders to our platform. Our affiliate program offers one of the highest payout rates in the industry.</p>
-                <div class="features">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-percent"></i>
-                        </div>
-                        <h3>High Commissions</h3>
-                        <p>Earn up to 30% recurring commission on every referral.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-gift"></i>
-                        </div>
-                        <h3>Marketing Materials</h3>
-                        <p>Access banners, landing pages, and other promotional materials.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Real-time Tracking</h3>
-                        <p>Monitor your performance with our advanced dashboard.</p>
-                    </div>
-                </div>
-                <a class="btn btn-outline" style="margin-top: 30px;" onclick="showAffiliateSignup()">Join Affiliate Program</a>
             </div>
         </div>
     </section>
@@ -1281,7 +1514,7 @@
                                 $80 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('mega-spikes-max', 80, 'Mega Spikes Max - Boom & Crash Spike Detector')">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('mega-spikes-max', 80, 'Mega Spikes Max - Boom & Crash Spike Detector')">Buy with Crypto</a>
                             </div>
                         </div>
                     </div>
@@ -1307,7 +1540,7 @@
                                 $55 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('spike-phantom', 55, 'Spike Phantom - PainX & GainX Spike Detector')">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('spike-phantom', 55, 'Spike Phantom - PainX & GainX Spike Detector')">Buy with Crypto</a>
                             </div>
                         </div>
                     </div>
@@ -1334,7 +1567,7 @@
                                 $120 USD
                             </div>
                             <div class="tool-actions">
-                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('complete-bundle', 120, 'Complete Bundle - All Trading Tools')">Buy Now</a>
+                                <a class="tool-btn tool-btn-primary" onclick="initiatePayment('complete-bundle', 120, 'Complete Bundle - All Trading Tools')">Buy with Crypto</a>
                             </div>
                         </div>
                     </div>
@@ -1346,39 +1579,73 @@
     <!-- Testimonials -->
     <section class="testimonials">
         <div class="container">
-            <h2 class="section-title">What Our Clients Say</h2>
+            <h2 class="section-title">What Our VIP Members Say</h2>
             <p class="section-subtitle">Join thousands of satisfied traders who have improved their trading with VolatilityPlus</p>
             <div class="testimonial-cards">
                 <div class="testimonial-card">
-                    <p>"Since subscribing to VolatilityPlus, my Boom and Crash trading profitability has increased by 75%. The spike detectors are incredibly accurate."</p>
+                    <p>"Since joining through the Deriv VIP link, my trading has transformed completely. The exclusive signals and $100 bonus got me started, now I'm consistently profitable."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">JD</div>
                         <div>
                             <h4>John Doe</h4>
-                            <p>Professional Trader</p>
+                            <p>VIP Member - Deriv Trader</p>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p>"The PainX and GainX signals have completely transformed my trading approach. I'm now consistently profitable thanks to VolatilityPlus."</p>
+                    <p>"The WelTrade partnership is amazing! The 50% bonus plus personal account manager made all the difference. PainX signals are incredibly accurate."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">SM</div>
                         <div>
                             <h4>Sarah Miller</h4>
-                            <p>Volatility Trader</p>
+                            <p>VIP Member - WelTrade</p>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p>"The affiliate program is fantastic! I'm earning a steady passive income just by sharing a service I truly believe in."</p>
+                    <p>"Being a VIP member gives me access to the exclusive Telegram group where the real alpha signals are shared. The community is incredible!"</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">RJ</div>
                         <div>
                             <h4>Robert Johnson</h4>
-                            <p>Affiliate Marketer</p>
+                            <p>Enterprise VIP Member</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Program -->
+    <section class="affiliate-program" id="affiliate">
+        <div class="container">
+            <div class="affiliate-content">
+                <h2 class="section-title">Partner With Us</h2>
+                <p class="section-subtitle">Earn generous commissions by referring traders to our platform. Multiple revenue streams available for serious partners.</p>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-percent"></i>
+                        </div>
+                        <h3>High Commissions</h3>
+                        <p>Earn up to 30% recurring commission on signal referrals + broker commissions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Marketing Materials</h3>
+                        <p>Access banners, landing pages, and other promotional materials for all our services.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Multi-Stream Revenue</h3>
+                        <p>Earn from signal subscriptions, tool sales, AND broker referrals in one program.</p>
+                    </div>
+                </div>
+                <a class="btn btn-outline" style="margin-top: 30px;" onclick="showAffiliateSignup()">Join Partner Program</a>
             </div>
         </div>
     </section>
@@ -1389,7 +1656,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>VolatilityPlus</h3>
-                    <p>Providing premium Boom & Crash trading signals and tools since 2020. Join thousands of satisfied traders worldwide.</p>
+                    <p>Providing premium Boom & Crash trading signals and VIP broker partnerships since 2020. Join thousands of satisfied VIP members worldwide.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1400,19 +1667,18 @@
                 <div class="footer-column">
                     <h3>Services</h3>
                     <ul class="footer-links">
-                        <li><a onclick="scrollToSection('signals')">Boom & Crash Signals</a></li>
-                        <li><a onclick="scrollToSection('tools')">Spike Detectors</a></li>
-                        <li><a onclick="scrollToSection('tools')">PainX/GainX Signals</a></li>
+                        <li><a onclick="scrollToSection('brokers')">VIP Broker Access</a></li>
+                        <li><a onclick="scrollToSection('signals')">Premium Signals</a></li>
                         <li><a onclick="scrollToSection('tools')">Trading Tools</a></li>
+                        <li><a onclick="scrollToSection('affiliate')">Partner Program</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Company</h3>
+                    <h3>VIP Brokers</h3>
                     <ul class="footer-links">
-                        <li><a onclick="showAbout()">About Us</a></li>
-                        <li><a onclick="showContact()">Contact</a></li>
-                        <li><a onclick="scrollToSection('affiliate')">Affiliate Program</a></li>
-                        <li><a onclick="showCareers()">Careers</a></li>
+                        <li><a onclick="openBroker('deriv')">Deriv - $100 Bonus</a></li>
+                        <li><a onclick="openBroker('weltrade')">WelTrade - 50% Bonus</a></li>
+                        <li><a onclick="showContact()">Request New Broker</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1420,13 +1686,13 @@
                     <ul class="footer-links">
                         <li><a onclick="showTerms()">Terms of Service</a></li>
                         <li><a onclick="showPrivacy()">Privacy Policy</a></li>
-                        <li><a onclick="showDisclaimer()">Disclaimer</a></li>
+                        <li><a onclick="showDisclaimer()">Trading Disclaimer</a></li>
                         <li><a onclick="showRefund()">Refund Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 VolatilityPlus. All rights reserved.</p>
+                <p>&copy; 2023 VolatilityPlus. All rights reserved. Trading involves risk and may not be suitable for all investors.</p>
             </div>
         </div>
     </footer>
@@ -1446,74 +1712,38 @@
                     </div>
                 </div>
                 
-                <div class="payment-methods">
-                    <div class="payment-method" onclick="selectPaymentMethod('credit-card')">
-                        <i class="fas fa-credit-card"></i>
-                        <span>Credit Card</span>
-                    </div>
-                    <div class="payment-method" onclick="selectPaymentMethod('crypto')">
-                        <i class="fab fa-bitcoin"></i>
-                        <span>Cryptocurrency</span>
+                <div class="crypto-info-notice">
+                    <h4><i class="fab fa-bitcoin"></i> Cryptocurrency Payment</h4>
+                    <p>We accept Bitcoin (BTC), Ethereum (ETH), and Tether (USDT) for secure and fast transactions. Select your preferred cryptocurrency below.</p>
+                </div>
+                
+                <div class="crypto-selection">
+                    <h4>Select Cryptocurrency:</h4>
+                    <div class="crypto-options">
+                        <div class="crypto-option" onclick="selectCrypto('btc')">
+                            <i class="fab fa-bitcoin"></i>
+                            <span>Bitcoin</span>
+                        </div>
+                        <div class="crypto-option" onclick="selectCrypto('eth')">
+                            <i class="fab fa-ethereum"></i>
+                            <span>Ethereum</span>
+                        </div>
+                        <div class="crypto-option" onclick="selectCrypto('usdt')">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Tether</span>
+                        </div>
                     </div>
                 </div>
                 
-                <div id="creditCardForm" class="credit-card-form" style="display: none;">
-                    <div class="card-input-group">
-                        <div class="card-input">
-                            <label for="cardNumber">Card Number</label>
-                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
-                        </div>
-                    </div>
-                    
-                    <div class="card-row">
-                        <div class="form-group">
-                            <label for="cardExpiry">Expiry Date</label>
-                            <input type="text" id="cardExpiry" placeholder="MM/YY">
-                        </div>
-                        <div class="form-group">
-                            <label for="cardCvc">CVC</label>
-                            <input type="text" id="cardCvc" placeholder="123" maxlength="3">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="cardName">Name on Card</label>
-                        <input type="text" id="cardName" placeholder="John Doe">
-                    </div>
-                    
-                    <div class="payment-notice">
-                        <p><i class="fas fa-lock"></i> Your payment details are secure and encrypted</p>
-                    </div>
-                </div>
-                
-                <div id="cryptoForm" style="display: none;">
-                    <div class="crypto-selection">
-                        <h4>Select Payment Method:</h4>
-                        <div class="crypto-options">
-                            <div class="crypto-option" onclick="selectCrypto('btc')">
-                                <i class="fab fa-bitcoin"></i>
-                                <span>Bitcoin (BTC)</span>
-                            </div>
-                            <div class="crypto-option" onclick="selectCrypto('eth')">
-                                <i class="fab fa-ethereum"></i>
-                                <span>Ethereum (ETH)</span>
-                            </div>
-                            <div class="crypto-option" onclick="selectCrypto('usdt')">
-                                <i class="fas fa-dollar-sign"></i>
-                                <span>Tether (USDT)</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="payment-instructions">
-                        <h4>Instructions:</h4>
-                        <ol>
-                            <li>Select your preferred cryptocurrency</li>
-                            <li>Send the exact amount to the provided address</li>
-                            <li>Wait for confirmation (usually 10-30 minutes)</li>
-                            <li>You'll receive your product via email</li>
-                        </ol>
-                    </div>
+                <div class="payment-instructions">
+                    <h4>How it works:</h4>
+                    <ol>
+                        <li>Select your preferred cryptocurrency above</li>
+                        <li>Enter your email address for product delivery</li>
+                        <li>Send the exact amount to the provided address</li>
+                        <li>Wait for confirmation (usually 10-30 minutes)</li>
+                        <li>Receive your product via email automatically</li>
+                    </ol>
                 </div>
                 
                 <div class="form-group">
@@ -1522,7 +1752,7 @@
                 </div>
                 
                 <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="proceedToPayment()">
-                    Complete Payment
+                    Proceed to Payment
                 </button>
             </div>
             
@@ -1532,22 +1762,11 @@
                     <div class="payment-summary">
                         <p><strong>Product:</strong> <span id="finalProductName"></span></p>
                         <p><strong>Price:</strong> <span id="finalPrice"></span></p>
-                        <p><strong>Payment Method:</strong> <span id="selectedMethod"></span></p>
-                        <p><strong>Amount to Pay:</strong> <span id="cryptoAmount"></span></p>
+                        <p><strong>Cryptocurrency:</strong> <span id="selectedMethod"></span></p>
+                        <p><strong>Amount to Send:</strong> <span id="cryptoAmount"></span></p>
                     </div>
                     
-                    <div id="creditCardSuccess" style="display: none;">
-                        <div class="payment-success">
-                            <div class="success-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <h3>Payment Confirmed!</h3>
-                            <p>Thank you for your purchase. Your product has been sent to <span id="confirmEmail"></span></p>
-                            <p>Please check your email (including spam folder) for your product details.</p>
-                        </div>
-                    </div>
-                    
-                    <div id="cryptoPaymentDetails" style="display: none;">
+                    <div id="cryptoPaymentDetails">
                         <div class="payment-address">
                             <h4>Send Payment To:</h4>
                             <div class="address-container">
@@ -1586,7 +1805,7 @@
     <div class="modal" id="affiliateModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('affiliateModal')">&times;</span>
-            <h2 class="modal-title">Join Our Affiliate Program</h2>
+            <h2 class="modal-title">Join Our Partner Program</h2>
             <div class="form-group">
                 <label for="affiliateName">Full Name</label>
                 <input type="text" id="affiliateName" placeholder="Enter your full name">
@@ -1601,7 +1820,7 @@
             </div>
             <div class="form-group">
                 <label for="promotionMethods">How will you promote us?</label>
-                <input type="text" id="promotionMethods" placeholder="Describe your promotion methods">
+                <input type="text" id="promotionMethods" placeholder="Signal referrals, broker referrals, social media, etc.">
             </div>
             <button class="btn btn-primary" style="width: 100%;" onclick="joinAffiliate()">Apply Now</button>
         </div>
@@ -1612,7 +1831,7 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('messageModal')">&times;</span>
             <h2 class="modal-title" id="messageTitle">Message</h2>
-            <p id="messageContent"></p>
+            <div id="messageContent"></div>
             <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="closeModal('messageModal')">OK</button>
         </div>
     </div>
@@ -1623,7 +1842,6 @@
             productId: '',
             productName: '',
             priceUSD: 0,
-            selectedMethod: '',
             selectedCrypto: '',
             customerEmail: '',
             paymentAddress: '',
@@ -1663,7 +1881,6 @@
                     productId: '',
                     productName: '',
                     priceUSD: 0,
-                    selectedMethod: '',
                     selectedCrypto: '',
                     customerEmail: '',
                     paymentAddress: '',
@@ -1681,7 +1898,7 @@
         
         function showMessage(title, content) {
             document.getElementById('messageTitle').textContent = title;
-            document.getElementById('messageContent').textContent = content;
+            document.getElementById('messageContent').innerHTML = content;
             showModal('messageModal');
         }
         
@@ -1690,6 +1907,78 @@
             modals.forEach(modal => {
                 modal.style.display = 'none';
             });
+        }
+
+        // Broker registration functions
+        function openBroker(broker) {
+            let brokerData = {
+                'deriv': {
+                    name: 'Deriv',
+                    url: 'https://deriv.com/?a=your-affiliate-id', // Replace with your actual Deriv affiliate link
+                    bonus: '$100 Welcome Bonus + Premium Signals',
+                    description: 'Get exclusive VIP treatment with Deriv - the world\'s leading synthetic markets broker'
+                },
+                'weltrade': {
+                    name: 'WelTrade',
+                    url: 'https://weltrade.com/?a=your-affiliate-id', // Replace with your actual WelTrade affiliate link  
+                    bonus: '50% Deposit Bonus up to $2,500',
+                    description: 'Professional trading with WelTrade - Advanced tools and personal account manager'
+                }
+            };
+
+            let selectedBroker = brokerData[broker];
+            
+            // Show confirmation modal before opening broker
+            showBrokerConfirmation(selectedBroker);
+        }
+
+        function showBrokerConfirmation(brokerData) {
+            document.getElementById('messageTitle').textContent = `Open ${brokerData.name} VIP Account`;
+            document.getElementById('messageContent').innerHTML = `
+                <div style="text-align: left; margin: 20px 0;">
+                    <p style="margin-bottom: 15px;"><strong>You're about to register for:</strong></p>
+                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 10px;">${brokerData.bonus}</p>
+                    <p style="margin-bottom: 15px; color: #e2e8f0;">${brokerData.description}</p>
+                    <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        <p style="font-size: 0.9rem; color: #e2e8f0;"><strong>Note:</strong> By registering through our VIP link, you'll automatically receive premium signals, priority support, and exclusive bonuses. Make sure to use the same email for both your broker account and VolatilityPlus membership.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="confirmBrokerRegistration('${brokerData.url}')" style="flex: 1;">
+                        Continue to ${brokerData.name}
+                    </button>
+                    <button class="btn btn-outline" onclick="closeModal('messageModal')" style="flex: 1;">
+                        Maybe Later
+                    </button>
+                </div>
+            `;
+            showModal('messageModal');
+            
+            // Hide the default OK button
+            document.querySelector('#messageModal .btn:last-child').style.display = 'none';
+        }
+
+        function confirmBrokerRegistration(url) {
+            // Track the broker registration for analytics
+            console.log('Broker registration initiated:', url);
+            
+            // Store in memory for tracking (since we can't use localStorage in artifacts)
+            const registrationData = {
+                url: url,
+                timestamp: new Date().toISOString(),
+                source: 'volatilityplus_website'
+            };
+            
+            // Close modal and open broker in new tab
+            closeModal('messageModal');
+            
+            // Open broker registration page
+            window.open(url, '_blank');
+            
+            // Show follow-up message
+            setTimeout(() => {
+                showMessage('Registration Started', 'Your broker registration has opened in a new tab. After completing your registration, contact us at support@volatilityplus.com with your account details to activate your VIP benefits!');
+            }, 1000);
         }
 
         // Payment Functions
@@ -1705,37 +1994,13 @@
             document.getElementById('paymentStep2').style.display = 'none';
             
             // Reset form state
-            document.querySelectorAll('.payment-method').forEach(method => {
-                method.classList.remove('selected');
+            document.querySelectorAll('.crypto-option').forEach(option => {
+                option.classList.remove('selected');
             });
-            document.getElementById('creditCardForm').style.display = 'none';
-            document.getElementById('cryptoForm').style.display = 'none';
             document.getElementById('customerEmail').value = '';
+            currentPayment.selectedCrypto = '';
             
             showModal('paymentModal');
-        }
-
-        function selectPaymentMethod(method) {
-            currentPayment.selectedMethod = method;
-            
-            document.querySelectorAll('.payment-method').forEach(m => {
-                m.classList.remove('selected');
-            });
-            event.target.closest('.payment-method').classList.add('selected');
-            
-            if (method === 'credit-card') {
-                document.getElementById('creditCardForm').style.display = 'block';
-                document.getElementById('cryptoForm').style.display = 'none';
-            } else if (method === 'crypto') {
-                document.getElementById('creditCardForm').style.display = 'none';
-                document.getElementById('cryptoForm').style.display = 'block';
-                
-                // Reset crypto selection
-                document.querySelectorAll('.crypto-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                currentPayment.selectedCrypto = '';
-            }
         }
 
         function selectCrypto(crypto) {
@@ -1755,12 +2020,7 @@
                 return;
             }
             
-            if (!currentPayment.selectedMethod) {
-                showMessage('Error', 'Please select a payment method.');
-                return;
-            }
-            
-            if (currentPayment.selectedMethod === 'crypto' && !currentPayment.selectedCrypto) {
+            if (!currentPayment.selectedCrypto) {
                 showMessage('Error', 'Please select a cryptocurrency.');
                 return;
             }
@@ -1778,49 +2038,11 @@
             
             document.getElementById('finalProductName').textContent = currentPayment.productName;
             document.getElementById('finalPrice').textContent = '$' + currentPayment.priceUSD;
-            document.getElementById('selectedMethod').textContent = currentPayment.selectedMethod === 'credit-card' ? 'Credit Card' : currentPayment.selectedCrypto.toUpperCase();
-            document.getElementById('confirmEmail').textContent = currentPayment.customerEmail;
+            document.getElementById('selectedMethod').textContent = currentPayment.selectedCrypto.toUpperCase();
             
-            if (currentPayment.selectedMethod === 'credit-card') {
-                // Simulate credit card payment processing
-                document.getElementById('creditCardSuccess').style.display = 'block';
-                document.getElementById('cryptoPaymentDetails').style.display = 'none';
-                
-                // In a real implementation, you would process the card details here
-                // For demo purposes, we'll just show success
-                processCreditCardPayment();
-            } else {
-                // Show crypto payment details
-                document.getElementById('creditCardSuccess').style.display = 'none';
-                document.getElementById('cryptoPaymentDetails').style.display = 'block';
-                
-                generateMockCryptoPayment();
-                startPaymentTimer();
-                startPaymentStatusCheck();
-            }
-        }
-
-        function processCreditCardPayment() {
-            // In a real implementation, you would:
-            // 1. Validate card details
-            // 2. Send to payment processor
-            // 3. Handle response
-            
-            // For demo, we'll just simulate success
-            console.log('Processing credit card payment...');
-            
-            // Store order in localStorage for demo purposes
-            const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
-            orders.push({
-                productId: currentPayment.productId,
-                productName: currentPayment.productName,
-                price: currentPayment.priceUSD,
-                paymentMethod: 'credit-card',
-                email: currentPayment.customerEmail,
-                date: new Date().toISOString(),
-                status: 'completed'
-            });
-            localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
+            generateMockCryptoPayment();
+            startPaymentTimer();
+            startPaymentStatusCheck();
         }
 
         function generateMockCryptoPayment() {
@@ -1928,19 +2150,17 @@
             // In a real implementation, this would call your backend
             console.log('Demo: Product would be delivered to:', currentPayment.customerEmail);
             
-            // Store order in localStorage for demo purposes
-            const orders = JSON.parse(localStorage.getItem('volatilityplus_orders') || '[]');
-            orders.push({
-                productId: currentPayment.productId,
-                productName: currentPayment.productName,
-                price: currentPayment.priceUSD,
-                crypto: currentPayment.selectedCrypto,
-                cryptoAmount: currentPayment.cryptoAmount,
-                email: currentPayment.customerEmail,
-                date: new Date().toISOString(),
-                status: 'completed'
-            });
-            localStorage.setItem('volatilityplus_orders', JSON.stringify(orders));
+            // Show success message
+            document.getElementById('paymentStatus').innerHTML = `
+                <div class="payment-success">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Payment Confirmed!</h3>
+                    <p>Thank you for your purchase. Your product has been sent to ${currentPayment.customerEmail}</p>
+                    <p>Please check your email (including spam folder) for your product details and VIP access instructions.</p>
+                </div>
+            `;
         }
 
         function cleanupPaymentProcess() {
@@ -1972,7 +2192,7 @@
             submitBtn.disabled = true;
 
             setTimeout(() => {
-                showMessage('Application Received', 'Thank you for applying to our affiliate program! Please contact us at support@volatilityplus.com for further processing.');
+                showMessage('Application Received', 'Thank you for applying to our partner program! We offer competitive commissions for signal referrals AND broker referrals. Please contact us at support@volatilityplus.com for partnership details.');
                 closeModal('affiliateModal');
                 
                 document.getElementById('affiliateName').value = '';
@@ -1987,11 +2207,11 @@
         
         // Other page functions
         function showAbout() {
-            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals and powerful tools to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
+            showMessage('About Us', 'VolatilityPlus was founded in 2020 by a team of professional traders specializing in volatility indices. Our mission is to provide accurate trading signals, powerful tools, and exclusive broker partnerships to help traders succeed in Boom & Crash, PainX, GainX, and other volatility markets.');
         }
         
         function showContact() {
-            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our support team is available 24/5 to assist you with any questions.');
+            showMessage('Contact Us', 'You can reach us at support@volatilityplus.com or call us at +1 (555) 123-4567. Our VIP support team is available 24/5 to assist you with any questions about signals, tools, or broker partnerships.');
         }
         
         function showCareers() {
@@ -1999,19 +2219,19 @@
         }
         
         function showTerms() {
-            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. Please read the full document on our website.');
+            showMessage('Terms of Service', 'By using our service, you agree to abide by our terms and conditions. This includes our signal services, broker partnerships, and affiliate programs. Please read the full document on our website.');
         }
         
         function showPrivacy() {
-            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent.');
+            showMessage('Privacy Policy', 'We take your privacy seriously. We will never share your personal information with third parties without your consent, including our broker partners.');
         }
         
         function showDisclaimer() {
-            showMessage('Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results.');
+            showMessage('Trading Disclaimer', 'Trading volatility indices carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results. Our broker partners are regulated but trading involves risk of loss.');
         }
         
         function showRefund() {
-            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our subscription plans. If you are not satisfied with our service, please contact support for a full refund.');
+            showMessage('Refund Policy', 'We offer a 7-day money-back guarantee on all our signal subscription plans. Tool purchases have a 48-hour refund policy. If you are not satisfied with our service, please contact support for assistance.');
         }
         
         // Close modal when clicking outside
@@ -2026,24 +2246,24 @@
         
         // Animation on scroll
         document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card, .signal-card, .tool-card');
+            const animatedElements = document.querySelectorAll('.feature-card, .signal-card, .tool-card, .broker-card');
             
             function checkScroll() {
-                featureCards.forEach(card => {
-                    const cardPosition = card.getBoundingClientRect().top;
+                animatedElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
                     const screenPosition = window.innerHeight / 1.3;
                     
-                    if (cardPosition < screenPosition) {
-                        card.style.opacity = 1;
-                        card.style.transform = 'translateY(0)';
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = 1;
+                        element.style.transform = 'translateY(0)';
                     }
                 });
             }
             
-            featureCards.forEach(card => {
-                card.style.opacity = 0;
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            animatedElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             });
             
             window.addEventListener('scroll', checkScroll);
