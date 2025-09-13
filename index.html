@@ -87,7 +87,7 @@
             cursor: pointer;
         }
         
-        nav a:hover {
+        nav a:hover, .active {
             color: var(--primary);
         }
         
@@ -186,7 +186,33 @@
             opacity: 0.9;
         }
         
-        /* Features Section */
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+        
+        /* Section Styles */
         .section-title {
             text-align: center;
             margin: 60px 0 40px;
@@ -204,6 +230,7 @@
             margin-right: auto;
         }
         
+        /* Features */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -256,7 +283,34 @@
             color: white;
         }
         
-        /* Broker Cards Styles */
+        /* Broker Partnership Styles */
+        .affiliate {
+            background: linear-gradient(to right, #1a1a1a, #333333);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .affiliate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFD700" fill-opacity="0.2" d="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,165.3C672,160,768,192,864,192C960,192,1056,160,1152,144C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+        }
+        
+        .affiliate-content {
+            position: relative;
+            z-index: 1;
+        }
+        
         .broker-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -307,10 +361,6 @@
             padding: 30px;
             text-align: center;
             border-bottom: 1px solid #333;
-        }
-        
-        .broker-logo {
-            margin-bottom: 15px;
         }
         
         .broker-logo i {
@@ -525,39 +575,6 @@
             margin: 25px 0;
         }
         
-        /* Affiliate Section */
-        .affiliate {
-            background: linear-gradient(to right, #1a1a1a, #333333);
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .affiliate::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFD700" fill-opacity="0.2" d="M0,160L48,176C96,192,192,224,288,218.7C384,213,480,171,576,165.3C672,160,768,192,864,192C960,192,1056,160,1152,144C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.5;
-        }
-        
-        .affiliate-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .affiliate-program {
-            background: #0f0f0f;
-            padding: 80px 0;
-        }
-        
         /* Tools Section */
         .tools {
             padding: 80px 0;
@@ -585,6 +602,19 @@
         .tool-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .ribbon {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            transform: rotate(45deg);
+            background: var(--accent);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         .tool-header {
@@ -688,6 +718,15 @@
             background: var(--primary-dark);
         }
         
+        .tool-card.featured {
+            border: 2px solid var(--primary);
+            transform: scale(1.02);
+        }
+        
+        .tool-card.featured:hover {
+            transform: scale(1.02) translateY(-5px);
+        }
+        
         /* Testimonials */
         .testimonials {
             background: #0f0f0f;
@@ -726,6 +765,12 @@
             color: var(--text-dark);
             font-weight: bold;
             font-size: 1.2rem;
+        }
+        
+        /* Partner Program */
+        .affiliate-program {
+            background: #0f0f0f;
+            padding: 80px 0;
         }
         
         /* Footer */
@@ -812,10 +857,12 @@
             padding: 40px;
             border-radius: 15px;
             width: 90%;
-            max-width: 500px;
+            max-width: 700px;
             position: relative;
             border: 1px solid #333;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .close-modal {
@@ -860,21 +907,17 @@
             color: white;
         }
         
-        /* Crypto Payment Styles */
-        .payment-step {
-            min-height: 400px;
-        }
-        
+        /* Payment Modal Styles */
         .product-summary {
             background: #1a1a1a;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 25px;
             border: 1px solid #333;
+            text-align: center;
         }
         
         .price-display {
-            text-align: center;
             margin: 15px 0;
         }
         
@@ -884,86 +927,69 @@
             color: var(--primary);
         }
         
-        .crypto-selection {
-            margin-bottom: 25px;
+        .crypto-addresses {
+            margin: 25px 0;
         }
         
-        .crypto-selection h4 {
-            color: white;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .crypto-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        .crypto-addresses h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
             gap: 10px;
-            margin-bottom: 25px;
         }
         
-        .crypto-option {
+        .crypto-address-card {
             background: #1a1a1a;
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: white;
-        }
-        
-        .crypto-option:hover {
-            border-color: var(--primary);
-            background: #222;
-        }
-        
-        .crypto-option.selected {
-            border-color: var(--primary);
-            background: rgba(255, 215, 0, 0.1);
-        }
-        
-        .crypto-option i {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            display: block;
-            color: var(--primary);
-        }
-        
-        .payment-info {
-            text-align: left;
-        }
-        
-        .payment-summary {
-            background: #1a1a1a;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
             border: 1px solid #333;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
         }
         
-        .payment-summary p {
-            margin: 8px 0;
-            color: #e2e8f0;
+        .crypto-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border-bottom: 1px solid #333;
         }
         
-        .payment-address h4 {
+        .crypto-header i {
+            font-size: 1.2rem;
             color: var(--primary);
-            margin-bottom: 10px;
+        }
+        
+        .crypto-header span {
+            font-weight: 600;
+            color: white;
+            flex-grow: 1;
+        }
+        
+        .network-badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
         
         .address-container {
             display: flex;
-            margin: 10px 0;
+            margin: 15px 0;
         }
         
         .address-container input {
             flex: 1;
-            padding: 12px;
-            background: #1a1a1a;
-            border: 1px solid #333;
+            padding: 12px 15px;
+            background: #2a2a2a;
+            border: 1px solid #444;
             border-radius: 8px 0 0 8px;
             color: white;
             font-family: monospace;
+            font-size: 0.9rem;
         }
         
         .copy-btn {
@@ -973,66 +999,13 @@
             padding: 12px 15px;
             border-radius: 0 8px 8px 0;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
         }
         
         .copy-btn:hover {
             background: var(--primary-dark);
-        }
-        
-        .qr-code {
-            text-align: center;
-            margin: 20px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            display: inline-block;
-            width: 100%;
-        }
-        
-        .qr-code img {
-            max-width: 200px;
-            height: auto;
-        }
-        
-        .payment-timer {
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .payment-timer p {
-            margin-bottom: 10px;
-            color: var(--warning);
-            font-weight: 600;
-        }
-        
-        .timer-bar {
-            background: #333;
-            height: 6px;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .timer-progress {
-            background: var(--primary);
-            height: 100%;
-            width: 100%;
-            transition: width 1s linear;
-        }
-        
-        .payment-status {
-            text-align: center;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid var(--primary);
-        }
-        
-        .payment-status.confirmed {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: var(--success);
-            color: var(--success);
+            transform: translateY(-1px);
         }
         
         .payment-instructions {
@@ -1040,58 +1013,145 @@
             padding: 20px;
             border-radius: 10px;
             border: 1px solid #333;
-            margin-top: 20px;
+            margin: 20px 0;
         }
         
         .payment-instructions h4 {
             color: var(--primary);
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .payment-instructions ol {
             padding-left: 20px;
-            margin-bottom: 15px;
+            margin: 0;
         }
         
         .payment-instructions li {
-            margin: 8px 0;
+            margin: 10px 0;
             color: #e2e8f0;
+            line-height: 1.5;
         }
         
-        .payment-success {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        
-        .success-icon {
-            font-size: 4rem;
-            color: var(--success);
-            margin-bottom: 20px;
-        }
-        
-        .payment-success h3 {
-            color: var(--success);
-            margin-bottom: 20px;
-        }
-        
-        .payment-success p {
-            margin: 15px 0;
-            color: #e2e8f0;
-            line-height: 1.6;
-        }
-        
-        .crypto-info-notice {
+        .support-notice {
             background: rgba(255, 215, 0, 0.1);
-            border-left: 4px solid var(--primary);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .support-content h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .support-content p {
+            margin-bottom: 15px;
             color: #e2e8f0;
         }
         
-        .crypto-info-notice h4 {
-            color: var(--primary);
-            margin-bottom: 10px;
+        .support-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .support-buttons .btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            font-weight: 600;
+        }
+        
+        .important-notes {
+            background: #1a1a1a;
+            border-left: 4px solid var(--warning);
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        
+        .important-notes h4 {
+            color: var(--warning);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .important-notes ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .important-notes li {
+            margin-bottom: 8px;
+            color: #e2e8f0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .important-notes li:before {
+            content: "•";
+            color: var(--warning);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        /* Floating Support Button */
+        .floating-support {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+        }
+        
+        .support-btn {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            background: linear-gradient(135deg, #128c7e, #25d366);
+        }
+        
+        .support-btn i {
+            font-size: 1.2rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 1s ease-out;
         }
         
         /* Responsive Design */
@@ -1123,7 +1183,7 @@
                 font-size: 2rem;
             }
             
-            .tool-cards {
+            .tool-cards, .broker-cards {
                 grid-template-columns: 1fr;
             }
             
@@ -1137,86 +1197,35 @@
                 width: 100%;
             }
             
-            .crypto-options {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .broker-cards {
-                grid-template-columns: 1fr;
-            }
-            
             .guarantee-stats {
                 gap: 20px;
             }
-        }
-        
-        @media (max-width: 480px) {
-            .crypto-options {
-                grid-template-columns: 1fr;
+            
+            .support-buttons {
+                flex-direction: column;
             }
-        }
-        
-        /* Active nav link */
-        .active {
-            color: var(--primary) !important;
-        }
-        
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animated {
-            animation: fadeIn 1s ease-out;
-        }
-        
-        /* Modern elements */
-        .ribbon {
-            position: absolute;
-            top: 15px;
-            right: -35px;
-            transform: rotate(45deg);
-            background: var(--accent);
-            color: white;
-            padding: 5px 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .tool-card.featured {
-            border: 2px solid var(--primary);
-            transform: scale(1.02);
-        }
-        
-        .tool-card.featured:hover {
-            transform: scale(1.02) translateY(-5px);
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        
-        .stat-item {
-            padding: 20px;
-            min-width: 200px;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            color: #94a3b8;
-            font-size: 1rem;
+            
+            .crypto-header {
+                padding: 12px 15px;
+            }
+            
+            .crypto-header span {
+                font-size: 0.9rem;
+            }
+            
+            .address-container input {
+                font-size: 0.8rem;
+            }
+            
+            .floating-support {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .support-btn {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -1697,106 +1706,107 @@
         </div>
     </footer>
 
-    <!-- Payment Modal -->
+    <!-- Floating Support Button -->
+    <div class="floating-support">
+        <a href="#" class="support-btn" onclick="openSupportChat()">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat Support</span>
+        </a>
+    </div>
+
+    <!-- Payment Instructions Modal -->
     <div class="modal" id="paymentModal">
-        <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-content">
             <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
-            <h2 class="modal-title" id="paymentTitle">Complete Your Purchase</h2>
+            <h2 class="modal-title">Payment Instructions</h2>
             
-            <div id="paymentStep1" class="payment-step">
-                <div class="product-summary">
-                    <h3 id="productName">Product Name</h3>
-                    <p id="productDescription">Product description will appear here</p>
-                    <div class="price-display">
-                        <span class="payment-price" id="paymentPrice">$0</span>
-                    </div>
+            <div class="product-summary">
+                <h3 id="productName">Product Name</h3>
+                <div class="price-display">
+                    <span class="payment-price" id="paymentPrice">$0</span>
                 </div>
-                
-                <div class="crypto-info-notice">
-                    <h4><i class="fab fa-bitcoin"></i> Cryptocurrency Payment</h4>
-                    <p>We accept Bitcoin (BTC), Ethereum (ETH), and Tether (USDT) for secure and fast transactions. Select your preferred cryptocurrency below.</p>
-                </div>
-                
-                <div class="crypto-selection">
-                    <h4>Select Cryptocurrency:</h4>
-                    <div class="crypto-options">
-                        <div class="crypto-option" onclick="selectCrypto('btc')">
-                            <i class="fab fa-bitcoin"></i>
-                            <span>Bitcoin</span>
-                        </div>
-                        <div class="crypto-option" onclick="selectCrypto('eth')">
-                            <i class="fab fa-ethereum"></i>
-                            <span>Ethereum</span>
-                        </div>
-                        <div class="crypto-option" onclick="selectCrypto('usdt')">
-                            <i class="fas fa-dollar-sign"></i>
-                            <span>Tether</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="payment-instructions">
-                    <h4>How it works:</h4>
-                    <ol>
-                        <li>Select your preferred cryptocurrency above</li>
-                        <li>Enter your email address for product delivery</li>
-                        <li>Send the exact amount to the provided address</li>
-                        <li>Wait for confirmation (usually 10-30 minutes)</li>
-                        <li>Receive your product via email automatically</li>
-                    </ol>
-                </div>
-                
-                <div class="form-group">
-                    <label for="customerEmail">Email Address (for product delivery)</label>
-                    <input type="email" id="customerEmail" placeholder="Enter your email" required>
-                </div>
-                
-                <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="proceedToPayment()">
-                    Proceed to Payment
-                </button>
             </div>
             
-            <div id="paymentStep2" class="payment-step" style="display: none;">
-                <div class="payment-info">
-                    <h4>Payment Details</h4>
-                    <div class="payment-summary">
-                        <p><strong>Product:</strong> <span id="finalProductName"></span></p>
-                        <p><strong>Price:</strong> <span id="finalPrice"></span></p>
-                        <p><strong>Cryptocurrency:</strong> <span id="selectedMethod"></span></p>
-                        <p><strong>Amount to Send:</strong> <span id="cryptoAmount"></span></p>
+            <div class="crypto-addresses">
+                <h4><i class="fab fa-bitcoin"></i> Send Payment to Any Address Below:</h4>
+                
+                <div class="crypto-address-card">
+                    <div class="crypto-header">
+                        <i class="fab fa-bitcoin"></i>
+                        <span>Bitcoin (BTC)</span>
+                        <div class="network-badge">BTC Network</div>
                     </div>
-                    
-                    <div id="cryptoPaymentDetails">
-                        <div class="payment-address">
-                            <h4>Send Payment To:</h4>
-                            <div class="address-container">
-                                <input type="text" id="paymentAddress" readonly>
-                                <button onclick="copyAddress()" class="copy-btn">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="qr-code" id="qrCode">
-                                <!-- QR code will be generated here -->
-                            </div>
-                            
-                            <div class="payment-timer">
-                                <p>Time remaining: <span id="timer">15:00</span></p>
-                                <div class="timer-bar">
-                                    <div class="timer-progress" id="timerProgress"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="payment-status" id="paymentStatus">
-                            <p><i class="fas fa-clock"></i> Waiting for payment...</p>
-                        </div>
+                    <div class="address-container">
+                        <input type="text" value="1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2" readonly>
+                        <button onclick="copyToClipboard('1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2')" class="copy-btn">
+                            <i class="fas fa-copy"></i>
+                        </button>
                     </div>
-                    
-                    <button class="btn btn-primary" onclick="closeModal('paymentModal')" style="width: 100%; margin-top: 20px;">
-                        Close
-                    </button>
                 </div>
+
+                <div class="crypto-address-card">
+                    <div class="crypto-header">
+                        <i class="fab fa-ethereum"></i>
+                        <span>Ethereum (ETH)</span>
+                        <div class="network-badge">ERC-20</div>
+                    </div>
+                    <div class="address-container">
+                        <input type="text" value="0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16" readonly>
+                        <button onclick="copyToClipboard('0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16')" class="copy-btn">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="crypto-address-card">
+                    <div class="crypto-header">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>Tether USDT</span>
+                        <div class="network-badge">ERC-20</div>
+                    </div>
+                    <div class="address-container">
+                        <input type="text" value="0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16" readonly>
+                        <button onclick="copyToClipboard('0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16')" class="copy-btn">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-instructions">
+                <h4><i class="fas fa-info-circle"></i> Payment Instructions:</h4>
+                <ol>
+                    <li><strong>Choose any cryptocurrency</strong> from the addresses above</li>
+                    <li><strong>Send the exact USD amount</strong> equivalent in your chosen crypto</li>
+                    <li><strong>Include your email</strong> in the transaction memo/note (if possible)</li>
+                    <li><strong>Contact our support</strong> immediately after payment with your transaction ID</li>
+                    <li><strong>We'll deliver your product</strong> within 1-2 hours after confirmation</li>
+                </ol>
+            </div>
+
+            <div class="support-notice">
+                <div class="support-content">
+                    <h4><i class="fas fa-headset"></i> After Payment - Contact Support</h4>
+                    <p>After sending payment, contact us immediately with your transaction ID for fast processing:</p>
+                    <div class="support-buttons">
+                        <button class="btn btn-accent" onclick="openSupportChat()">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Support
+                        </button>
+                        <button class="btn btn-primary" onclick="openTelegram()">
+                            <i class="fab fa-telegram"></i> Telegram Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="important-notes">
+                <h4><i class="fas fa-exclamation-triangle"></i> Important Notes:</h4>
+                <ul>
+                    <li>Always double-check the wallet address before sending</li>
+                    <li>Send only the supported cryptocurrencies to respective addresses</li>
+                    <li>Processing time: 1-6 confirmations (10-60 minutes)</li>
+                    <li>Contact support if you don't receive your product within 2 hours</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -1837,21 +1847,6 @@
     </div>
 
     <script>
-        // Current payment data
-        let currentPayment = {
-            productId: '',
-            productName: '',
-            priceUSD: 0,
-            selectedCrypto: '',
-            customerEmail: '',
-            paymentAddress: '',
-            cryptoAmount: 0,
-            paymentId: ''
-        };
-
-        let paymentTimer = null;
-        let paymentCheckInterval = null;
-
         // Navigation and scrolling functions
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
@@ -1875,19 +1870,6 @@
         }
         
         function closeModal(modalId) {
-            if (modalId === 'paymentModal') {
-                cleanupPaymentProcess();
-                currentPayment = {
-                    productId: '',
-                    productName: '',
-                    priceUSD: 0,
-                    selectedCrypto: '',
-                    customerEmail: '',
-                    paymentAddress: '',
-                    cryptoAmount: 0,
-                    paymentId: ''
-                };
-            }
             document.getElementById(modalId).style.display = 'none';
         }
         
@@ -1909,6 +1891,49 @@
             });
         }
 
+        // Simplified Payment Functions
+        function initiatePayment(productId, price, productName) {
+            document.getElementById('productName').textContent = productName;
+            document.getElementById('paymentPrice').textContent = '$' + price;
+            showModal('paymentModal');
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            // Create a temporary textarea element
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                document.execCommand('copy');
+                showMessage('Address Copied!', `<p>The crypto address has been copied to your clipboard:</p><p style="font-family: monospace; color: var(--primary); word-break: break-all;">${text}</p><p>You can now paste it in your wallet to send payment.</p>`);
+            } catch (err) {
+                console.error('Copy failed:', err);
+                showMessage('Copy Failed', 'Please copy the address manually from the payment instructions.');
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // Support chat functions
+        function openSupportChat() {
+            // Replace with your actual WhatsApp number (include country code without + sign)
+            const whatsappNumber = '1234567890'; // Replace with your WhatsApp number
+            const message = encodeURIComponent('Hi! I need help with my VolatilityPlus purchase. Can you assist me?');
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function openTelegram() {
+            // Replace with your actual Telegram username or bot
+            const telegramUsername = 'volatilityplus_support'; // Replace with your Telegram username
+            const telegramUrl = `https://t.me/${telegramUsername}`;
+            window.open(telegramUrl, '_blank');
+        }
+
         // Broker registration functions
         function openBroker(broker) {
             let brokerData = {
@@ -1927,8 +1952,6 @@
             };
 
             let selectedBroker = brokerData[broker];
-            
-            // Show confirmation modal before opening broker
             showBrokerConfirmation(selectedBroker);
         }
 
@@ -1962,13 +1985,6 @@
             // Track the broker registration for analytics
             console.log('Broker registration initiated:', url);
             
-            // Store in memory for tracking (since we can't use localStorage in artifacts)
-            const registrationData = {
-                url: url,
-                timestamp: new Date().toISOString(),
-                source: 'volatilityplus_website'
-            };
-            
             // Close modal and open broker in new tab
             closeModal('messageModal');
             
@@ -1979,199 +1995,6 @@
             setTimeout(() => {
                 showMessage('Registration Started', 'Your broker registration has opened in a new tab. After completing your registration, contact us at support@volatilityplus.com with your account details to activate your VIP benefits!');
             }, 1000);
-        }
-
-        // Payment Functions
-        function initiatePayment(productId, price, productName) {
-            currentPayment.productId = productId;
-            currentPayment.priceUSD = price;
-            currentPayment.productName = productName;
-            
-            document.getElementById('productName').textContent = productName;
-            document.getElementById('paymentPrice').textContent = '$' + price;
-            
-            document.getElementById('paymentStep1').style.display = 'block';
-            document.getElementById('paymentStep2').style.display = 'none';
-            
-            // Reset form state
-            document.querySelectorAll('.crypto-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.getElementById('customerEmail').value = '';
-            currentPayment.selectedCrypto = '';
-            
-            showModal('paymentModal');
-        }
-
-        function selectCrypto(crypto) {
-            currentPayment.selectedCrypto = crypto;
-            
-            document.querySelectorAll('.crypto-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            event.target.closest('.crypto-option').classList.add('selected');
-        }
-
-        function proceedToPayment() {
-            const email = document.getElementById('customerEmail').value;
-            
-            if (!email) {
-                showMessage('Error', 'Please enter your email address.');
-                return;
-            }
-            
-            if (!currentPayment.selectedCrypto) {
-                showMessage('Error', 'Please select a cryptocurrency.');
-                return;
-            }
-            
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showMessage('Error', 'Please enter a valid email address.');
-                return;
-            }
-            
-            currentPayment.customerEmail = email;
-            
-            document.getElementById('paymentStep1').style.display = 'none';
-            document.getElementById('paymentStep2').style.display = 'block';
-            
-            document.getElementById('finalProductName').textContent = currentPayment.productName;
-            document.getElementById('finalPrice').textContent = '$' + currentPayment.priceUSD;
-            document.getElementById('selectedMethod').textContent = currentPayment.selectedCrypto.toUpperCase();
-            
-            generateMockCryptoPayment();
-            startPaymentTimer();
-            startPaymentStatusCheck();
-        }
-
-        function generateMockCryptoPayment() {
-            // Mock payment data for demo
-            currentPayment.paymentId = 'VP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            
-            const mockAddresses = {
-                'btc': '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
-                'eth': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16',
-                'usdt': '0x742d35Cc6641C02D6C40B9C13B9b12b14B4B3e16'
-            };
-            
-            const mockRates = {
-                'btc': 43000,
-                'eth': 2200,
-                'usdt': 1.00
-            };
-            
-            const rate = mockRates[currentPayment.selectedCrypto];
-            const amount = (currentPayment.priceUSD / rate).toFixed(8);
-            const address = mockAddresses[currentPayment.selectedCrypto];
-            
-            document.getElementById('cryptoAmount').textContent = amount + ' ' + currentPayment.selectedCrypto.toUpperCase();
-            document.getElementById('paymentAddress').value = address;
-            
-            generateQRCode(address, amount, currentPayment.selectedCrypto);
-            
-            currentPayment.cryptoAmount = amount;
-            currentPayment.paymentAddress = address;
-        }
-
-        function generateQRCode(address, amount, crypto) {
-            const qrContainer = document.getElementById('qrCode');
-            const qrData = `${crypto}:${address}?amount=${amount}`;
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
-            
-            qrContainer.innerHTML = `<img src="${qrUrl}" alt="Payment QR Code" style="max-width: 200px;">`;
-        }
-
-        function copyAddress() {
-            const addressInput = document.getElementById('paymentAddress');
-            addressInput.select();
-            addressInput.setSelectionRange(0, 99999);
-            
-            try {
-                document.execCommand('copy');
-                showMessage('Copied!', 'Payment address copied to clipboard.');
-            } catch (err) {
-                console.error('Copy failed:', err);
-                showMessage('Error', 'Failed to copy address. Please copy manually.');
-            }
-        }
-
-        function startPaymentTimer() {
-            let timeLeft = 15 * 60;
-            const timerElement = document.getElementById('timer');
-            const progressElement = document.getElementById('timerProgress');
-            const totalTime = timeLeft;
-            
-            paymentTimer = setInterval(() => {
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                
-                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                progressElement.style.width = `${(timeLeft / totalTime) * 100}%`;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(paymentTimer);
-                    document.getElementById('paymentStatus').innerHTML = '<p><i class="fas fa-times-circle" style="color: var(--danger);"></i> Payment expired. Please create a new payment.</p>';
-                    stopPaymentStatusCheck();
-                    return;
-                }
-                
-                timeLeft--;
-            }, 1000);
-        }
-
-        function startPaymentStatusCheck() {
-            paymentCheckInterval = setInterval(() => {
-                // Mock payment confirmation for demo
-                const randomConfirm = Math.random() < 0.05;
-                
-                if (randomConfirm) {
-                    clearInterval(paymentTimer);
-                    stopPaymentStatusCheck();
-                    
-                    document.getElementById('paymentStatus').innerHTML = '<p><i class="fas fa-check-circle" style="color: var(--success);"></i> Payment confirmed! Processing...</p>';
-                    document.getElementById('paymentStatus').classList.add('confirmed');
-                    
-                    setTimeout(() => {
-                        sendConfirmationEmail();
-                    }, 2000);
-                }
-            }, 5000);
-        }
-
-        function stopPaymentStatusCheck() {
-            if (paymentCheckInterval) {
-                clearInterval(paymentCheckInterval);
-                paymentCheckInterval = null;
-            }
-        }
-
-        function sendConfirmationEmail() {
-            // In a real implementation, this would call your backend
-            console.log('Demo: Product would be delivered to:', currentPayment.customerEmail);
-            
-            // Show success message
-            document.getElementById('paymentStatus').innerHTML = `
-                <div class="payment-success">
-                    <div class="success-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h3>Payment Confirmed!</h3>
-                    <p>Thank you for your purchase. Your product has been sent to ${currentPayment.customerEmail}</p>
-                    <p>Please check your email (including spam folder) for your product details and VIP access instructions.</p>
-                </div>
-            `;
-        }
-
-        function cleanupPaymentProcess() {
-            if (paymentTimer) {
-                clearInterval(paymentTimer);
-                paymentTimer = null;
-            }
-            if (paymentCheckInterval) {
-                clearInterval(paymentCheckInterval);
-                paymentCheckInterval = null;
-            }
         }
 
         // Enhanced affiliate signup function
